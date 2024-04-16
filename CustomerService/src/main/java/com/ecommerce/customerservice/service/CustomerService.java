@@ -26,8 +26,13 @@ public class CustomerService {
     private final TokenBlackListService tokenBlackListService;
 
 
-    
+
     public AuthenticateResponse registerCustomer(RegisterRequest request) {
+
+//        if (customerRepository.findByEmail(request.getEmail()).isPresent()) {
+//
+//        }
+
         Customer customer = Customer.builder()
                 .name(request.getName())
                 .email(request.getEmail())
@@ -36,15 +41,14 @@ public class CustomerService {
 
         Customer savedCustomer = customerRepository.save(customer);
 
-        var accessToken = jwtService.generateAccessToken(savedCustomer);
-
-        var refreshToken = jwtService.generateRefreshToken(savedCustomer);
+//        var accessToken = jwtService.generateAccessToken(savedCustomer);
+//        var refreshToken = jwtService.generateRefreshToken(savedCustomer);
 
         return AuthenticateResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
+//                .accessToken(accessToken)
+//                .refreshToken(refreshToken)
 
+                .build();
     }
 
     public AuthenticateResponse authenticateCustomer(AuthenticateRequest request) throws ChangeSetPersister.NotFoundException {

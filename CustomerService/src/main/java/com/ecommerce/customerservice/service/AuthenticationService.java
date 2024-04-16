@@ -5,25 +5,29 @@ import com.ecommerce.customerservice.repo.CustomerRepository;
 import com.ecommerce.customerservice.vo.AuthenticateRequest;
 import com.ecommerce.customerservice.vo.AuthenticateResponse;
 import com.ecommerce.customerservice.vo.RegisterRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
-public class CustomerService {
+public class AuthenticationService {
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final TokenBlackListService tokenBlackListService;
+    private final RedisService redisService;
 
 
 
@@ -65,11 +69,48 @@ public class CustomerService {
         var accessToken = jwtService.generateAccessToken(savedUser);
         var refreshToken = jwtService.generateRefreshToken(savedUser);
 
+        // save email, refresh Token pair to redis
+        redisService.setValues(savedUser.getEmail(), refreshToken);
+
         return AuthenticateResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
     }
 
+    // Check the token like JwtFilter's internal filter
+    // it takes refresh token
+    public void reissueAccessToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION); // "AUTHORIZATIONOn"
+        final String refreshToken;
+        final String userEmail;
 
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) { // index 7
+            return;
+        }
+        refreshToken = authHeader.substring(7);
+
+        userEmail = jwtService.extractUsername(refreshToken); // todo extract the userEmail from JWT token
+
+        var savedRefreshToken = redisService.getValues(userEmail);
+
+        if (userEmail != null && Objects.equals(savedRefreshToken, refreshToken)) {
+
+            // verify whether username is in the database.
+            var user = customerRepository.findByEmail(userEmail).orElseThrow();
+            //logger.info(String.valueOf(user));
+
+            if (jwtService.isTokenValid(refreshToken, user)) {
+                var accessToken =  jwtService.generateRefreshToken(user);
+
+                var authResponse = AuthenticateResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .build();
+
+                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+            }
+        }
+
+    }
 }

@@ -1,3 +1,4 @@
+/*
 package com.ecommerce.customerservice.entity;
 
 import jakarta.persistence.*;
@@ -17,9 +18,16 @@ public class Token {
     @GeneratedValue
     private Integer id;
 
-    private String token;
+    private String accessToken;
+
+    private String refreshToken;
+
 
     @OneToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+
 }
+
+ */

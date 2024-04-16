@@ -25,9 +25,11 @@ application:
     jwt:
       secret-key: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
       access-token:
-        expiration: 8640000
+        expiration: 3600000
+        # 1000(milli) * 60 (second) * 60(minute) = 1 hr
       refresh-token:
-        expiration: 60480000
+        expiration: 604800000
+        #  7 days
 
 
 logging:

@@ -5,10 +5,13 @@ import com.ecommerce.customerservice.repo.CustomerRepository;
 import com.ecommerce.customerservice.vo.AuthenticateRequest;
 import com.ecommerce.customerservice.vo.AuthenticateResponse;
 import com.ecommerce.customerservice.vo.RegisterRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,8 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final TokenBlackListService tokenBlackListService;
+
 
     
     public AuthenticateResponse registerCustomer(RegisterRequest request) {
@@ -50,8 +55,9 @@ public class CustomerService {
                 )
         ); // check valid email and password
 
-        var savedUser = customerRepository.findByEmail(request.getEmail())
+        Customer savedUser = customerRepository.findByEmail(request.getEmail())
                 .orElseThrow(ChangeSetPersister.NotFoundException::new);
+
         var accessToken = jwtService.generateAccessToken(savedUser);
         var refreshToken = jwtService.generateRefreshToken(savedUser);
 
@@ -60,8 +66,6 @@ public class CustomerService {
                 .refreshToken(refreshToken)
                 .build();
     }
-
-
 
 
 }

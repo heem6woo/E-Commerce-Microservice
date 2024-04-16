@@ -24,17 +24,17 @@ public class Customer implements UserDetails {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
     private String password;
 
+    /*
     @OneToOne(mappedBy = "customer")
-    private Token accessToken;
+    private Token jwtToken;
 
-    @OneToOne(mappedBy = "customer")
-    private Token refreshToken;
+     */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -55,21 +55,21 @@ public class Customer implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

@@ -1,13 +1,10 @@
 package com.ecommerce.customerservice.service;
 
-import com.ecommerce.customerservice.entity.Token;
-import com.ecommerce.customerservice.repo.CustomerRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -33,7 +30,7 @@ public class JwtService {
 
     // Determine whether token is for userDetails
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token); // validate the token is written with the secrete key
+        final String username = extractUsername(token); // validate the token is written with the secret key
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 

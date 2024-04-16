@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +41,11 @@ public class JwtService {
 
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
+    }
+
+    public Duration liefDuration(String token) {
+        long duration = new Date().getTime() - extractClaim(token, Claims::getExpiration).getTime();
+        return Duration.ofMillis(duration);
     }
 
     public String extractUsername(String token) {

@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://wittdbreal.chr10oalkvb3.ap-northeast-2.rds.amazonaws.com:3306/Vga
+    username: admin
+    password: RKAWK78044*
+
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+
+
+  logging:
+    level:
+      org.hibernate.SQL: debug
+login:
+  app:
+    jwtSecret: 821312342424242114aadadw  # JWT ?? ?
+    jwtExpirationMs: 86400000             # JWT ?? ?? (?: 24?? = 86400000 ???)
+    jwtCookieName: authToken
+# ?? ?? ??
+server:
+  port: 8080

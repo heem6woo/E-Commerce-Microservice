@@ -40,38 +40,31 @@
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
       try {
-        String jwt = parseJwt(request);
+        System.out.println(request.getHeader("Authorization"));
+        String jwt = request.getHeader("Authorization");
         if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
           String username = jwtUtils.getUserNameFromJwtToken(jwt);
           UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-          if(jwtUtils.getTokenType(jwt).equals("rtk")) {
-            invokeIssueToken(userDetails);
+          String requestURI = request.getRequestURI();
+          if(jwtUtils.getTokenType(jwt).equals("rtk") && !requestURI.equals("/api/auth/refreshToken")) {
+            System.out.println("잘못된 토큰");
+            throw new JwtException("토큰을 확인하세요.");
           }
           UsernamePasswordAuthenticationToken authentication =
                   new UsernamePasswordAuthenticationToken(userDetails,
                           null,
                           userDetails.getAuthorities());
-
           authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
           SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-      } catch (Exception e) {
+      } catch (JwtException e) {
         logger.error("Cannot set user authentication: {}", e);
       }
 
       filterChain.doFilter(request, response);
     }
 
-    private String parseJwt(HttpServletRequest request) {
-      String jwt = jwtUtils.getJwtFromCookies(request);
-      return jwt;
-    }
-    private void invokeIssueToken(UserDetails userDetails) {
-      try {ResponseEntity<?> response = reissueController.issueRefreshToken((UserDetailsImpl) userDetails);
-        System.out.println(response.getBody());  // 결과 출력 또는 추가 처리
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
+
+
+
   }

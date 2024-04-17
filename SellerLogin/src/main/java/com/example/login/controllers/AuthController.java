@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.example.login.payload.request.RefreshTokenRequest;
 import com.example.login.security.services.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -57,16 +59,17 @@ public class AuthController {
   @Autowired
   private UserDetailsServiceImpl userDetailsService;
   @PostMapping("/refreshToken")
-  public ResponseEntity<?> issueRefreshToken(UserDetailsImpl userDetails) {
+  public ResponseEntity<?> issueRefreshToken(HttpServletRequest request) {
     System.out.println("ack토큰 재발급성공");
+    String jwt = request.getHeader("Authorization");
+    String username = jwtUtils.getUserNameFromJwtToken(jwt);
+    UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
     ResponseCookie atkCookie = jwtUtils.generateJwtCookieAtk(userDetails);
-    ResponseCookie rtkCookie = jwtUtils.generateJwtCookieRtk(userDetails);
-
     List<String> roles = userDetails.getAuthorities().stream()
             .map(item -> item.getAuthority())
             .collect(Collectors.toList());
 
-    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, atkCookie.toString(), rtkCookie.toString())
+    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, atkCookie.toString())
             .body(new UserInfoResponse(userDetails.getId(),
                     userDetails.getUsername(),
                     userDetails.getEmail(),
@@ -148,11 +151,13 @@ public class AuthController {
   }
 
   @PostMapping("/signout")
-  public ResponseEntity<?> logoutUser(String reqToken) {
+  public ResponseEntity<?> logoutUser(HttpServletRequest request) {
     ResponseCookie atkCookie = jwtUtils.getCleanJwtCookieAtk();
 
     ResponseCookie rtkCookie = jwtUtils.getCleanJwtCookieRtk();
-    Long expiration = jwtUtils.getExpiration(reqToken);
+
+    String jwt = request.getHeader("Authorization");
+    Long expiration = jwtUtils.getExpiration(jwt);
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, atkCookie.toString(),rtkCookie.toString())
         .body(new MessageResponse("You've been signed out!"));
   }

@@ -46,25 +46,15 @@ public class JwtUtils {
     this.objectMapper = objectMapper;
   }
 
-  public String getJwtFromCookies(HttpServletRequest request) {
-    Cookie cookie = WebUtils.getCookie(request, atkCookie);
-    if (cookie != null) {
-      System.out.println("쿠키있음");
-      return cookie.getValue();
-    } else {
-      System.out.println("쿠키없음");
-      return null;
-    }
-  }
 
   public ResponseCookie generateJwtCookieAtk(UserDetailsImpl userPrincipal) {
     String jwt = generateTokenFromUsernameAtk(userPrincipal.getUsername());
-      return ResponseCookie.from(atkCookie, jwt).path("/api").maxAge(atkExpirationMs).httpOnly(true).build();
+      return ResponseCookie.from(atkCookie, jwt).path("/api").maxAge(atkExpirationMs/1000).httpOnly(true).build();
   }
 
   public ResponseCookie generateJwtCookieRtk(UserDetailsImpl userPrincipal) {
     String jwt = generateTokenFromUsernameRtk(userPrincipal.getUsername());
-      return ResponseCookie.from(rtkCookie, jwt).path("/api").maxAge(rtkExpirationMs).httpOnly(true).build();
+      return ResponseCookie.from(rtkCookie, jwt).path("/api").maxAge(rtkExpirationMs/1000).httpOnly(true).build();
   }
   public ResponseCookie getCleanJwtCookieAtk() {
     ResponseCookie cookie = ResponseCookie.from(atkCookie, null).path("/api").build();

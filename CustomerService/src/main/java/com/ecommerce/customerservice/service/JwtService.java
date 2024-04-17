@@ -1,11 +1,13 @@
 package com.ecommerce.customerservice.service;
 
+import com.ecommerce.customerservice.exception.CustomerException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 @Service
@@ -33,6 +36,14 @@ public class JwtService {
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token); // validate the token is written with the secret key
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    public void isAccessToken(String token) {
+        String tokenType = extractTokenType(token);
+        if(!Objects.equals(tokenType, "access")) {
+            throw new CustomerException("Token Type is not access", HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        }
+
     }
 
     public boolean isTokenExpired(String token) {

@@ -3,11 +3,15 @@ package com.ecommerce.customerservice.service;
 import com.ecommerce.customerservice.entity.Customer;
 import com.ecommerce.customerservice.entity.CustomerDetail;
 import com.ecommerce.customerservice.repo.CustomerRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationNotSupportedException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +20,8 @@ import java.util.Optional;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+
+    private final JwtService jwtService;
 
 
     public List<Customer> findAll() {
@@ -51,5 +57,34 @@ public class CustomerService {
         Customer found = findByEmail(email);
 
         return found.getCustomerDetail();
+    }
+
+    public Customer findByToken(HttpServletRequest request)
+            throws ChangeSetPersister.NotFoundException, AuthenticationNotSupportedException {
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) { // index 7
+            throw new AuthenticationNotSupportedException();
+        }
+        String refreshToken = authHeader.substring(7);
+
+        String customerEmail = jwtService.extractUsername(refreshToken); // todo extract the userEmail from JWT token
+
+        return findByEmail(customerEmail);
+
+    }
+
+    @Transactional
+    public String saveCustomerDetailByToken(HttpServletRequest request, CustomerDetail customerDetail)
+            throws AuthenticationNotSupportedException, ChangeSetPersister.NotFoundException {
+
+        Customer customer = findByToken(request);
+
+        customer.setCustomerDetail(customerDetail);
+
+        customerRepository.save(customer);
+
+        return "Customer Detail Successfully Created";
+
     }
 }

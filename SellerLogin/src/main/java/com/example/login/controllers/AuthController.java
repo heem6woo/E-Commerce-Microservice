@@ -3,15 +3,20 @@ package com.example.login.controllers;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.example.login.payload.request.RefreshTokenRequest;
+import com.example.login.security.jwt.AuthTokenFilter;
 import com.example.login.security.services.UserDetailsServiceImpl;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -56,6 +61,7 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
+  private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
   @Autowired
   private UserDetailsServiceImpl userDetailsService;
   @PostMapping("/refreshToken")
@@ -152,13 +158,25 @@ public class AuthController {
 
   @PostMapping("/signout")
   public ResponseEntity<?> logoutUser(HttpServletRequest request) {
-    ResponseCookie atkCookie = jwtUtils.getCleanJwtCookieAtk();
-
-    ResponseCookie rtkCookie = jwtUtils.getCleanJwtCookieRtk();
-
     String jwt = request.getHeader("Authorization");
-    Long expiration = jwtUtils.getExpiration(jwt);
-    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, atkCookie.toString(),rtkCookie.toString())
-        .body(new MessageResponse("You've been signed out!"));
+    try {
+      if (jwt != null) {
+        userDetailsService.logout(jwt);
+        ResponseCookie atkCookie = jwtUtils.getCleanJwtCookieAtk();
+
+        ResponseCookie rtkCookie = jwtUtils.getCleanJwtCookieRtk();
+
+
+        Long expiration = jwtUtils.getExpiration(jwt);
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, atkCookie.toString(), rtkCookie.toString())
+                .body(new MessageResponse("You've been signed out!"));
+      } else {
+        throw new JwtException("토큰을 확인하세요.");
+      }
+    } catch (JwtException e) {
+      logger.error("Cannot set user authentication: {}", e);
+    }
+      return null;
   }
+
 }

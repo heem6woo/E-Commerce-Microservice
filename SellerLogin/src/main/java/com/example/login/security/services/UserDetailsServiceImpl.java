@@ -2,6 +2,7 @@ package com.example.login.security.services;
 
 import com.example.login.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired
   UserRepository userRepository;
+
+  @Autowired private RedisTemplate<String ,String> redisTemplate;
   @Autowired
   JwtUtils jwtUtils;
   @Override
@@ -36,12 +39,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     UserDetailsImpl userDetails = (UserDetailsImpl) loadUserByUsername(UserName);
     //엑세스 토큰 남은 유효시간
     Long expiration = jwtUtils.getExpiration(accessToken);
-
     //Redis Cache에 저장
-    redisTemplate.opsForValue().set(accessToken, "logout", expiration, TimeUnit.MILLISECONDS);
+    try {
+      redisTemplate.opsForValue().set(accessToken, "logout", expiration, TimeUnit.MILLISECONDS);
+    }finally {
+      System.out.println(redisTemplate.opsForValue().get(accessToken));
+    }
 
-    //리프레쉬 토큰 삭제
-    refreshTokenRepository.delete(userDetails.getId());
   }
 
 }

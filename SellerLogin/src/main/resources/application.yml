@@ -16,7 +16,7 @@ spring:
     show-sql: true
 server:
   port: 8080
-
+      
 jwt:
   key:
     jwtSecret: "bXlTdXBlclNlY3VyZVNlY3JldEtleUZvckpXVFNlY3VyaXR5SW1wbGVtZW50YXRpb24gV2l0aCBMb25nIGVuYW91Z2ggYnl0ZXMoTGlrZSBvdmVyIDMyc2J5dGVzKQ=="

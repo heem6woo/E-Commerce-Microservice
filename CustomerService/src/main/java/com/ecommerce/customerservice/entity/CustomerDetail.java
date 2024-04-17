@@ -3,10 +3,11 @@ package com.ecommerce.customerservice.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.context.annotation.Lazy;
 
 @Data
 @Entity
-@Table(name = "customerdetail")
+@Table(name = "customer_detail")
 public class CustomerDetail {
 
     @Id
@@ -23,6 +24,8 @@ public class CustomerDetail {
     @Column(name = "address")
     private String address;
 
-    @OneToOne
+    @Lazy
+    @OneToOne(mappedBy = "customerDetail",
+            cascade =  {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE})
     private Customer customer;
 }

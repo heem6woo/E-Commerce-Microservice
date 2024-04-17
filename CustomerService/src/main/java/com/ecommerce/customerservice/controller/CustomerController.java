@@ -4,7 +4,9 @@ import com.ecommerce.customerservice.dto.CustomerDto;
 import com.ecommerce.customerservice.entity.Customer;
 import com.ecommerce.customerservice.entity.CustomerDetail;
 import com.ecommerce.customerservice.service.CustomerService;
+import com.ecommerce.customerservice.service.JwtService;
 import com.ecommerce.customerservice.vo.CustomerDetailRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.ObjectNotFoundException;
@@ -12,6 +14,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationNotSupportedException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +24,7 @@ import java.util.Optional;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final JwtService jwtService;
 
     // Only for Admin
     @GetMapping("/customers")
@@ -41,14 +45,17 @@ public class CustomerController {
     }
 
 
-    // for customer
 
 
-//    @PostMapping("/customer-detail")
-//    public ResponseEntity<CustomerDetail> writeCustomerDetail(@RequestBody CustomerDetailRequest request) {
-//
-//
-//    }
+    @PostMapping("/customer-detail")
+    public ResponseEntity<String> createCustomerDetail(
+            HttpServletRequest request,
+            @RequestBody CustomerDetail customerDetail)
+            throws AuthenticationNotSupportedException, ChangeSetPersister.NotFoundException {
+
+        return ResponseEntity.ok(customerService.saveCustomerDetailByToken(request, customerDetail));
+
+    }
 
 
 }

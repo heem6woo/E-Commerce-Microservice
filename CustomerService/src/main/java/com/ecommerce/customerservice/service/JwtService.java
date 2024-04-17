@@ -51,7 +51,10 @@ public class JwtService {
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-
+    public String extractTokenType(String token) {
+        final Claims claims = extractAllClaims(token);
+        return claims.get("tokenType",String.class);
+    }
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -104,7 +107,6 @@ public class JwtService {
         byte[] keyBytes =  Decoders.BASE64.decode(secret_key);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
 
 
 }

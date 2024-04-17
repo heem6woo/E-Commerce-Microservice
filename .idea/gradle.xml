@@ -14,11 +14,11 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/login" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/SellerLogin" />
         <option name="gradleJvm" value="corretto-21" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/login" />
+            <option value="$PROJECT_DIR$/SellerLogin" />
           </set>
         </option>
       </GradleProjectSettings>

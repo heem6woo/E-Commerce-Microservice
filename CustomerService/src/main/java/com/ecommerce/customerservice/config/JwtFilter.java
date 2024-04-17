@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -48,9 +49,12 @@ public class JwtFilter extends OncePerRequestFilter {
         String jwt = authHeader.substring(7);
 
         String userEmail = jwtService.extractUsername(jwt);
+        String tokenType = jwtService.extractTokenType(jwt);
 
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null
-        && !tokenBlackListService.isBlackListed(jwt)) {
+        if (userEmail != null
+                && (tokenType.equals("access"))
+                && SecurityContextHolder.getContext().getAuthentication() == null
+                && !tokenBlackListService.isBlackListed(jwt)) {
             // verify whether username is in the database.
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 

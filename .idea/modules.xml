@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Spring-Cart-Microservice-E-Commerce-Platform.iml" filepath="$PROJECT_DIR$/.idea/Spring-Cart-Microservice-E-Commerce-Platform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/login.main.iml" filepath="$PROJECT_DIR$/.idea/modules/login.main.iml" />
     </modules>
   </component>
 </project>

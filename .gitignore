@@ -25,3 +25,4 @@ replay_pid*
 *.yml
 /SellerLogin/src/main/resources
 /SellerLogin/src/main/resources
+SellerLogin/src/main/resources/application.yml

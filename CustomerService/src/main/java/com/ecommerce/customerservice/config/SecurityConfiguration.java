@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests( req -> req
-                        .requestMatchers("/api/v1/customer/**") // whitelist for authorization, authorize all the request within lists
+                        .requestMatchers("/api/v1/customer/auth/**") // whitelist for authorization, authorize all the request within lists
                         .permitAll()
                         .anyRequest()// any other reuqests required authentication
                         .authenticated()

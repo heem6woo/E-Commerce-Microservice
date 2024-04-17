@@ -24,7 +24,7 @@ public class RedisService {
         values.set(key, data, duration);
     }
 
-    @Transactional()
+    @Transactional
     public String getValues(String key) {
         ValueOperations<String, String> values = redisTemplate.opsForValue();
         return values.get(key);

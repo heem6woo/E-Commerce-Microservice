@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -31,7 +32,7 @@ public class AuthenticationService {
 
 
 
-    public AuthenticateResponse registerCustomer(RegisterRequest request) {
+    public String registerCustomer(RegisterRequest request) {
 
 //        if (customerRepository.findByEmail(request.getEmail()).isPresent()) {
 //
@@ -45,14 +46,7 @@ public class AuthenticationService {
 
         Customer savedCustomer = customerRepository.save(customer);
 
-//        var accessToken = jwtService.generateAccessToken(savedCustomer);
-//        var refreshToken = jwtService.generateRefreshToken(savedCustomer);
-
-        return AuthenticateResponse.builder()
-//                .accessToken(accessToken)
-//                .refreshToken(refreshToken)
-
-                .build();
+        return "Successfully Registered";
     }
 
     public AuthenticateResponse authenticateCustomer(AuthenticateRequest request) throws ChangeSetPersister.NotFoundException {

@@ -30,6 +30,12 @@ public class Customer implements UserDetails {
     @Column(name = "password")
     private String password;
 
+
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name="customer_detail_id", unique = true)
+    private CustomerDetail customerDetail;
+
+
     /*
     @OneToOne(mappedBy = "customer")
     private Token jwtToken;

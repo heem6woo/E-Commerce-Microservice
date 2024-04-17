@@ -22,4 +22,7 @@ public class CustomerDetail {
 
     @Column(name = "address")
     private String address;
+
+    @OneToOne
+    private Customer customer;
 }

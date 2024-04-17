@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b6ae8957-779d-4f7c-a7c6-679c1b57e5ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/SellerLogin/HELP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/build/resources/main/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/build/tmp/compileJava/compileTransaction/stash-dir/AuthTokenFilter.class.uniqueId1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/LoginApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/controllers/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/controllers/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/models/ERole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/models/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/models/Subject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/models/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/payload/request/LoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/payload/request/SignupRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/payload/response/MessageResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/payload/response/UserInfoResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/repository/RoleRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/security/WebSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/security/jwt/AuthEntryPointJwt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/security/jwt/AuthTokenFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/security/jwt/JwtUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/security/services/UserDetailsImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/security/services/UserDetailsServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/java/com/example/login/security/services/UserLogoutService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SellerLogin/src/test/java/com/example/login/LoginApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/LoginApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/controllers/AuthController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/controllers/TestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/models/ERole.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/models/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/models/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/payload/request/LoginRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/payload/request/SignupRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/payload/response/MessageResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/payload/response/UserInfoResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/repository/RoleRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/repository/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/security/WebSecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/security/jwt/AuthEntryPointJwt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/security/jwt/AuthTokenFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/security/jwt/JwtUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/security/services/UserDetailsImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/classes/java/main/com/example/login/security/services/UserDetailsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/resources/main/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/tmp/compileJava/compileTransaction/stash-dir/AuthController.class.uniqueId2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/tmp/compileJava/compileTransaction/stash-dir/AuthTokenFilter.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/tmp/compileJava/compileTransaction/stash-dir/JwtUtils.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/LoginApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/controllers/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/controllers/TestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/models/ERole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/models/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/models/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/payload/request/LoginRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/payload/request/SignupRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/payload/response/MessageResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/payload/response/UserInfoResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/repository/RoleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/security/WebSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/security/jwt/AuthEntryPointJwt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/security/jwt/AuthTokenFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/security/jwt/JwtUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/security/services/UserDetailsImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/example/login/security/services/UserDetailsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/test/java/com/example/login/LoginApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/CustomerService">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/SellerLogin">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2fA3BvBdN1CoXm2oKdzbAC4DidQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/KimDoHyum/Spring-Cart-Microservice-E-Commerce-Platform&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b6ae8957-779d-4f7c-a7c6-679c1b57e5ee" name="Changes" comment="" />
+      <created>1713229922682</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713229922682</updated>
+    </task>
+    <servers />
+  </component>
+</project>

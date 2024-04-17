@@ -89,7 +89,7 @@ public class JwtUtils {
     try {
       System.out.println(authToken);
       Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);
-      System.out.println("토큰유효함");
+      System.out.println("TK TRUE");
       return true;
     } catch (MalformedJwtException e) {
       logger.error("Invalid JWT token: {}", e.getMessage());
@@ -100,7 +100,7 @@ public class JwtUtils {
     } catch (IllegalArgumentException e) {
       logger.error("JWT claims string is empty: {}", e.getMessage());
     }
-    System.out.println("토큰 안 유효함");
+    System.out.println("TK FALSE");
     return false;
   }
   
@@ -109,6 +109,7 @@ public class JwtUtils {
               .setSubject(username)
               .setIssuedAt(new Date())
               .setExpiration(new Date((new Date()).getTime() + atkExpirationMs))
+              .claim("type", "atk")  // 액세스 토큰임을 나타내는 클레임 추가
               .signWith(key(), SignatureAlgorithm.HS256)
               .compact();
   }
@@ -118,7 +119,22 @@ public class JwtUtils {
             .setSubject(username)
             .setIssuedAt(new Date())
             .setExpiration(new Date((new Date()).getTime() + rtkExpirationMs))
+            .claim("type", "rtk")  // 액세스 토큰임을 나타내는 클레임 추가
             .signWith(key(), SignatureAlgorithm.HS256)
             .compact();
+  }
+
+  public Long getExpiration(String accessToken){// 만료시간 계산
+
+    Date expiration = Jwts.parserBuilder().setSigningKey(key())
+            .build().parseClaimsJws(accessToken).getBody().getExpiration();
+
+    long now = new Date().getTime();
+    return expiration.getTime() - now;
+  }
+  public String getTokenType(String token) {
+    Claims claims = Jwts.parserBuilder().setSigningKey(key()).build()
+            .parseClaimsJws(token).getBody();
+    return claims.get("type", String.class);  // type 클레임을 읽어서 반환
   }
 }

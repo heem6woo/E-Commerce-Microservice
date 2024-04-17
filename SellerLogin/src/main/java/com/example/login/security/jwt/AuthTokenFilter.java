@@ -1,64 +1,77 @@
-package com.example.login.security.jwt;
+  package com.example.login.security.jwt;
 
-import java.io.IOException;
-import java.util.Objects;
+  import java.io.IOException;
+  import java.util.Objects;
 
-import io.jsonwebtoken.JwtException;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+  import com.example.login.controllers.AuthController;
+  import com.example.login.security.services.UserDetailsImpl;
+  import io.jsonwebtoken.JwtException;
+  import jakarta.servlet.FilterChain;
+  import jakarta.servlet.ServletException;
+  import jakarta.servlet.http.HttpServletRequest;
+  import jakarta.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.web.filter.OncePerRequestFilter;
+  import org.apache.catalina.core.ApplicationContext;
+  import org.slf4j.Logger;
+  import org.slf4j.LoggerFactory;
+  import org.springframework.beans.factory.annotation.Autowired;
+  import org.springframework.http.ResponseEntity;
+  import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+  import org.springframework.security.core.context.SecurityContextHolder;
+  import org.springframework.security.core.userdetails.UserDetails;
+  import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+  import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.login.security.services.UserDetailsServiceImpl;
+  import com.example.login.security.services.UserDetailsServiceImpl;
 
-import javax.security.auth.Subject;
+  import javax.security.auth.Subject;
 
-public class AuthTokenFilter extends OncePerRequestFilter {
-  @Autowired
-  private JwtUtils jwtUtils;
+  public class AuthTokenFilter extends OncePerRequestFilter {
+    @Autowired
+    private JwtUtils jwtUtils;
+    @Autowired
+    AuthController reissueController;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
-  @Autowired
-  private UserDetailsServiceImpl userDetailsService;
+    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
-  private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+      try {
+        String jwt = parseJwt(request);
+        if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+          String username = jwtUtils.getUserNameFromJwtToken(jwt);
+          UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+          if(jwtUtils.getTokenType(jwt).equals("rtk")) {
+            invokeIssueToken(userDetails);
+          }
+          UsernamePasswordAuthenticationToken authentication =
+                  new UsernamePasswordAuthenticationToken(userDetails,
+                          null,
+                          userDetails.getAuthorities());
 
-  @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-          throws ServletException, IOException {
-    try {
-      String jwt = parseJwt(request);
-      if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+          authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(userDetails,
-                        null,
-                        userDetails.getAuthorities());
-
-        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+          SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+      } catch (Exception e) {
+        logger.error("Cannot set user authentication: {}", e);
       }
-    } catch (Exception e) {
-      logger.error("Cannot set user authentication: {}", e);
+
+      filterChain.doFilter(request, response);
     }
 
-    filterChain.doFilter(request, response);
+    private String parseJwt(HttpServletRequest request) {
+      String jwt = jwtUtils.getJwtFromCookies(request);
+      return jwt;
+    }
+    private void invokeIssueToken(UserDetails userDetails) {
+      try {ResponseEntity<?> response = reissueController.issueRefreshToken((UserDetailsImpl) userDetails);
+        System.out.println(response.getBody());  // 결과 출력 또는 추가 처리
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
   }
-
-  private String parseJwt(HttpServletRequest request) {
-    String jwt = jwtUtils.getJwtFromCookies(request);
-    return jwt;
-  }
-}

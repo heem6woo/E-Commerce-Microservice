@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.example.login.security.services.UserDetailsServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
@@ -51,6 +54,24 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
+  @Autowired
+  private UserDetailsServiceImpl userDetailsService;
+  @PostMapping("/refreshToken")
+  public ResponseEntity<?> issueRefreshToken(UserDetailsImpl userDetails) {
+    System.out.println("ack토큰 재발급성공");
+    ResponseCookie atkCookie = jwtUtils.generateJwtCookieAtk(userDetails);
+    ResponseCookie rtkCookie = jwtUtils.generateJwtCookieRtk(userDetails);
+
+    List<String> roles = userDetails.getAuthorities().stream()
+            .map(item -> item.getAuthority())
+            .collect(Collectors.toList());
+
+    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, atkCookie.toString(), rtkCookie.toString())
+            .body(new UserInfoResponse(userDetails.getId(),
+                    userDetails.getUsername(),
+                    userDetails.getEmail(),
+                    roles));
+  }
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -127,10 +148,11 @@ public class AuthController {
   }
 
   @PostMapping("/signout")
-  public ResponseEntity<?> logoutUser() {
+  public ResponseEntity<?> logoutUser(String reqToken) {
     ResponseCookie atkCookie = jwtUtils.getCleanJwtCookieAtk();
 
     ResponseCookie rtkCookie = jwtUtils.getCleanJwtCookieRtk();
+    Long expiration = jwtUtils.getExpiration(reqToken);
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, atkCookie.toString(),rtkCookie.toString())
         .body(new MessageResponse("You've been signed out!"));
   }

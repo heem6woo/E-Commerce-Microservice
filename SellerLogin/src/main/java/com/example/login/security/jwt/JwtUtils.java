@@ -127,4 +127,5 @@ public class JwtUtils {
             .parseClaimsJws(token).getBody();
     return claims.get("type", String.class);  // type 클레임을 읽어서 반환
   }
+
 }

@@ -26,3 +26,5 @@ replay_pid*
 /SellerLogin/src/main/resources
 /SellerLogin/src/main/resources
 SellerLogin/src/main/resources/application.yml
+
+.idea

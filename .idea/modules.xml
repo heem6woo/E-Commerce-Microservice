@@ -4,10 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CustomerService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CustomerService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Microservice-E-Commerce-Platform.iml" filepath="$PROJECT_DIR$/.idea/Microservice-E-Commerce-Platform.iml" />
-<<<<<<< HEAD
-=======
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SellerLogin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SellerLogin.main.iml" />
->>>>>>> b52ffd66a300508487df914ebfafad42ae24c4dc
     </modules>
   </component>
 </project>

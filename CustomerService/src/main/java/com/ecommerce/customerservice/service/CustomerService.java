@@ -74,17 +74,6 @@ public class CustomerService {
 
     }
 
-    @Transactional
-    public String saveCustomerDetailByToken(HttpServletRequest request, CustomerDetail customerDetail)
-            throws AuthenticationNotSupportedException, ChangeSetPersister.NotFoundException {
 
-        Customer customer = findByToken(request);
 
-        customer.setCustomerDetail(customerDetail);
-
-        customerRepository.save(customer);
-
-        return "Customer Detail Successfully Created";
-
-    }
 }

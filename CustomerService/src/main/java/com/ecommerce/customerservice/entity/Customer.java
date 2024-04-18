@@ -1,5 +1,6 @@
 package com.ecommerce.customerservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,7 +31,7 @@ public class Customer implements UserDetails {
     @Column(name = "password")
     private String password;
 
-
+    @JsonIgnore
     @OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name="customer_detail_id", unique = true)
     private CustomerDetail customerDetail;

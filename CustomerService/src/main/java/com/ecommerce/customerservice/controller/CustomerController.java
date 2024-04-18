@@ -3,6 +3,7 @@ package com.ecommerce.customerservice.controller;
 import com.ecommerce.customerservice.dto.CustomerDto;
 import com.ecommerce.customerservice.entity.Customer;
 import com.ecommerce.customerservice.entity.CustomerDetail;
+import com.ecommerce.customerservice.service.CustomerDetailService;
 import com.ecommerce.customerservice.service.CustomerService;
 import com.ecommerce.customerservice.service.JwtService;
 import com.ecommerce.customerservice.vo.CustomerDetailRequest;
@@ -24,6 +25,7 @@ import java.util.Optional;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final CustomerDetailService customerDetailService;
     private final JwtService jwtService;
 
     // Only for Admin
@@ -53,7 +55,17 @@ public class CustomerController {
             @RequestBody CustomerDetail customerDetail)
             throws AuthenticationNotSupportedException, ChangeSetPersister.NotFoundException {
 
-        return ResponseEntity.ok(customerService.saveCustomerDetailByToken(request, customerDetail));
+        return ResponseEntity.ok(customerDetailService.saveCustomerDetailByToken(request, customerDetail));
+
+    }
+
+    @PostMapping("/customer-detail")
+    public ResponseEntity<String> updateCustomerDetail(
+            HttpServletRequest request,
+            @RequestBody CustomerDetail customerDetail)
+            throws AuthenticationNotSupportedException, ChangeSetPersister.NotFoundException {
+
+        return ResponseEntity.ok(customerDetailService.updateCustomerDetailByToken(request, customerDetail));
 
     }
 

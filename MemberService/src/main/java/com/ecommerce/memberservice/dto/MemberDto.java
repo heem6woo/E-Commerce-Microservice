@@ -1,14 +1,19 @@
 package com.ecommerce.memberservice.dto;
 
+import com.ecommerce.memberservice.entity.Role;
 import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class CustomerDto {
+public class MemberDto {
 
     private String name;
 
     private String email;
+
+    private String password;
+
+    private Role role;
 }

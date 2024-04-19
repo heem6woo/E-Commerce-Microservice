@@ -34,7 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException
     {
-        if (request.getServletPath().contains("/api/v1/customer/auth")) {
+        if (request.getServletPath().contains("/api/v1/auth")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -59,13 +59,13 @@ public class JwtFilter extends OncePerRequestFilter {
                 // verify whether username is in the database.
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-
+                logger.info(userDetails.getAuthorities());
                 // validate JWT
                 if (jwtService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
-                            null
+                            userDetails.getAuthorities() // 토큰에 역활(Role) 배정
                     );
                     authToken.setDetails(
                             new WebAuthenticationDetailsSource().buildDetails(request)

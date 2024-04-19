@@ -8,11 +8,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationNotSupportedException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static org.apache.catalina.realm.UserDatabaseRealm.getRoles;
 
 @Service
 @RequiredArgsConstructor
@@ -74,7 +81,6 @@ public class MemberService {
         return findByEmail(customerEmail);
 
     }
-
 
 
 }

@@ -1,26 +1,33 @@
 package com.ecommerce.memberservice.service;
 
-import com.ecommerce.memberservice.entity.Member;
-import com.ecommerce.memberservice.entity.Role;
+import com.ecommerce.memberservice.entity.*;
 import com.ecommerce.memberservice.repo.MemberRepository;
 import com.ecommerce.memberservice.vo.AuthenticateRequest;
 import com.ecommerce.memberservice.vo.AuthenticateResponse;
+import com.ecommerce.memberservice.vo.ChangePasswordRequest;
 import com.ecommerce.memberservice.vo.RegisterRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Objects;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class AuthenticationService {
 
@@ -30,9 +37,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final RedisService redisService;
 
+    private final Logger logger = log;
 
 
-    public String registerCustomer(RegisterRequest request) {
+    public String register(RegisterRequest request) {
 
 //        if (customerRepository.findByEmail(request.getEmail()).isPresent()) {
 //
@@ -42,7 +50,7 @@ public class AuthenticationService {
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.Customer)
+                .role(request.getRole())
                 .build();
 
         Member savedMember = memberRepository.save(member);
@@ -107,5 +115,27 @@ public class AuthenticationService {
             }
         }
 
+    }
+
+
+    public String changePassword(ChangePasswordRequest request, Principal connectedUser) {
+        //var member = (Member) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        var member = (Member) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+
+        // 저장된 패스워드와 유저가 기입한 패스워드 비교
+        if (!passwordEncoder.matches(request.getCurrentPassword(), member.getPassword())) {
+            throw new IllegalStateException("Wrong Password!");
+        }
+        if (! request.getNewPassword().equals(request.getConfirmationPassword())) {
+            throw new IllegalStateException("Passwords are not same!");
+        }
+
+        //update the password
+        member.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
+        memberRepository.save(member);
+
+        return "Password Successfully Changed";
     }
 }

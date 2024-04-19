@@ -1,36 +1,54 @@
 package com.ecommerce.memberservice.config;
 
+import com.ecommerce.memberservice.entity.Member;
 import com.ecommerce.memberservice.repo.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
+
+import javax.sql.DataSource;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class JwtConfiguration {
-    private final MemberRepository repository;
+    private final MemberRepository memberRepository;
 
+    private final Logger logger = LoggerFactory.getLogger("JWT");
     @Bean
     public UserDetailsService userDetailsService() {
 
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return repository.findByEmail(username)
+                return memberRepository.findByEmail(username)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+//                return User.builder()
+//                        .username(username)
+//                        .password(member.getPassword())
+//                        .roles(String.valueOf(member.getRole()))
+//                        .build();
             }
         };
 
     }
+
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

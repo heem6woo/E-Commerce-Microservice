@@ -1,0 +1,78 @@
+### Register User
+POST http://localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "우희민",
+  "email":  "heem6woo@mail.com",
+  "password": "password",
+  "role":  "ADMIN"
+}
+### Register User
+POST http://localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "홍길동",
+  "email":  "hongildong@mail.com",
+  "password": "password",
+  "role":  "CUSTOMER"
+}
+### Register User
+POST http://localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "아무개",
+  "email":  "anybody@mail.com",
+  "password": "password",
+  "role":  "SELLER"
+}
+### Query the Demo endpoint
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "email":  "heem6woo@mail.com",
+  "password": "password"
+}
+> {% client.global.set("admin-auth-token", response.body.accessToken);
+    client.global.set("admin-refresh-token", response.body.refreshToken);%}
+
+### Query the Demo endpoint
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "email":  "hongildong@mail.com",
+  "password": "password"
+}
+> {% client.global.set("customer-auth-token", response.body.accessToken);
+    client.global.set("customer-refresh-token", response.body.refreshToken);%}
+
+
+### Query the Demo endpoint
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "email":  "anybody@mail.com",
+  "password": "password"
+}
+> {% client.global.set("seller-auth-token", response.body.accessToken);
+    client.global.set("seller-refresh-token", response.body.refreshToken);%}
+
+
+### Query the ADMIN Demo endpoint
+GET http://localhost:8080/api/v1/members
+Authorization: Bearer {{admin-auth-token}}
+
+###
+GET http://localhost:8080/api/v1/members
+Authorization: Bearer {{customer-auth-token}}
+
+###
+GET http://localhost:8080/api/v1/members
+Authorization: Bearer {{seller-auth-token}}
+
+

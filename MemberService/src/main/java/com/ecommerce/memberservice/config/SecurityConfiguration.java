@@ -1,8 +1,10 @@
 package com.ecommerce.memberservice.config;
 
+import com.ecommerce.memberservice.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,9 +35,12 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests( req -> req
-                        .requestMatchers("/api/v1/customer/auth/**") // whitelist for authorization, authorize all the request within lists
-                        .permitAll()
-                        .anyRequest()// any other reuqests required authentication
+                        // whitelist for authorization, authorize all the request within lists
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/members/**").hasRole(String.valueOf(Role.ADMIN))
+                        .requestMatchers("/api/v1/customers/**").hasRole(String.valueOf(Role.CUSTOMER))
+                        .requestMatchers("/api/v1/sellers/**").hasRole(String.valueOf(Role.SELLER))
+                        .anyRequest()// any other request required authentication
                         .authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
@@ -45,7 +50,7 @@ public class SecurityConfiguration {
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 
                 .logout(logout -> logout
-                        .logoutUrl("/api/v1/customer/logout")
+                        .logoutUrl("/api/v1/logout")
                         .addLogoutHandler(logoutHandler)
                         .logoutSuccessHandler((request,response,authentication) ->
                                 SecurityContextHolder.clearContext()));

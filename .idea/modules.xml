@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CustomerService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CustomerService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MemberService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MemberService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Microservice-E-Commerce-Platform.iml" filepath="$PROJECT_DIR$/.idea/Microservice-E-Commerce-Platform.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SellerLogin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SellerLogin.main.iml" />
     </modules>
   </component>
 </project>

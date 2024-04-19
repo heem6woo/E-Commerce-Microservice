@@ -16,32 +16,10 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/customer")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
 
-    private final MemberService memberService;
     private final CustomerDetailService customerDetailService;
-    private final JwtService jwtService;
-
-    // Only for Admin
-    @GetMapping("/customers")
-    public ResponseEntity<List<Member>> findAll(){
-        return ResponseEntity.ok(memberService.findAll());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Member> findCustomerById(@PathVariable int id)
-            throws ChangeSetPersister.NotFoundException {
-        return ResponseEntity.ok(memberService.findById(id));
-    }
-
-    @GetMapping("/customer-detail/{email}")
-    public ResponseEntity<CustomerDetail> findCustomerDetailByEmail(@PathVariable String email)
-            throws ChangeSetPersister.NotFoundException {
-        return ResponseEntity.ok(memberService.findCustomerDetailByEmail(email));
-    }
-
-
 
 
     @PostMapping("/customer-detail")

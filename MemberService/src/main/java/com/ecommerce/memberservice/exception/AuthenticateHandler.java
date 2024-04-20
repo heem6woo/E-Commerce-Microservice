@@ -33,7 +33,7 @@ public class AuthenticateHandler {
                 .build();
 
 
-        return new ResponseEntity<>(eer, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(eer, ex.getHttpStatus());
 
     }
 }

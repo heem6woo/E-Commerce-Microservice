@@ -66,6 +66,11 @@ public class JwtService {
         final Claims claims = extractAllClaims(token);
         return claims.get("tokenType",String.class);
     }
+    public String extractRole(String token) {
+        final Claims claims = extractAllClaims(token);
+        return claims.get("role",String.class);
+    }
+
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -84,9 +89,15 @@ public class JwtService {
     public String generateAccessToken(UserDetails userDetails) {
         HashMap<String,Object> claims = new HashMap<>();
         claims.put("tokenType", "access");
+        if (!userDetails.getAuthorities().isEmpty()) {
+            claims.put("role", (String) userDetails.getAuthorities().iterator().next().getAuthority());
+        }
+
 
         return buildToken(claims, userDetails, accessExpiration);
     }
+
+
 
 
     public String generateRefreshToken(

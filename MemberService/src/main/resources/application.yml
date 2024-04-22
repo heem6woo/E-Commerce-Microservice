@@ -1,7 +1,9 @@
+server:
+  port: 8080
 
 spring:
   application:
-    name: MemberService
+    name: member-service
   sql:
     init:
       mode: always
@@ -27,6 +29,7 @@ spring:
 application:
   security:
     jwt:
+      pre-fix: Bearer
       secret-key: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
       access-token:
         expiration: 1800000
@@ -43,6 +46,12 @@ application:
       name: 김도현
       email: rkawkaos77@naver.com
       password: $2a$10$zh0jF1Je28jUpPX1v/.GJejWH.Z5uS4QZzmMY4MrnvlYd1Q1EVGha #password123
+
+#Eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
 
 
 logging:

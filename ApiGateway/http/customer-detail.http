@@ -1,0 +1,32 @@
+POST http://localhost:8765/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "아무개",
+  "email":  "anybody@mail.com",
+  "password": "password",
+  "role":  "CUSTOMER"
+}
+
+### Login with 아무개
+POST http://localhost:8765/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "email":  "anybody@mail.com",
+  "password": "password"
+}
+> {% client.global.set("auth-token", response.body.accessToken);
+    client.global.set("refresh-token", response.body.refreshToken);%}
+
+###
+POST http://localhost:8765/api/v1/customers/customer-detail
+Authorization: Bearer {{auth-token}}
+Content-Type: application/json
+
+{
+  "age" : "25",
+  "gender" : "1",
+  "address" : "Waterloo, ON, Canada"
+}
+

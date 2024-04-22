@@ -1,6 +1,6 @@
 package com.ecommerce.memberservice.config;
 
-import com.ecommerce.memberservice.exception.CustomerException;
+import com.ecommerce.memberservice.exception.AuthenticationException;
 import com.ecommerce.memberservice.service.JwtService;
 import com.ecommerce.memberservice.service.TokenBlackListService;
 import jakarta.servlet.FilterChain;
@@ -43,7 +43,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) { // index 7
             filterChain.doFilter(request, response);
-            throw new CustomerException("Invalid Header", HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            throw new AuthenticationException("Invalid Header", HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
 
         String jwt = authHeader.substring(7);
@@ -77,7 +77,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
             }
-        } catch (CustomerException ex) {
+        } catch (AuthenticationException ex) {
             SecurityContextHolder.clearContext();
             response.sendError(ex.getHttpStatus().value(), ex.getMessage());
         }

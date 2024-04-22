@@ -1,11 +1,9 @@
 package com.ecommerce.memberservice.service;
 
 import com.ecommerce.memberservice.entity.*;
+import com.ecommerce.memberservice.exception.AuthenticationException;
 import com.ecommerce.memberservice.repo.MemberRepository;
-import com.ecommerce.memberservice.vo.AuthenticateRequest;
-import com.ecommerce.memberservice.vo.AuthenticateResponse;
-import com.ecommerce.memberservice.vo.ChangePasswordRequest;
-import com.ecommerce.memberservice.vo.RegisterRequest;
+import com.ecommerce.memberservice.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -36,6 +36,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final RedisService redisService;
+    private final MemberService memberService;
 
     private final Logger logger = log;
 
@@ -45,6 +46,10 @@ public class AuthenticationService {
 //        if (customerRepository.findByEmail(request.getEmail()).isPresent()) {
 //
 //        }
+
+        if (request.getRole().equals(Role.ADMIN)) {
+            throw new AuthenticationException("You do not have permission to create an ADMIN member", HttpStatus.FORBIDDEN);
+        }
 
         Member member = Member.builder()
                 .name(request.getName())
@@ -138,4 +143,30 @@ public class AuthenticationService {
 
         return "Password Successfully Changed";
     }
+
+
+    // Only Admin Member can access to this
+    public String grantPermission(ChangePermissionRequest request, Principal connectedUser)
+            throws ChangeSetPersister.NotFoundException {
+        //var member = (Member) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        // extract member from the principal (passed from  jwt filter)
+        var adminMember = (Member) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+
+        log.info(adminMember.toString());
+
+        // 저장된 패스워드와 유저가 기입한 패스워드 비교
+        if (!passwordEncoder.matches(request.getPassword(), adminMember.getPassword())) {
+            throw new IllegalStateException("Wrong Password!");
+        }
+
+        Member member = memberService.findByEmail(request.getEmail());
+
+        member.setRole(request.getRole());
+
+        memberRepository.save(member);
+
+        return request.getRole() + " is granted to " +request.getEmail();
+    }
+
 }

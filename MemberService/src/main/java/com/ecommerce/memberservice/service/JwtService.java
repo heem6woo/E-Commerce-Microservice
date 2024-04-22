@@ -1,6 +1,6 @@
 package com.ecommerce.memberservice.service;
 
-import com.ecommerce.memberservice.exception.CustomerException;
+import com.ecommerce.memberservice.exception.AuthenticationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -41,7 +41,7 @@ public class JwtService {
     public void isAccessToken(String token) {
         String tokenType = extractTokenType(token);
         if(!Objects.equals(tokenType, "access")) {
-            throw new CustomerException("Token Type is not access", HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            throw new AuthenticationException("Token Type is not access", HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
 
     }

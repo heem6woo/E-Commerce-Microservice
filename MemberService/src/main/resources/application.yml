@@ -34,6 +34,15 @@ application:
       refresh-token:
         expiration: 604800000
         #  7 days
+  # Admin member account
+    admin1:
+      name: 우희민
+      email: heem6woo@gmail.com
+      password: $2a$10$/So2kYEFDhOdCZmu/D7xiO1qR1Dp8JQPHfKrU2JXNQUOUBLALnQCe # password123
+    admin2:
+      name: 김도현
+      email: rkawkaos77@naver.com
+      password: $2a$10$zh0jF1Je28jUpPX1v/.GJejWH.Z5uS4QZzmMY4MrnvlYd1Q1EVGha #password123
 
 
 logging:

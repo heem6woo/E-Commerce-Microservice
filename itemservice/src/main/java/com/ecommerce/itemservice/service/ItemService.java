@@ -20,4 +20,25 @@ public class ItemService {
         System.out.println("adad");
         return itemRepository.findItemsByNameLikeAndSameCat(itemName,itemCat);
     }
+    public List<ItemDTO> findItemDTOsByNameAndCatMin(String itemName,short itemCat, int minPrice){ // 이름 기준 검색이후 itemDTO 리스트반환
+        System.out.println("adad");
+        return itemRepository.findItemsByNameLikeAndSameCatMin(itemName,itemCat,minPrice);
+    }
+    public List<ItemDTO> findItemDTOsByNameAndCatMinMax(String itemName,short itemCat,int minPrice, int maxPrice){ // 이름 기준 검색이후 itemDTO 리스트반환
+        System.out.println("adad");
+        return itemRepository.findItemsByNameLikeAndSameCatMinMax(itemName,itemCat,minPrice,maxPrice);
+    }
+
+    public List<ItemDTO> findItemDTOsByCatMinMax(short itemCat,int minPrice, int maxPrice){ // 이름 기준 검색이후 itemDTO 리스트반환
+        System.out.println("adad");
+        return itemRepository.findItemsByCatMinMax(itemCat,minPrice,maxPrice);
+    }
+    public List<ItemDTO> findItemDTOsByCatMin(short itemCat,int minPrice){ // 이름 기준 검색이후 itemDTO 리스트반환
+        System.out.println("adad");
+        return itemRepository.findItemsByCatMin(itemCat,minPrice);
+    }
+    public List<ItemDTO> findItemDTOsByCatMax(short itemCat, int maxPrice){ // 이름 기준 검색이후 itemDTO 리스트반환
+        System.out.println("adad");
+        return itemRepository.findItemsByCatMax(itemCat,maxPrice);
+    }
 }

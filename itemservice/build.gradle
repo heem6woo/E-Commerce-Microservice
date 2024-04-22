@@ -21,7 +21,6 @@ dependencies {
 	implementation 'junit:junit:4.13.1'
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation "org.assertj:assertj-core:3.24.2"
 	// JWT
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'

@@ -4,6 +4,7 @@ package com.ecommerce.itemservice.entity;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ITEM_TB")
@@ -12,7 +13,7 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ITEM_ID")
-    private Long itemId;
+    private int itemId;
 
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID", nullable = false)
@@ -30,6 +31,9 @@ public class Item {
 
     @Column(name = "REG_DT", nullable = false)
     private Timestamp regDt;
-
+    @PrePersist
+    protected void onCreate() {
+        regDt = new Timestamp(System.currentTimeMillis());
+    }
     // standard getters and setters
 }

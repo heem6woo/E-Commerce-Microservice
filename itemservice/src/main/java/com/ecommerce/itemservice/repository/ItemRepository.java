@@ -19,6 +19,14 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
             "JOIN i.category c " +
             "JOIN i.salesInfo s " +
             "WHERE i.itemName LIKE concat('%', :name, '%')")
-    List<ItemDTO> findItemsByNameLike(@Param("name") String name);
+    List<ItemDTO> findItemsByNameLike(@Param("name") String name);// 이름 기준 LIKE연산
+    @Query("SELECT new com.ecommerce.itemservice.dto.ItemDTO(" +
+            "new com.ecommerce.itemservice.dto.ItemInfo(i.itemId, c.categoryId, i.itemName, i.regDt), " +
+            "new com.ecommerce.itemservice.dto.SalesInfoDTO(s.salesInfoId, s.sellerId, s.itemCount, s.itemPrice, s.itemStatus)) " +
+            "FROM Item i " +
+            "JOIN i.category c " +
+            "JOIN i.salesInfo s " +
+            "WHERE i.itemName LIKE concat('%', :name, '%') AND c.categoryId = :catId")
+    List<ItemDTO> findItemsByNameLikeAndSameCat(@Param("name") String name,@Param("catId") short catId );// 이름 기준 LIKE연산
 
 }

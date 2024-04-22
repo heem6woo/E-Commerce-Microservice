@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping("api/items")
 public class ItemController {
     @Autowired
     private ItemService itemService;
@@ -23,10 +23,20 @@ public class ItemController {
 //
 //    }
     @GetMapping("/")
-    public ResponseEntity<List<ItemDTO>> likeItems(@RequestParam("item-name") String itemName) throws Exception {
+    public ResponseEntity<List<ItemDTO>> likeNameItemsSameCat(@RequestParam("item-name") String itemName,
+                                                       @RequestParam(name = "item-cat", required = false) Short itemCat) throws Exception {
         // itemName을 서비스 계층에 전달하여 해당 이름을 포함하는 아이템 목록들을 검색합니다.
-        System.out.println(itemName);
-        List<ItemDTO> itemList = itemService.findItemDTOsByName(itemName);
+        List<ItemDTO> itemList;
+
+        if (itemCat != null) {
+            // itemCat 파라미터가 제공된 경우
+            itemList = itemService.findItemDTOsByNameAndCat(itemName, itemCat);
+            System.out.println("Searching by name and category");
+        } else {
+            // itemCat 파라미터가 제공되지 않은 경우
+            itemList = itemService.findItemDTOsByName(itemName);
+            System.out.println("Searching by name only");
+        }
 
         return ResponseEntity.ok(itemList); // 검색 결과를 OK 상태 코드와 함께 반환합니다.
     }

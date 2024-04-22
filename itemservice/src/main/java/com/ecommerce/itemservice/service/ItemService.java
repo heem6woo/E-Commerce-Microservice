@@ -12,8 +12,12 @@ import java.util.List;
 public class ItemService {
     @Autowired
     ItemRepository itemRepository;
-    public List<ItemDTO> findItemDTOsByName(String itemName){
+    public List<ItemDTO> findItemDTOsByName(String itemName){ // 이름 기준 검색이후 itemDTO 리스트반환
         System.out.println("adad");
         return itemRepository.findItemsByNameLike(itemName);
+    }
+    public List<ItemDTO> findItemDTOsByNameAndCat(String itemName,short itemCat){ // 이름 기준 검색이후 itemDTO 리스트반환
+        System.out.println("adad");
+        return itemRepository.findItemsByNameLikeAndSameCat(itemName,itemCat);
     }
 }

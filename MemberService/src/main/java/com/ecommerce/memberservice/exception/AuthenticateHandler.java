@@ -23,8 +23,8 @@ public class AuthenticateHandler {
 
     }
 
-    @ExceptionHandler(CustomerException.class)
-    public ResponseEntity<AuthenticateErrResponse> customerExceptionHandler(CustomerException ex) {
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<AuthenticateErrResponse> customerExceptionHandler(AuthenticationException ex) {
 
         AuthenticateErrResponse eer = AuthenticateErrResponse.builder()
                 .status(ex.getHttpStatus().value())

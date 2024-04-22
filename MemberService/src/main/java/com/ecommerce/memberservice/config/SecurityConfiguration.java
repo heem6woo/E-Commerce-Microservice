@@ -41,10 +41,14 @@ public class SecurityConfiguration {
 
                 .authorizeHttpRequests( req -> req
                         // whitelist for authorization, authorize all the request within lists
+                        .requestMatchers("/**").permitAll()
+                        /*
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/members/**").hasRole(String.valueOf(Role.ADMIN))
                         .requestMatchers("/api/v1/customers/**").hasRole(String.valueOf(Role.CUSTOMER))
                         .requestMatchers("/api/v1/sellers/**").hasRole(String.valueOf(Role.SELLER))
+
+                         */
                         .anyRequest()// any other request required authentication
                         .authenticated()
                 )

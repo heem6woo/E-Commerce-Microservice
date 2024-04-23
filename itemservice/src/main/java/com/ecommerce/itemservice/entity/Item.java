@@ -2,12 +2,18 @@ package com.ecommerce.itemservice.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ITEM_TB")
+@Getter
+@Setter
+@Builder
+
 public class Item {
 
     @Id
@@ -15,7 +21,7 @@ public class Item {
     @Column(name = "ITEM_ID")
     private int itemId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID", nullable = false)
     private Category category;
 

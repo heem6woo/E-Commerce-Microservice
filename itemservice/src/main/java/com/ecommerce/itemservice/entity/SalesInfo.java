@@ -1,9 +1,16 @@
 package com.ecommerce.itemservice.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "SALES_INFO_TB")
+@Getter
+@Setter
+@Builder
+
 public class SalesInfo {
 
     @Id

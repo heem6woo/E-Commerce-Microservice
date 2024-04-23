@@ -1,11 +1,15 @@
 package com.ecommerce.itemservice.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import org.springframework.context.annotation.Lazy;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "CATEGORY_TB")
+@Getter
+@Setter
+@Builder
 public class Category {
 
     @Id
@@ -16,7 +20,7 @@ public class Category {
     @Column(name = "CATEGORY_NAME", nullable = false, length = 50)
     private String categoryName;
 
-    public Category() {
+    public Category(short categoryId) {
     }
 
     // standard getters and setters

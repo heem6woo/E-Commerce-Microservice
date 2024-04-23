@@ -9,7 +9,7 @@ public class SalesInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SALES_INFO_ID")
-    private Long salesInfoId;
+    private int salesInfoId;
 
     @Column(name = "SELLER_ID", nullable = false)
     private Integer sellerId;

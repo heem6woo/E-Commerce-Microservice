@@ -27,7 +27,6 @@ public class JwtUtil {
     // Determine whether token is for userDetails
     public boolean isTokenValid(String token) {
         final Claims claims = extractAllClaims(token); // validate the token is written with the secret key
-        isAccessToken(token);
         return isTokenExpired(token);
     }
 

@@ -33,7 +33,7 @@ POST http://localhost:8080/api/v1/auth/authenticate
 Content-Type: application/json
 
 {
-  "email":  "heem6woo@mail.com",
+  "email":  "heem6woo@gmail.com",
   "password": "password"
 }
 > {% client.global.set("admin-auth-token", response.body.accessToken);

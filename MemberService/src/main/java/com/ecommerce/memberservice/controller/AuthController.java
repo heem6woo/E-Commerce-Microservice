@@ -34,7 +34,7 @@ public class AuthController {
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticateResponse> authenticate(@RequestBody AuthenticateRequest request)
             throws ChangeSetPersister.NotFoundException {
-        return ResponseEntity.ok(authenticationService.authenticateCustomer(request));
+        return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
     @PostMapping("/access-token")

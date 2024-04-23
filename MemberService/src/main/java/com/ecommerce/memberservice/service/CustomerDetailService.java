@@ -44,4 +44,13 @@ public class CustomerDetailService {
         return "Customer Detail Successfully Updated";
 
     }
+
+    public CustomerDetail getCustomerDetailByToken(HttpServletRequest request)
+            throws Exception {
+
+        Member member = memberService.findByToken(request);
+
+        return customerDetailRepository.findByMemberId(member.getId());
+
+    }
 }

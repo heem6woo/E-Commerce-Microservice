@@ -3,6 +3,7 @@ package com.ecommerce.memberservice.controller;
 import com.ecommerce.memberservice.dto.CustomerDto;
 import com.ecommerce.memberservice.entity.CustomerDetail;
 import com.ecommerce.memberservice.entity.Member;
+import com.ecommerce.memberservice.entity.SellerDetail;
 import com.ecommerce.memberservice.service.AuthenticationService;
 import com.ecommerce.memberservice.service.CustomerDetailService;
 import com.ecommerce.memberservice.service.MemberService;
@@ -33,7 +34,7 @@ public class MemberController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<Member> findCustomerById(@PathVariable int id)
+    public ResponseEntity<Member> findMemberById(@PathVariable int id)
             throws ChangeSetPersister.NotFoundException {
         return ResponseEntity.ok(memberService.findById(id));
     }
@@ -49,6 +50,13 @@ public class MemberController {
             throws ChangeSetPersister.NotFoundException {
         return ResponseEntity.ok(memberService.findCustomerDetailByEmail(email));
     }
+
+    @GetMapping("/seller-detail/{email}")
+    public ResponseEntity<SellerDetail> findSellerDetailByEmail(@PathVariable String email)
+            throws ChangeSetPersister.NotFoundException {
+        return ResponseEntity.ok(memberService.findSellerDetailByEmail(email));
+    }
+
 
     @PatchMapping("/grant-permission")
     public ResponseEntity<String> grantPermission

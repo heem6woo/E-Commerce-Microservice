@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -25,59 +27,36 @@ public class ReviewController {
 
 
     // for all
-    @GetMapping("/items/{item-name}")
-    public ResponseEntity<List<Review>> listAllReviewsByItem(@PathVariable(name = "item-name") String itemName) {
+    @GetMapping("/")
+    public ResponseEntity<List<Review>> listAllReviews(@RequestParam(name = "item-name", required = false) String itemName,
+                                                             @RequestParam(name = "customer-email", required = false) String email,
+                                                             @RequestParam(name = "score", required = false, defaultValue = "-1") int score) {
+
+        if(itemName != null && email != null && score != -1) {
+            return ResponseEntity.ok(reviewService.findAllByItemNameEmailScore(itemName,email,score));
+        }
+        if(itemName != null && email != null) {
+            return ResponseEntity.ok(reviewService.findAllByItemNameEmail(itemName,email));
+        }
+        if(itemName != null && score != -1) {
+            return ResponseEntity.ok(reviewService.findAllByItemNameScore(itemName,score));
+        }
+        if(email != null && score != -1) {
+            return ResponseEntity.ok(reviewService.findAllByEmailScore(email,score));
+        }
+        if(itemName != null) {
+            return ResponseEntity.ok(reviewService.findAllByItemName(itemName));
+        }
+        if(email != null) {
+            return ResponseEntity.ok(reviewService.findAllByEmail(email));
+        }
+        if(score != -1) {
+            return ResponseEntity.ok(reviewService.findAllByScore(score));
+        }
+
         //해당 상품의 모든 리뷰 쿼리 findAllByItemId
-        return ResponseEntity.ok(reviewService.findAllByItemName(itemName));
+        return ResponseEntity.ok(null);
     }
-
-
-    // only for admin??
-    @GetMapping("/customers/{email}")
-    public ResponseEntity<List<Review>> listAllReviewsOfCustomer(@PathVariable(name = "email")String userEmail) {
-//         해당 멤버의 모든 리뷰 쿼리 findAllByCustomerId
-        return ResponseEntity.ok(reviewService.findAllByCustomerEmail(userEmail));
-    }
-
-
-    // for customer
-    @GetMapping("/list")
-    public ResponseEntity<List<Review>> listAllReviewsOfCustomer(HttpServletRequest httpServletRequest) {
-        String userEmail = httpServletRequest.getHeader("email");
-        return ResponseEntity.ok(reviewService.findAllByCustomerEmail(userEmail));
-    }
-
-
-    // for customer
-    @PostMapping("/items/{item_name}")
-    public ResponseEntity<String> writeReview(HttpServletRequest httpServletRequest,
-                                              @RequestBody ReviewDto reviewRequest,
-                                              @PathVariable(name = "item_name") String item_name)
-            throws HttpResponseException {
-        String userEmail = httpServletRequest.getHeader("email");
-        return ResponseEntity.ok(reviewService.saveReview(userEmail, item_name,  reviewRequest));
-    }
-
-    // for customer
-    @DeleteMapping("/items/{item_name}")
-    public ResponseEntity<String> deleteReview(HttpServletRequest httpServletRequest,
-                                              @PathVariable(name = "item_name") String item_name) {
-
-        String userEmail = httpServletRequest.getHeader("email");
-
-        return ResponseEntity.ok(reviewService.deleteReview(userEmail, item_name));
-    }
-
-    @PatchMapping("/items/{item_name}")
-    public ResponseEntity<String> updateReview(HttpServletRequest httpServletRequest,
-                                               @RequestBody ReviewDto reviewRequest,
-                                               @PathVariable(name = "item_name") String item_name) {
-
-        String userEmail = httpServletRequest.getHeader("email");
-
-        return ResponseEntity.ok(reviewService.updateReview(userEmail, item_name,  reviewRequest));
-    }
-
 
 
 }

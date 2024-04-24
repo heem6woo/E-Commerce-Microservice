@@ -105,4 +105,38 @@ public class ReviewService {
         reviewRepository.save(review);
         return "Successfully your review updated.";
     }
+
+    public List<Review> findAllByItemNameEmailScore(String itemName, String email, int score) {
+        int customerId = memberFeign.retrieveCustomerId(email).getId();
+        //int itemId = itemFeign.retrieveItemId(itemName);
+        int itemId = 1;
+        return reviewRepository.findAllByItemIdAndCustomerIdAndScore(itemId,customerId,score);
+    }
+
+    public List<Review> findAllByItemNameEmail(String itemName, String email) {
+        int customerId = memberFeign.retrieveCustomerId(email).getId();
+        //int itemId = itemFeign.retrieveItemId(itemName);
+        int itemId = 1;
+        return reviewRepository.findAllByItemIdAndCustomerId(itemId, customerId);
+    }
+
+    public List<Review> findAllByItemNameScore(String itemName, int score) {
+        //int itemId = itemFeign.retrieveItemId(itemName);
+        int itemId = 1;
+        return reviewRepository.findAllByItemIdAndScore(itemId, score);
+    }
+
+    public List<Review> findAllByEmailScore(String email, int score) {
+        int customerId = memberFeign.retrieveCustomerId(email).getId();
+        return reviewRepository.findAllByCustomerIdAndScore(customerId,score);
+    }
+
+    public List<Review> findAllByEmail(String email) {
+        int customerId = memberFeign.retrieveCustomerId(email).getId();
+        return reviewRepository.findAllByCustomerId(customerId);
+    }
+
+    public List<Review> findAllByScore(int score) {
+        return reviewRepository.findAllByScore(score);
+    }
 }

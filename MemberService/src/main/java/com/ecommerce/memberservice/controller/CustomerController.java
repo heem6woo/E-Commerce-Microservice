@@ -42,5 +42,14 @@ public class CustomerController {
 
     }
 
+    @GetMapping("/customer-detail")
+    public ResponseEntity<CustomerDetail> readCustomerDetail(
+            HttpServletRequest request)
+            throws Exception {
+
+        return ResponseEntity.ok(customerDetailService.getCustomerDetailByToken(request));
+
+    }
+
 
 }

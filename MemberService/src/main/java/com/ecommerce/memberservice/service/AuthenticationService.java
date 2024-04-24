@@ -63,7 +63,7 @@ public class AuthenticationService {
         return "Successfully Registered";
     }
 
-    public AuthenticateResponse authenticateCustomer(AuthenticateRequest request) throws ChangeSetPersister.NotFoundException {
+    public AuthenticateResponse authenticate(AuthenticateRequest request) throws ChangeSetPersister.NotFoundException {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -109,14 +109,24 @@ public class AuthenticationService {
             //logger.info(String.valueOf(user));
 
             if (jwtService.isTokenValid(refreshToken, user)) {
-                var accessToken =  jwtService.generateRefreshToken(user);
+                var accessToken =  jwtService.generateAccessToken(user);
 
                 var authResponse = AuthenticateResponse.builder()
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
                         .build();
+                // Create ObjectMapper instance
+                ObjectMapper objectMapper = new ObjectMapper();
 
-                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+                // Serialize the AuthenticateResponse object to JSON
+                String jsonResponse = objectMapper.writeValueAsString(authResponse);
+
+                // Set the content type to JSON in the response
+                response.setContentType("application/json");
+
+                // Write the JSON response to the output stream
+                response.getOutputStream().print(jsonResponse);
+
             }
         }
 

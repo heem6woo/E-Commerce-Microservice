@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
-import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.cloud.gateway.filter.factory.GatewayFilterFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -15,14 +14,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class JwtAuthentication implements GatewayFilterFactory<JwtAuthentication.Config> {
-    private static final String ROLE_KEY = "role";
+public class JwtAuthenticationFilter implements GatewayFilterFactory<JwtAuthenticationFilter.Config> {
+    private static final String ROLE = "role";
+    private static final String TOKEN_TYPE = "tokenType";
 
     private final JwtUtil jwtUtil;
 
@@ -34,6 +35,7 @@ public class JwtAuthentication implements GatewayFilterFactory<JwtAuthentication
     @Data
     public static class Config {
         private String role;
+        private String tokenType;
     }
 
     @Override
@@ -49,6 +51,8 @@ public class JwtAuthentication implements GatewayFilterFactory<JwtAuthentication
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
+
+            //if (routeValidator.isSecured.test(request)) {
             ServerHttpRequest request = exchange.getRequest();
 
             var authHeader = request.getHeaders().getOrEmpty("Authorization").get(0);
@@ -59,61 +63,50 @@ public class JwtAuthentication implements GatewayFilterFactory<JwtAuthentication
 
             String token = authHeader.substring(7);
 
-            log.info("whwhhw");
-            //if (routeValidator.isSecured.test(request)) {
+            if (jwtUtil.isTokenValid(token))
+                return this.onError(exchange, "Token is invalid", HttpStatus.UNAUTHORIZED);
 
-            log.info(token);
-                if (jwtUtil.isTokenValid(token))
-                    return this.onError(exchange, "Token is invalid", HttpStatus.UNAUTHORIZED);
+
+            // access token have to check its role
+            // in case of refresh token, pass to the next step (reissue refresh token or logout)
+            if(config.tokenType == null || config.tokenType.contains("access")) {
+                jwtUtil.isAccessToken(token);
 
                 String role = jwtUtil.extractRole(token);
 
-                log.info(config.role);
-                log.info(role);
-
-                if (!role.contains(config.role)) {
-
+                // if there is an assigned role, check the role from the token and filter's role
+                if (config.role != null && !config.role.contains(role)) {
                     return onError(exchange, "Invalid permission", HttpStatus.UNAUTHORIZED);
                 }
 
-                this.populateRequestWithHeaders(exchange, token);
+            }
 
-                log.info(String.valueOf(exchange.getRequest().getBody()));
+
+            updateRequestWithHeaders(exchange, token);
+            //log.info(exchange.getRequest().getHeaders().getOrEmpty("Authorization").get(0));
             //}
             return chain.filter(exchange);
         };
     }
 
+    // it supports to read fileds that is written in configuration files(YAML, properties)
+    // the name of arguments is assigned in above, role and tokenType
     @Override
     public List<String> shortcutFieldOrder() {
-        return Collections.singletonList(ROLE_KEY);
+        return Arrays.asList(ROLE,TOKEN_TYPE);
     }
 
 
     private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus httpStatus) {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(httpStatus);
+        exchange.getAttributes().put("Error", err);
         return response.setComplete();
     }
 
-    private String getAuthHeader(ServerHttpRequest request) {
-        var header = request.getHeaders().getOrEmpty("Authorization").get(0);
-        return header.replace(TOKEN_PREFIX,"").trim();
-    }
 
-    private boolean isAuthMissing(ServerHttpRequest request) {
-        return !request.getHeaders().containsKey("Authorization");
-    }
-
-    private boolean isPrefixMissing(ServerHttpRequest request) {
-        var header = request.getHeaders().getFirst ("Authorization");
-        assert header != null;
-        return !header.startsWith(TOKEN_PREFIX);
-    }
-
-    private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
+    private void updateRequestWithHeaders(ServerWebExchange exchange, String token) {
         exchange.getRequest().mutate()
-                .header("Autherization", TOKEN_PREFIX + " " + token)
                 .header("email", String.valueOf(jwtUtil.extractUsername(token)))
                 .header("role", String.valueOf(jwtUtil.extractRole(token)))
                 .build();

@@ -93,7 +93,6 @@ public class JwtService {
             claims.put("role", (String) userDetails.getAuthorities().iterator().next().getAuthority());
         }
 
-
         return buildToken(claims, userDetails, accessExpiration);
     }
 

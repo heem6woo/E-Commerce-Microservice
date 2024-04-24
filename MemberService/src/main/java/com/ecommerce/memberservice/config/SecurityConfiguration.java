@@ -49,8 +49,11 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/sellers/**").hasRole(String.valueOf(Role.SELLER))
 
                          */
+                        /*
                         .anyRequest()// any other request required authentication
                         .authenticated()
+
+                         */
                 )
 
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

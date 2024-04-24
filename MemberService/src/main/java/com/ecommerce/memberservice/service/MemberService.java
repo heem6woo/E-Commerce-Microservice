@@ -1,5 +1,6 @@
 package com.ecommerce.memberservice.service;
 
+import com.ecommerce.memberservice.dto.CustomerDto;
 import com.ecommerce.memberservice.entity.Member;
 import com.ecommerce.memberservice.entity.CustomerDetail;
 import com.ecommerce.memberservice.repo.CustomerDetailRepository;
@@ -80,6 +81,12 @@ public class MemberService {
 
         return findByEmail(customerEmail);
 
+    }
+
+    public CustomerDto findCustomerIdByEmail(String email) throws ChangeSetPersister.NotFoundException {
+        return CustomerDto.builder()
+                        .id(findByEmail(email).getId())
+                        .build();
     }
 
 

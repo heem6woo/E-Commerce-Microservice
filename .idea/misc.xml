@@ -6,6 +6,7 @@
     <file type="web" url="file://$PROJECT_DIR$/login" />
     <file type="web" url="file://$PROJECT_DIR$/MemberService" />
     <file type="web" url="file://$PROJECT_DIR$/NamingServer" />
+    <file type="web" url="file://$PROJECT_DIR$/ReviewService" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="temurin-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

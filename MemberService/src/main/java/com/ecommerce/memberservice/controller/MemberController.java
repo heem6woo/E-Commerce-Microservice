@@ -1,5 +1,6 @@
 package com.ecommerce.memberservice.controller;
 
+import com.ecommerce.memberservice.dto.CustomerDto;
 import com.ecommerce.memberservice.entity.CustomerDetail;
 import com.ecommerce.memberservice.entity.Member;
 import com.ecommerce.memberservice.service.AuthenticationService;
@@ -28,10 +29,16 @@ public class MemberController {
         return ResponseEntity.ok(memberService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Member> findCustomerById(@PathVariable int id)
             throws ChangeSetPersister.NotFoundException {
         return ResponseEntity.ok(memberService.findById(id));
+    }
+
+    @GetMapping("/email/{email}")
+    public CustomerDto findCustomerIdByEmail(@PathVariable String email)
+            throws ChangeSetPersister.NotFoundException {
+        return memberService.findCustomerIdByEmail(email);
     }
 
     @GetMapping("/customer-detail/{email}")

@@ -7,6 +7,7 @@ import com.ecommerce.reviewservice.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.client.HttpResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
 @Slf4j
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reviews")
 public class ReviewController {
 
-    @Autowired
     private final ReviewService reviewService;
 
 
@@ -43,25 +43,41 @@ public class ReviewController {
     // for customer
     @GetMapping("/list")
     public ResponseEntity<List<Review>> listAllReviewsOfCustomer(HttpServletRequest httpServletRequest) {
-//         멤버 서비스에 rest로 멤버 아이디 요청
-        log.info(httpServletRequest.getHeader("Authorization"));
-        log.info(httpServletRequest.getHeader("email"));
         String userEmail = httpServletRequest.getHeader("email");
-//         해당 멤버의 모든 리뷰 쿼리 findAllByCustomerId
         return ResponseEntity.ok(reviewService.findAllByCustomerEmail(userEmail));
     }
 
 
     // for customer
-    @PostMapping("/item/{item_name}")
+    @PostMapping("/items/{item_name}")
     public ResponseEntity<String> writeReview(HttpServletRequest httpServletRequest,
                                               @RequestBody ReviewDto reviewRequest,
+                                              @PathVariable(name = "item_name") String item_name)
+            throws HttpResponseException {
+        String userEmail = httpServletRequest.getHeader("email");
+        return ResponseEntity.ok(reviewService.saveReview(userEmail, item_name,  reviewRequest));
+    }
+
+    // for customer
+    @DeleteMapping("/items/{item_name}")
+    public ResponseEntity<String> deleteReview(HttpServletRequest httpServletRequest,
                                               @PathVariable(name = "item_name") String item_name) {
 
         String userEmail = httpServletRequest.getHeader("email");
 
-        return ResponseEntity.ok(reviewService.saveReview(userEmail, item_name,  reviewRequest));
+        return ResponseEntity.ok(reviewService.deleteReview(userEmail, item_name));
     }
+
+    @PatchMapping("/items/{item_name}")
+    public ResponseEntity<String> updateReview(HttpServletRequest httpServletRequest,
+                                               @RequestBody ReviewDto reviewRequest,
+                                               @PathVariable(name = "item_name") String item_name) {
+
+        String userEmail = httpServletRequest.getHeader("email");
+
+        return ResponseEntity.ok(reviewService.updateReview(userEmail, item_name,  reviewRequest));
+    }
+
 
 
 }

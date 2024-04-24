@@ -6,13 +6,9 @@ import java.sql.Timestamp;
 @Data
 public class ReviewDto {
 
-    private int userId;
-
-    private int itemId;
-
     private String contains;
 
     private Timestamp date;
 
-    private int Score;
+    private int score;
 }

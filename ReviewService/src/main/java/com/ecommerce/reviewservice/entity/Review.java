@@ -1,12 +1,14 @@
 package com.ecommerce.reviewservice.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
 
 @Entity
 @Data
+@Builder
 @Table(name = "review")
 public class Review {
 
@@ -28,7 +30,7 @@ public class Review {
     private Timestamp date;
 
     @Column(name = "score")
-    private int Score;
+    private int score;
 
     // referenced from ItemService...entity.Item written by ooANAoo
     @PrePersist

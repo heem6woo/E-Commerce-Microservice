@@ -13,7 +13,7 @@ import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class PasswordController {
 
     private final AuthenticationService authenticationService;

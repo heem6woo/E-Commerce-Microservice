@@ -7,7 +7,9 @@ import com.ecommerce.memberservice.service.AuthenticationService;
 import com.ecommerce.memberservice.service.CustomerDetailService;
 import com.ecommerce.memberservice.service.MemberService;
 import com.ecommerce.memberservice.vo.ChangePermissionRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/members")
+@RequestMapping("/api/members")
 public class MemberController {
 
     private final MemberService memberService;
@@ -36,7 +39,7 @@ public class MemberController {
     }
 
     @GetMapping("/email/{email}")
-    public CustomerDto findCustomerIdByEmail(@PathVariable String email)
+    public CustomerDto findCustomerIdByEmail(@PathVariable String email, HttpServletRequest request)
             throws ChangeSetPersister.NotFoundException {
         return memberService.findCustomerIdByEmail(email);
     }

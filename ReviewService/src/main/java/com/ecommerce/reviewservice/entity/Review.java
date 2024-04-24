@@ -1,14 +1,15 @@
 package com.ecommerce.reviewservice.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @Entity
 @Data
 @Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "review")
 public class Review {
 

@@ -72,24 +72,21 @@ public class ItemService {
     }
 
     @Transactional
-    public Item patchItem(ItemDTO item, int index) {
+    public Item patchItem(int itemId, Map<String,String> update) {
         // apply specific changes from updates map to item
-        Item item1 = entityManager.find(Item.class, item.getItemValues().getItemId());
-        switch (index){
-            case 1:
-                item1.setItemName(item.getItemValues().getItemName());
-                break;
-            case 2:
-                item1.setItemDescription(item.getItemValues().getItemDescription());
-                break;
-            case 3:
-                item1.setCategory(entityManager.getReference(Category.class, item.getCategoryId()));
-                break;
-            default:
-                break;
-
+        Item item1 = entityManager.find(Item.class, itemId);
+        String name = update.get("name");
+        if(name != null){
+            item1.setItemName(name);
         }
-
+        String description = update.get("description");
+        if(description != null){
+            item1.setItemDescription(description);
+        }
+        String category = update.get("category");
+        if(category != null){
+            item1.setCategory(entityManager.getReference(Category.class, itemId));
+        }
         return item1;
     }
 

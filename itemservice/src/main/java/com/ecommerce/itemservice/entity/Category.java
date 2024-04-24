@@ -19,8 +19,11 @@ public class Category {
 
     @Column(name = "CATEGORY_NAME", nullable = false, length = 50)
     private String categoryName;
-
-    public Category(short categoryId) {
+    public Category() {
+    }
+    public Category(short categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
 
     // standard getters and setters

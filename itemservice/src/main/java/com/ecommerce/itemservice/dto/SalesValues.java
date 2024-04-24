@@ -1,22 +1,25 @@
 package com.ecommerce.itemservice.dto;
 
-
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
-@Setter
-@Builder
+@NoArgsConstructor
 public class SalesValues {
-    private int salesId;     // Assuming `salesInfoId` in the entity is a Long
-    private int sellerId; // Wrapper class to match Integer type
+    private int salesId;
+    private int sellerId;
     private int itemCount;
     private int itemPrice;
-    private Byte itemStatus;  // Using Byte to match the entity
+    private Byte itemStatus;
 
-    // Updated constructor to match the entity's data types
-    public SalesValues(int salesId, int sellerId, int itemCount, int itemPrice, Byte itemStatus) {
+    @JsonCreator
+    public SalesValues(@JsonProperty("salesId") int salesId,
+                       @JsonProperty("sellerId") int sellerId,
+                       @JsonProperty("itemCount") int itemCount,
+                       @JsonProperty("itemPrice") int itemPrice,
+                       @JsonProperty("itemStatus") Byte itemStatus) {
         this.salesId = salesId;
         this.sellerId = sellerId;
         this.itemCount = itemCount;
@@ -24,4 +27,3 @@ public class SalesValues {
         this.itemStatus = itemStatus;
     }
 }
-

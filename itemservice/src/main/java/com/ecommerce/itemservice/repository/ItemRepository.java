@@ -14,8 +14,6 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
     @Transactional
     @Modifying
     @Query("UPDATE Item i SET i.itemName = :itemName, i.itemDescription = :itemDescription, i.category = :category WHERE i.itemId = :itemId")
-    void updateItem(ItemDTO itemDTO);
-
     ItemDTO updateItem(@Param("itemId") Long itemId,
                        @Param("itemName") String itemName,
                        @Param("itemDescription") String itemDescription,

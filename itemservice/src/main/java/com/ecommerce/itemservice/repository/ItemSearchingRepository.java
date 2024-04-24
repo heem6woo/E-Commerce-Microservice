@@ -15,7 +15,7 @@ public interface ItemSearchingRepository extends JpaRepository<Item, Integer> {
             "FROM Item i " +
             "JOIN i.category c " +
             "JOIN i.salesInfo s ";
-    String whereName = "WHERE i.itemName LIKE concat('%', :name, '%')";
+    String whereName = "WHERE i.itemName LIKE concat('%', :name, '%') ";
 
     @Query( joinQuery+
             whereName)
@@ -34,14 +34,14 @@ public interface ItemSearchingRepository extends JpaRepository<Item, Integer> {
     List<ItemDTO> findItemsByNameLikeAndSameCatMin(@Param("name") String name,@Param("catId") short catId ,@Param("minPrice")int minPrice);
 
     @Query(joinQuery+
-            whereName +
+            whereName+
             "AND c.categoryId = :catId "+
             "AND s.itemPrice >= :minPrice "+
             "AND s.itemPrice <= :maxPrice"
     )
     List<ItemDTO> findItemsByNameLikeAndSameCatMinMax(@Param("name") String name,@Param("catId") short catId,@Param("minPrice")int minPrice,@Param("maxPrice")int maxPrice );
     @Query(joinQuery+
-            whereName+
+            "WHERE c.categoryId = :catId "+
             "AND s.itemPrice >= :minPrice "+
             "AND s.itemPrice <= :maxPrice"
     )

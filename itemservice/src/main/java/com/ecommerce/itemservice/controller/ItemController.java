@@ -25,25 +25,25 @@ public class ItemController {
     }
 
     // Create a list of items
-    @PostMapping("/")
+    @PostMapping("/list")
     public List<ItemDTO> createItems(@RequestBody List<ItemDTO> itemDTOs) {
         return itemService.createItems(itemDTOs);
     }
 
     // Update a specific item
-    @PutMapping("/")
-    public ItemDTO updateItem(@RequestBody ItemDTO itemDTO) {
+    @PutMapping("/{itemId}")
+    public ItemDTO updateItem(@PathVariable int itemId,@RequestBody ItemDTO itemDTO) {
         return itemService.updateItem(itemDTO);
     }
 
     // Patch a specific item
-    @PatchMapping("/")
-    public Item patchItem(@RequestBody ItemDTO item, @RequestBody Integer index) {
-        return itemService.patchItem(item, index);
+    @PatchMapping("/{itemId}")
+    public Item patchItem(@PathVariable int itemId, @RequestBody Map<String, String> updates) {
+        return itemService.patchItem(itemId, updates);
     }
 
     // Delete a specific item
-    @DeleteMapping("/")
+    @DeleteMapping("/{itemId}")
     public void deleteItem(@PathVariable int itemId) {
         itemService.deleteItem(itemId);
     }

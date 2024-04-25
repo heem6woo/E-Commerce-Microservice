@@ -29,5 +29,5 @@ SellerLogin/src/main/resources/application.yml
 .idea
 
 # itemservice yml
-itemservice/src/main/resources/application.yml
+
 

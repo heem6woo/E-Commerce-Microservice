@@ -22,3 +22,20 @@ Authorization: Bearer {{auth-token}}
 ###
 GET http://localhost:8765/api/reviews/?customer-email=heem6woo@gmail.com&score=3
 Authorization: Bearer {{auth-token}}
+
+###
+GET http://localhost:8765/api/reviews/?customer-email=heem6woo@gmail.com
+Authorization: Bearer {{auth-token}}
+
+###
+GET http://localhost:8765/api/reviews/?customer-email=heem6woo@gmail.com&score=3
+Authorization: Bearer {{auth-token}}
+
+
+###
+GET http://localhost:8765/api/reviews/?customer-email=heem6woo@gmail.com&item-name=T-shirt
+Authorization: Bearer {{auth-token}}
+
+###
+GET http://localhost:8765/api/item-search/?item-name=T-shirt&min-price=1&max-price=1000000
+Authorization: Bearer {{auth-token}}

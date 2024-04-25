@@ -2,14 +2,11 @@ package com.ecommerce.memberservice.service;
 
 import com.ecommerce.memberservice.entity.Member;
 import com.ecommerce.memberservice.entity.CustomerDetail;
-import com.ecommerce.memberservice.repo.CustomerDetailRepository;
+import com.ecommerce.memberservice.repository.CustomerDetailRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-
-import javax.naming.AuthenticationNotSupportedException;
 
 @Service
 @RequiredArgsConstructor

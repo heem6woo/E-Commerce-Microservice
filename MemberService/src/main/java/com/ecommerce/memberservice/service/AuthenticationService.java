@@ -156,17 +156,20 @@ public class AuthenticationService {
 
 
     // Only Admin Member can access to this
-    public String grantPermission(ChangePermissionRequest request, Principal connectedUser)
+    public String grantPermission(HttpServletRequest httpRequest, ChangePermissionRequest request)
             throws ChangeSetPersister.NotFoundException {
         //var member = (Member) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         // extract member from the principal (passed from  jwt filter)
-        var adminMember = (Member) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        Optional<Member> adminMember = memberRepository.findByEmail(httpRequest.getHeader("email"));
 
         log.info(adminMember.toString());
+        if(adminMember.isEmpty()){
+            throw new IllegalStateException("Not Found");
+        }
 
         // 저장된 패스워드와 유저가 기입한 패스워드 비교
-        if (!passwordEncoder.matches(request.getPassword(), adminMember.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), adminMember.get().getPassword())) {
             throw new IllegalStateException("Wrong Password!");
         }
 

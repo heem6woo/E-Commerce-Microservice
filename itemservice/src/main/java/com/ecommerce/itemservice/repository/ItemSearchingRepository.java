@@ -9,12 +9,13 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ItemSearchingRepository extends JpaRepository<Item, Integer> {
-    String joinQuery = "SELECT new com.ecommerce.itemservice.dto.ItemDTO(" +
-            "new com.ecommerce.itemservice.dto.ItemValues(i.itemId, c.categoryId, i.itemName, i.regDt), " +
-            "new com.ecommerce.itemservice.dto.SalesValues(s.salesInfoId, s.sellerId, s.itemCount, s.itemPrice, s.itemStatus)) " +
-            "FROM Item i " +
-            "JOIN i.category c " +
-            "JOIN i.salesInfo s ";
+    String joinQuery = "SELECT new com.ecommerce.itemservice.dto.ItemDTO(\n" +
+            "  new com.ecommerce.itemservice.dto.ItemValues(i.itemId, c.categoryId, i.itemName, i.itemDescription, i.regDt),\n" +
+            "  new com.ecommerce.itemservice.dto.SalesValues(s.salesInfoId, s.sellerId, i.itemId, s.itemCount, s.itemPrice, s.itemStatus)\n" +
+            ")\n" +
+            "FROM Item i\n" +
+            "JOIN i.category c\n" +
+            "JOIN i.salesInfos s\n";
     String whereName = "WHERE i.itemName LIKE concat('%', :name, '%') ";
 
     @Query( joinQuery+

@@ -1,15 +1,17 @@
 package com.ecommerce.itemservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "CATEGORY_TB")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
 
     @Id
@@ -19,12 +21,7 @@ public class Category {
 
     @Column(name = "CATEGORY_NAME", nullable = false, length = 50)
     private String categoryName;
-    public Category() {
-    }
-    public Category(short categoryId, String categoryName) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-    }
+
 
     // standard getters and setters
 }

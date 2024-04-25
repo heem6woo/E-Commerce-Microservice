@@ -1,22 +1,27 @@
 package com.ecommerce.itemservice.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "SALES_INFO_TB")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-
 public class SalesInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SALES_INFO_ID")
     private int salesInfoId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ITEM_ID", nullable = false)
+    private Item item;  // Item 엔티티 참조
 
     @Column(name = "SELLER_ID", nullable = false)
     private Integer sellerId;

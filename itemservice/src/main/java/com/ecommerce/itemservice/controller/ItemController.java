@@ -12,39 +12,39 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/items")
+@RequestMapping("api/items/*")
 public class ItemController {
 
     @Autowired
     private ItemService itemService;
 
     // Create a single item
-    @PostMapping("/")
+    @PostMapping("")
     public ItemDTO createItem(@RequestBody ItemDTO itemDTO) {
         return itemService.createItem(itemDTO);
     }
 
     // Create a list of items
-    @PostMapping("/list")
+    @PostMapping("list")
     public List<ItemDTO> createItems(@RequestBody List<ItemDTO> itemDTOs) {
         return itemService.createItems(itemDTOs);
     }
 
     // Update a specific item
-    @PutMapping("/{itemId}")
-    public ItemDTO updateItem(@PathVariable int itemId,@RequestBody ItemDTO itemDTO) {
+    @PutMapping("{itemId}")
+    public ItemDTO updateItem(@PathVariable("itemId") int itemId,@RequestBody ItemDTO itemDTO) {
         return itemService.updateItem(itemDTO);
     }
 
     // Patch a specific item
-    @PatchMapping("/{itemId}")
-    public Item patchItem(@PathVariable int itemId, @RequestBody Map<String, String> updates) {
+    @PatchMapping("{itemId}")
+    public Item patchItem(@PathVariable("itemId") int itemId, @RequestBody Map<String, String> updates) {
         return itemService.patchItem(itemId, updates);
     }
 
     // Delete a specific item
-    @DeleteMapping("/{itemId}")
-    public void deleteItem(@PathVariable int itemId) {
+    @DeleteMapping("{itemId}")
+    public void deleteItem(@PathVariable("itemId") int itemId) {
         itemService.deleteItem(itemId);
     }
 }

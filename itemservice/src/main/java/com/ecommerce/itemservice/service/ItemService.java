@@ -1,6 +1,8 @@
 package com.ecommerce.itemservice.service;
 
 import com.ecommerce.itemservice.dto.ItemDTO;
+import com.ecommerce.itemservice.dto.ItemValues;
+import com.ecommerce.itemservice.dto.SalesValues;
 import com.ecommerce.itemservice.entity.Category;
 import com.ecommerce.itemservice.entity.Item;
 import com.ecommerce.itemservice.entity.SalesInfo;
@@ -28,27 +30,30 @@ public class ItemService {
 
     @Transactional
     public ItemDTO createItem(ItemDTO itemDTO) {
+        Item item = null;
+        SalesInfo salesInfo = null;
         try {
-            SalesInfo salesInfo = SalesInfo.builder()
-                    .sellerId(itemDTO.getSalesValues().getSellerId())
-                    .itemCount(itemDTO.getSalesValues().getItemCount())
-                    .itemPrice(itemDTO.getSalesValues().getItemPrice())
-                    .itemStatus(itemDTO.getSalesValues().getItemStatus())
-                    .build();
-            salesInfo = salesInfoRepository.save(salesInfo);
-
+            try {
+                item = Item.builder()
+                        .itemName(itemDTO.getItemValues().getItemName())
+                        .itemDescription(itemDTO.getItemValues().getItemDescription())
+                        .category(entityManager.getReference(Category.class, itemDTO.getItemValues().getCategory())) // You need to handle Category creation or lookup
+                        .build();
+                item = itemRepository.save(item);
+            }finally {
+                System.out.println("아이디" + item.getItemId());
+                salesInfo = SalesInfo.builder()
+                        .sellerId(itemDTO.getSalesValues().getSellerId())
+                        .item(entityManager.getReference(Item.class, item.getItemId()))
+                        .itemCount(itemDTO.getSalesValues().getItemCount())
+                        .itemPrice(itemDTO.getSalesValues().getItemPrice())
+                        .itemStatus(itemDTO.getSalesValues().getItemStatus())
+                        .build();
+                salesInfo = salesInfoRepository.save(salesInfo);
+            }
             // Create and save the Item entity from itemDTO
-            Item item = Item.builder()
-                    .itemName(itemDTO.getItemValues().getItemName())
-                    .itemDescription(itemDTO.getItemValues().getItemDescription())
-                    .regDt(itemDTO.getItemValues().getReq_Dt())
-                    .category(entityManager.getReference(Category.class, itemDTO.getCategoryId())) // You need to handle Category creation or lookup
-                    .salesInfo(salesInfo)
-                    .build();
-            itemRepository.save(item);
-
         } finally {
-            return itemDTO;
+            return toItemDTO(item,salesInfo);
         }
         // Create and save the SalesInfo entity from itemDTO
        }
@@ -68,16 +73,18 @@ public class ItemService {
         return itemRepository.updateItem(itemDTO.getItemValues().getItemId(),
                 itemDTO.getItemValues().getItemName(),
                 itemDTO.getItemValues().getItemDescription(),
-                entityManager.getReference(Category.class, itemDTO.getCategoryId()));
+                entityManager.getReference(Category.class, itemDTO.getItemValues().getCategory()));
     }
 
     @Transactional
     public Item patchItem(int itemId, Map<String,String> update) {
+        System.out.println("fkfkfkfk");
         // apply specific changes from updates map to item
         Item item1 = entityManager.find(Item.class, itemId);
         String name = update.get("name");
         if(name != null){
             item1.setItemName(name);
+            System.out.println("adadad");
         }
         String description = update.get("description");
         if(description != null){
@@ -87,12 +94,38 @@ public class ItemService {
         if(category != null){
             item1.setCategory(entityManager.getReference(Category.class, itemId));
         }
-        return item1;
+        return itemRepository.save(item1);
     }
 
     @Transactional
     public void deleteItem(int itemId) {
-        Item item = entityManager.getReference(Item.class, itemId);
-        itemRepository.delete(item);
+        System.out.println("qwerasdf"+itemId);
+        itemRepository.deleteById(itemId);
+    }
+
+    public ItemDTO toItemDTO(Item item,SalesInfo salesInfo) {
+        if (item == null) {
+            return null;
+        }
+        if(salesInfo == null){
+            return null;
+        }
+
+        ItemValues itemValues = ItemValues.builder()
+                .itemId(item.getItemId())
+                .category(item.getCategory().getCategoryId()) // Assuming Category entity has an getId() method.
+                .itemName(item.getItemName())
+                .itemDescription(item.getItemDescription())
+                .req_Dt(item.getRegDt())
+                .build();
+
+        SalesValues salesValues = SalesValues.builder()
+                .salesId(salesInfo.getSalesInfoId()) // Assuming SalesInfo has a getSalesId() method.
+                .sellerId(salesInfo.getSellerId()) // Assuming SalesInfo has a getSellerId() method.
+                .itemCount(salesInfo.getItemCount()) // Assuming SalesInfo has a getItemCount() method.
+                .itemPrice(salesInfo.getItemPrice()) // Assuming SalesInfo has a getItemPrice() method.
+                .itemStatus(salesInfo.getItemStatus()) // Assuming SalesInfo has a getItemStatus() method.
+                .build();
+        return new ItemDTO(itemValues, salesValues);
     }
 }

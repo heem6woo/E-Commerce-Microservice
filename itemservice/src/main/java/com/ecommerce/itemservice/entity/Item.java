@@ -2,18 +2,19 @@ package com.ecommerce.itemservice.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ITEM_TB")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-
 public class Item {
 
     @Id
@@ -25,9 +26,8 @@ public class Item {
     @JoinColumn(name = "CATEGORY_ID", nullable = false)
     private Category category;
 
-    @ManyToOne
-    @JoinColumn(name = "SALES_INFO_ID", nullable = false)
-    private SalesInfo salesInfo;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<SalesInfo> salesInfos = new ArrayList<>();
 
     @Column(name = "ITEM_NAME", nullable = false, length = 50)
     private String itemName;

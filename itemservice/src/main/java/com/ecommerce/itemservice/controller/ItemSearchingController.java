@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/items/searching")
+@RequestMapping("api/item-search")
 public class ItemSearchingController {
     @Autowired
     private ItemSearchingService itemService;

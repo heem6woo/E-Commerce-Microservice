@@ -27,9 +27,7 @@ replay_pid*
 SellerLogin/src/main/resources/application.yml
 
 .idea
-*.yml
-*.yml
-*.yml
+
+# itemservice yml
 itemservice/src/main/resources/application.yml
-*.yml
-*.yml
+

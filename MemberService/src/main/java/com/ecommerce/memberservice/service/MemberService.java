@@ -3,8 +3,10 @@ package com.ecommerce.memberservice.service;
 import com.ecommerce.memberservice.dto.CustomerDto;
 import com.ecommerce.memberservice.entity.Member;
 import com.ecommerce.memberservice.entity.CustomerDetail;
+import com.ecommerce.memberservice.entity.SellerDetail;
 import com.ecommerce.memberservice.repo.CustomerDetailRepository;
 import com.ecommerce.memberservice.repo.MemberRepository;
+import com.ecommerce.memberservice.repo.SellerDetailRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -29,6 +31,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     private final CustomerDetailRepository customerDetailRepository;
+
+    private final SellerDetailRepository sellerDetailRepository;
 
     private final JwtService jwtService;
 
@@ -61,11 +65,19 @@ public class MemberService {
     }
 
 
-    public CustomerDetail findCustomerDetailByEmail(String email) throws ChangeSetPersister.NotFoundException {
+    public CustomerDetail findCustomerDetailByEmail(String email)
+            throws ChangeSetPersister.NotFoundException {
 
         Member found = findByEmail(email);
 
         return customerDetailRepository.findByMemberId(found.getId());
+    }
+
+    public SellerDetail findSellerDetailByEmail(String email)
+            throws ChangeSetPersister.NotFoundException {
+
+        Member found = findByEmail(email);
+        return sellerDetailRepository.findByMemberId(found.getId());
     }
 
     public Member findByToken(HttpServletRequest request)

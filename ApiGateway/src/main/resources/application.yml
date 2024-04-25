@@ -1,0 +1,116 @@
+server:
+  port: 8765
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        #
+        # MEMBER SERVICE ROUTES POLICIES
+        #
+        - id: auth-route
+          uri: lb://MEMBER-SERVICE #http://localhost:8080  service's name on load balancer
+          predicates:
+            - Path=/api/auth/** # path for filters
+          filters:
+
+        - id: reissue-route
+          uri: lb://MEMBER-SERVICE #http://localhost:8080  service's name on load balancer
+          predicates:
+            - Path=/api/auth/access-token
+          filters:
+            - name: JwtAuthenticationFilter
+              args:
+                role:
+                tokenType: refresh
+
+        - id: logout-route
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/logout
+          filters:
+            - name: JwtAuthenticationFilter
+              args:
+                role:
+                tokenType: refresh
+
+        - id: change-password-route
+          uri: lb://MEMBER-SERVICE #http://localhost:8080
+          predicates:
+            - Path=/api/change-password
+          filters:
+            - JwtAuthenticationFilter=
+        - id: customer-route
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/customers/**
+          filters:
+            - JwtAuthenticationFilter=ROLE_CUSTOMER
+        - id: seller-route
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/sellers/**
+
+          filters:
+            JwtAuthenticationFilter=ROLE_SELLER
+
+        - id: admin-route
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/members/**
+          filters:
+            JwtAuthenticationFilter=ROLE_ADMIN
+
+        - id: member-id-route
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/members/email/{email}
+          filters:
+            JwtAuthenticationFilter
+
+        #
+        # REVIEW SERVICE ROUTES POLICIES
+        #
+
+        - id: review-route
+          uri: lb://REVIEW-SERVICE
+          predicates:
+            - Path=/api/reviews/**
+          filters:
+            JwtAuthenticationFilter
+
+
+        #
+        # ITEM SERVICE ROUTES POLICIES
+        #
+
+
+application:
+  security:
+    jwt:
+      pre-fix: Bearer
+      secret-key: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
+      access-token:
+        expiration: 1800000
+        # 1000(milli) * 60 (second) * 30(minute) = 30 minutes
+      refresh-token:
+        expiration: 604800000
+
+#Eureka
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+
+#
+# Spring Cloud Gateway
+#
+

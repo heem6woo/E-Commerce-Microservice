@@ -7,6 +7,8 @@ plugins {
 group = 'com.ecommerce'
 version = '0.0.1-SNAPSHOT'
 
+
+
 java {
 	sourceCompatibility = '17'
 }
@@ -16,6 +18,10 @@ compileJava {
 repositories {
 	mavenCentral()
 }
+ext {
+	set('springCloudVersion', "2023.0.1")
+}
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
@@ -23,6 +29,7 @@ dependencies {
 	implementation 'junit:junit:4.13.1'
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.springframework.boot:spring-boot-starter-test'
+
 	implementation "org.assertj:assertj-core:3.24.2"
 	// JWT
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -48,11 +55,21 @@ dependencies {
 	// Database Drivers
 	runtimeOnly 'mysql:mysql-connector-java:8.0.32'
 	runtimeOnly 'com.h2database:h2'
+	// Spring Cloud
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
 	implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
 
 	//Redis cache
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 tasks.named('test') {

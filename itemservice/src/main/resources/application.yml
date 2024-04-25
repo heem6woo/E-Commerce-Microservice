@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: item-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://wittdbreal.chr10oalkvb3.ap-northeast-2.rds.amazonaws.com:3306/ITEMSERVICE
@@ -24,6 +26,13 @@ spring:
     level:
       org.hibernate.SQL: debug
 
+
+# Ereka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
 # ?? ?? ??
 server:
-  port: 8080
+  port: 8100

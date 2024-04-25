@@ -60,9 +60,9 @@ public class MemberController {
 
     @PatchMapping("/grant-permission")
     public ResponseEntity<String> grantPermission
-            (@RequestBody ChangePermissionRequest changePermissionRequest, Principal admin)
+            (HttpServletRequest request, @RequestBody ChangePermissionRequest changePermissionRequest)
             throws ChangeSetPersister.NotFoundException {
-        return ResponseEntity.ok(authenticationService.grantPermission(changePermissionRequest, admin));
+        return ResponseEntity.ok(authenticationService.grantPermission(request, changePermissionRequest));
     }
 
 

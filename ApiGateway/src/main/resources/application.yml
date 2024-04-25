@@ -90,6 +90,22 @@ spring:
         # ITEM SERVICE ROUTES POLICIES
         #
 
+        - id: item-route
+          uri: lb://ITEM-SERVICE
+          predicates:
+            - Path=/api/items/**
+          filters:
+            JwtAuthenticationFilter
+
+        - id: item-search-route
+          uri: lb://ITEM-SERVICE
+          predicates:
+            - Path=/api/item-search/**
+          filters:
+            JwtAuthenticationFilter
+
+
+
 
 application:
   security:

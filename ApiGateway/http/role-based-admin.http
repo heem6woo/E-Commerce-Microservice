@@ -1,6 +1,6 @@
 
 ### Register User
-POST http://localhost:8765/api/v1/auth/register
+POST http://localhost:8765/api/auth/register
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
   "role":  "CUSTOMER"
 }
 ### Register User
-POST http://localhost:8765/api/v1/auth/register
+POST http://localhost:8765/api/auth/register
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### Query the Demo endpoint
-POST http://localhost:8765/api/v1/auth/authenticate
+POST http://localhost:8765/api/auth/authenticate
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ Content-Type: application/json
     client.global.set("admin-refresh-token", response.body.refreshToken);%}
 
 ### Query the Demo endpoint
-POST http://localhost:8765/api/v1/auth/authenticate
+POST http://localhost:8765/api/auth/authenticate
 Content-Type: application/json
 
 {
@@ -44,11 +44,11 @@ Content-Type: application/json
 
 
 ### Query the ADMIN Demo endpoint
-GET http://localhost:8765/api/v1/members
+GET http://localhost:8765/api/members
 Authorization: Bearer {{admin-auth-token}}
 
 ###
-GET http://localhost:8765/api/v1/members
+GET http://localhost:8765/api/members
 Authorization: Bearer {{customer-auth-token}}
 
 

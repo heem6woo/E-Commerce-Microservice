@@ -1,5 +1,5 @@
 ### Query the Demo endpoint
-POST http://localhost:8765/api/v1/auth/authenticate
+POST http://localhost:8765/api/auth/authenticate
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
     client.global.set("admin-refresh-token", response.body.refreshToken);%}
 
 ### Register User
-POST http://localhost:8765/api/v1/auth/register
+POST http://localhost:8765/api/auth/register
 Content-Type: application/json
 
 {
@@ -21,11 +21,11 @@ Content-Type: application/json
 }
 
 ### Query the ADMIN Demo endpoint
-GET http://localhost:8765/api/v1/members
+GET http://localhost:8765/api/members
 Authorization: Bearer {{admin-auth-token}}
 
 ### Query the ADMIN Demo endpoint
-PATCH http://localhost:8765/api/v1/members/grant-permission
+PATCH http://localhost:8765/api/members/grant-permission
 Authorization: Bearer {{admin-auth-token}}
 Content-Type: application/json
 
@@ -37,7 +37,7 @@ Content-Type: application/json
 
 
 ### Login with 아무개
-POST http://localhost:8765/api/v1/auth/authenticate
+POST http://localhost:8765/api/auth/authenticate
 Content-Type: application/json
 
 {
@@ -49,7 +49,7 @@ Content-Type: application/json
 
 
 ### Query the ADMIN Demo endpoint
-GET http://localhost:8765/api/v1/members
+GET http://localhost:8765/api/members
 Authorization: Bearer {{auth-token}}
 
 

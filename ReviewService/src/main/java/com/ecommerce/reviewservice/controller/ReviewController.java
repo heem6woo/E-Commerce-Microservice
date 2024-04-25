@@ -42,6 +42,7 @@ public class ReviewController {
             return ResponseEntity.ok(reviewService.findAllByItemNameScore(itemName,score));
         }
         if(email != null && score != -1) {
+            log.info("Score and email");
             return ResponseEntity.ok(reviewService.findAllByEmailScore(email,score));
         }
         if(itemName != null) {

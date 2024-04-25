@@ -20,5 +20,5 @@ GET http://localhost:8765/api/reviews/?score=3
 Authorization: Bearer {{auth-token}}
 
 ###
-GET http://localhost:8765/api/reviews/?customer-email=heem6woo@gmail.com&?score=3
+GET http://localhost:8765/api/reviews/?customer-email=heem6woo@gmail.com&score=3
 Authorization: Bearer {{auth-token}}

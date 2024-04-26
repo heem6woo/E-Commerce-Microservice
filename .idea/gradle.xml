@@ -1,32 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-<<<<<<< HEAD
-=======
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/ApiGateway" />
-        <option name="gradleJvm" value="corretto-21" />
->>>>>>> 7953334069246a11ccf6b45749b5514673e25334
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-<<<<<<< HEAD
-        <option name="externalProjectPath" value="$PROJECT_DIR$/ApiGateway" />
-        <option name="gradleJvm" value="temurin-17" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/ApiGateway" />
@@ -34,10 +11,15 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-=======
->>>>>>> 7953334069246a11ccf6b45749b5514673e25334
+        <option name="externalProjectPath" value="$PROJECT_DIR$/MemberService" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/MemberService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/NamingServer" />
-        <option name="gradleJvm" value="corretto-21" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/NamingServer" />
@@ -46,7 +28,6 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/OrderService" />
-        <option name="gradleJvm" value="corretto-21" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/OrderService" />
@@ -55,7 +36,6 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/ReviewService" />
-        <option name="gradleJvm" value="corretto-21" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/ReviewService" />
@@ -64,10 +44,6 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/itemservice" />
-<<<<<<< HEAD
-=======
-        <option name="gradleJvm" value="corretto-17" />
->>>>>>> 7953334069246a11ccf6b45749b5514673e25334
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/itemservice" />
@@ -75,6 +51,5 @@
         </option>
       </GradleProjectSettings>
     </option>
-    <option name="offlineMode" value="true" />
   </component>
 </project>

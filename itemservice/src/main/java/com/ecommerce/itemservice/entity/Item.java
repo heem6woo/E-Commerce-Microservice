@@ -26,7 +26,7 @@ public class Item {
     @JoinColumn(name = "CATEGORY_ID", nullable = false)
     private Category category;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
     private List<SalesInfo> salesInfos = new ArrayList<>();
 
     @Column(name = "ITEM_NAME", nullable = false, length = 50)

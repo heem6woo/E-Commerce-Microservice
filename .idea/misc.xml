@@ -9,6 +9,8 @@
     <file type="web" url="file://$PROJECT_DIR$/NamingServer" />
     <file type="web" url="file://$PROJECT_DIR$/OrderService" />
     <file type="web" url="file://$PROJECT_DIR$/ReviewService" />
+    <file type="web" url="file://$PROJECT_DIR$/../Spring-Cart-Microservice-E-Commerce-Platform/ApiGateway" />
+    <file type="web" url="file://$PROJECT_DIR$/../Spring-Cart-Microservice-E-Commerce-Platform/NamingServer" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="temurin-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

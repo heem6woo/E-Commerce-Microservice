@@ -4,18 +4,18 @@ package com.ecommerce.memberservice.controller;
 import com.ecommerce.memberservice.service.AuthenticationService;
 import com.ecommerce.memberservice.vo.AuthenticateRequest;
 import com.ecommerce.memberservice.vo.AuthenticateResponse;
-import com.ecommerce.memberservice.vo.ChangePasswordRequest;
 import com.ecommerce.memberservice.vo.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor

@@ -1,7 +1,5 @@
 package com.ecommerce.memberservice.vo;
 
-import jakarta.persistence.Column;
-
 public class CustomerDetailRequest {
 
     private int age;

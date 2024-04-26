@@ -1,6 +1,5 @@
 package com.ecommerce.memberservice.vo;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 @Data

@@ -1,18 +1,11 @@
 package com.ecommerce.memberservice.controller;
 
-import com.ecommerce.memberservice.entity.Member;
 import com.ecommerce.memberservice.entity.CustomerDetail;
 import com.ecommerce.memberservice.service.CustomerDetailService;
-import com.ecommerce.memberservice.service.MemberService;
-import com.ecommerce.memberservice.service.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.naming.AuthenticationNotSupportedException;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.ecommerce.memberservice.repo;
+package com.ecommerce.memberservice.repository;
 
 import com.ecommerce.memberservice.entity.CustomerDetail;
 import org.springframework.data.jpa.repository.JpaRepository;

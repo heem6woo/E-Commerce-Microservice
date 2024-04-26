@@ -1,7 +1,6 @@
 package com.ecommerce.memberservice.dto;
 
 import com.ecommerce.memberservice.entity.Role;
-import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
 

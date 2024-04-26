@@ -4,20 +4,19 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/ApiGateway" />
-        <option name="gradleJvm" value="corretto-21" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/ApiGateway" />
+            <option value="$PROJECT_DIR$" />
           </set>
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/MemberService" />
-        <option name="gradleJvm" value="corretto-21" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ApiGateway" />
+        <option name="gradleJvm" value="temurin-17" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/MemberService" />
+            <option value="$PROJECT_DIR$/ApiGateway" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -27,6 +26,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/NamingServer" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/OrderService" />
+        <option name="gradleJvm" value="corretto-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/OrderService" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -41,7 +49,6 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/itemservice" />
-        <option name="gradleJvm" value="corretto-21" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/itemservice" />

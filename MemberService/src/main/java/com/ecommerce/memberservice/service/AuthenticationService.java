@@ -1,8 +1,9 @@
 package com.ecommerce.memberservice.service;
 
-import com.ecommerce.memberservice.entity.*;
+import com.ecommerce.memberservice.entity.Member;
+import com.ecommerce.memberservice.entity.Role;
 import com.ecommerce.memberservice.exception.AuthenticationException;
-import com.ecommerce.memberservice.repo.MemberRepository;
+import com.ecommerce.memberservice.repository.MemberRepository;
 import com.ecommerce.memberservice.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,9 +16,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

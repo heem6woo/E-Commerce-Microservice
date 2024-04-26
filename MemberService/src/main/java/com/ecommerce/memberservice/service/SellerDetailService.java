@@ -2,8 +2,7 @@ package com.ecommerce.memberservice.service;
 
 import com.ecommerce.memberservice.entity.Member;
 import com.ecommerce.memberservice.entity.SellerDetail;
-import com.ecommerce.memberservice.repo.SellerDetailRepository;
-import com.ecommerce.memberservice.vo.SellerDetailRequest;
+import com.ecommerce.memberservice.repository.SellerDetailRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

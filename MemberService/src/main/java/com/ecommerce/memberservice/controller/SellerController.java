@@ -1,10 +1,7 @@
 package com.ecommerce.memberservice.controller;
 
-import com.ecommerce.memberservice.entity.CustomerDetail;
 import com.ecommerce.memberservice.entity.SellerDetail;
-import com.ecommerce.memberservice.service.CustomerDetailService;
 import com.ecommerce.memberservice.service.SellerDetailService;
-import com.ecommerce.memberservice.vo.SellerDetailRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,28 +1,20 @@
 package com.ecommerce.memberservice.service;
 
 import com.ecommerce.memberservice.dto.CustomerDto;
-import com.ecommerce.memberservice.entity.Member;
 import com.ecommerce.memberservice.entity.CustomerDetail;
+import com.ecommerce.memberservice.entity.Member;
 import com.ecommerce.memberservice.entity.SellerDetail;
-import com.ecommerce.memberservice.repo.CustomerDetailRepository;
-import com.ecommerce.memberservice.repo.MemberRepository;
-import com.ecommerce.memberservice.repo.SellerDetailRepository;
+import com.ecommerce.memberservice.repository.CustomerDetailRepository;
+import com.ecommerce.memberservice.repository.MemberRepository;
+import com.ecommerce.memberservice.repository.SellerDetailRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.naming.AuthenticationNotSupportedException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static org.apache.catalina.realm.UserDatabaseRealm.getRoles;
 
 @Service
 @RequiredArgsConstructor

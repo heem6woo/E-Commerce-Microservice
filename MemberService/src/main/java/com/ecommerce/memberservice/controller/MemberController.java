@@ -5,7 +5,6 @@ import com.ecommerce.memberservice.entity.CustomerDetail;
 import com.ecommerce.memberservice.entity.Member;
 import com.ecommerce.memberservice.entity.SellerDetail;
 import com.ecommerce.memberservice.service.AuthenticationService;
-import com.ecommerce.memberservice.service.CustomerDetailService;
 import com.ecommerce.memberservice.service.MemberService;
 import com.ecommerce.memberservice.vo.ChangePermissionRequest;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,7 +14,6 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @Slf4j

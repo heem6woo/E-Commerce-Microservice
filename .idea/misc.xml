@@ -7,9 +7,10 @@
     <file type="web" url="file://$PROJECT_DIR$/login" />
     <file type="web" url="file://$PROJECT_DIR$/MemberService" />
     <file type="web" url="file://$PROJECT_DIR$/NamingServer" />
+    <file type="web" url="file://$PROJECT_DIR$/OrderService" />
     <file type="web" url="file://$PROJECT_DIR$/ReviewService" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="temurin-17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="temurin-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

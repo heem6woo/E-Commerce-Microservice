@@ -1,6 +1,7 @@
 package com.ecommerce.memberservice.exception;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
 

@@ -1,10 +1,8 @@
 package com.ecommerce.memberservice.service;
 
 import com.ecommerce.memberservice.entity.CustomerDetail;
-<<<<<<< HEAD
 import com.ecommerce.memberservice.entity.Member;
-=======
->>>>>>> 7953334069246a11ccf6b45749b5514673e25334
+
 import com.ecommerce.memberservice.repository.CustomerDetailRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;

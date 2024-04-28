@@ -4,7 +4,8 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
-group = 'com.ecommerce'
+
+group = 'com.ecommerce.grpc'
 version = '0.0.1-SNAPSHOT'
 
 
@@ -33,6 +34,16 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+//    grpc server dependency
+    implementation files('libs/GrpcInterface-1.0-SNAPSHOT.jar')
+
+    implementation ('net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE')
+    implementation 'io.grpc:grpc-netty-shaded'
+
+//    implementation 'io.grpc:grpc-protobuf:1.63.0'
+//    implementation 'io.grpc:grpc-stub:1.63.0'
+//    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'

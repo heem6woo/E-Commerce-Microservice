@@ -2,10 +2,13 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.5'
     id 'io.spring.dependency-management' version '1.1.4'
+
 }
+
 
 group = 'com.ecommerce'
 version = '0.0.1-SNAPSHOT'
+
 
 java {
     sourceCompatibility = '17'
@@ -17,6 +20,7 @@ repositories {
 
 ext {
     set('springCloudVersion', "2023.0.1")
+    set( 'grpcVersion', '3.1.0.RELEASE')
 }
 
 dependencies {
@@ -27,6 +31,13 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     runtimeOnly 'mysql:mysql-connector-java:8.0.32'
+
+//    grpc client dependency
+    implementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE'
+    implementation files('libs/GrpcInterface-1.0-SNAPSHOT.jar')
+
+    implementation 'io.grpc:grpc-netty-shaded'
+
     runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

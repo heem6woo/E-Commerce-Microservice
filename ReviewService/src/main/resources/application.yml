@@ -35,3 +35,14 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace
+
+#
+# Grpc Settings
+#
+grpc:
+  client:
+    member-service:
+      address: 'discovery:///member-service'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext

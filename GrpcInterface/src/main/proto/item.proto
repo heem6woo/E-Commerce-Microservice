@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.ecommerce.grpc";
+option java_outer_classname = "ItemProto";
+
+service ItemIdService {
+  rpc getItemId (IdRequest) returns (IdReply) {
+  }
+}
+
+message IdRequest {
+  string item_name = 1;
+}
+
+message IdReply {
+  int32 item_id = 1;
+}

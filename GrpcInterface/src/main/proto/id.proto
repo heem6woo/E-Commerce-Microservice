@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "com.ecommerce.grpc";
-option java_outer_classname = "MemberProto";
+option java_outer_classname = "ItemProto";
 
 service IdService {
   rpc getId (IdRequest) returns (IdReply) {

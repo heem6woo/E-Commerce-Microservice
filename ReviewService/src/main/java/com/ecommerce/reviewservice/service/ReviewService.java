@@ -4,6 +4,7 @@ import com.ecommerce.reviewservice.controller.ItemFeign;
 import com.ecommerce.reviewservice.controller.MemberFeign;
 import com.ecommerce.reviewservice.dto.ReviewDto;
 import com.ecommerce.reviewservice.entity.Review;
+import com.ecommerce.reviewservice.grpclient.ItemIdClient;
 import com.ecommerce.reviewservice.grpclient.MemberIdClient;
 import com.ecommerce.reviewservice.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
@@ -28,6 +29,7 @@ public class ReviewService {
 
     // gRPC
     private final MemberIdClient memberIdClient;
+    private final ItemIdClient itemIdClient;
 
 
     private final ReviewRepository reviewRepository;
@@ -41,7 +43,8 @@ public class ReviewService {
 
     public List<Review> findAllByItemName(String itemName) {
         //아이템 서비스에 rest로 상품 아이디 요청
-        int itemId = (int) itemFeign.retrieveItemId(itemName);
+        //int itemId = (int) itemFeign.retrieveItemId(itemName);
+        int itemId = itemIdClient.requestItemId(itemName);
         //
         return reviewRepository.findAllByItemId(itemId);
     }
@@ -54,16 +57,17 @@ public class ReviewService {
         //int customerId = memberFeign.retrieveCustomerId(email).getId();
         int customerId = memberIdClient.requestMemberId(email);
         //int itemId = itemFeign.retrieveItemId(itemName).getId();
+        //int itemId = 0;
+        int itemId = itemIdClient.requestItemId(itemName);
 
         // duplicate check
-        if(reviewRepository.findByCustomerIdAndItemId(customerId, 0) != null) {
+        if(reviewRepository.findByCustomerIdAndItemId(customerId, itemId) != null) {
             throw new HttpResponseException(HttpStatus.SC_NOT_ACCEPTABLE, "Review already stored.");
         };
 
         Review review = Review.builder()
                 .customerId(customerId)
-                //.itemId(itemId)
-                .itemId(0)
+                .itemId(itemId)
                 .contains(reviewRequest.getContains())
                 .date(reviewRequest.getDate())
                 .score(reviewRequest.getScore())
@@ -78,7 +82,7 @@ public class ReviewService {
 
         //int customerId = memberFeign.retrieveCustomerId(userEmail).getId();
         int customerId = memberIdClient.requestMemberId(userEmail);
-        int itemId = 0;
+        int itemId = itemIdClient.requestItemId(itemName);
 
         // int itemId = itemFeign.retrieveItemId(itemName).getId();
         Review review = reviewRepository.findByCustomerIdAndItemId(customerId, itemId);
@@ -93,7 +97,7 @@ public class ReviewService {
         //int customerId = memberFeign.retrieveCustomerId(email).getId();
         int customerId = memberIdClient.requestMemberId(email);
 
-        int itemId = 0;
+        int itemId = itemIdClient.requestItemId(itemName);
 
         //int itemId = itemFeign.retrieveItemId(itemName).getId();
 
@@ -115,7 +119,7 @@ public class ReviewService {
         //int customerId = memberFeign.retrieveCustomerId(email).getId();
         int customerId = memberIdClient.requestMemberId(email);
         //int itemId = itemFeign.retrieveItemId(itemName);
-        int itemId = 1;
+        int itemId = itemIdClient.requestItemId(itemName);
         return reviewRepository.findAllByItemIdAndCustomerIdAndScore(itemId,customerId,score);
     }
 
@@ -123,13 +127,13 @@ public class ReviewService {
         //int customerId = memberFeign.retrieveCustomerId(email).getId();
         int customerId = memberIdClient.requestMemberId(email);
         //int itemId = itemFeign.retrieveItemId(itemName);
-        int itemId = 1;
+        int itemId = itemIdClient.requestItemId(itemName);
         return reviewRepository.findAllByItemIdAndCustomerId(itemId, customerId);
     }
 
     public List<Review> findAllByItemNameScore(String itemName, int score) {
         //int itemId = itemFeign.retrieveItemId(itemName);
-        int itemId = 1;
+        int itemId = itemIdClient.requestItemId(itemName);
         return reviewRepository.findAllByItemIdAndScore(itemId, score);
     }
 

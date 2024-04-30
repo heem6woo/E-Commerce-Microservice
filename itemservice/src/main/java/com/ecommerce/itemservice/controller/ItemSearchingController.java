@@ -23,6 +23,7 @@ public class ItemSearchingController {
 //
 //    }
     @GetMapping("/")
+
     public ResponseEntity<List<ItemDTO>> likeNameItemsSameCat(@RequestParam(name = "item-name", defaultValue = "-1") String itemName,
                                                        @RequestParam(name = "item-cat", defaultValue = "-1") Short itemCat,
                                                               @RequestParam(name = "min-price", defaultValue = "-1") int minPrice,

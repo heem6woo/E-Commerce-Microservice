@@ -19,14 +19,24 @@ public class MemberServerService extends IdServiceGrpc.IdServiceImplBase {
 
     @Override
     public void getId(final IdRequest req, final StreamObserver<IdReply> responseObserver) {
-        String email = req.getEmail();
-        log.info(email + " gRPC getting request");
-        IdReply reply = null;
-        try {
-            reply = IdReply.newBuilder().setId(memberService.findByEmail(email).getId()).build();
-        } catch (ChangeSetPersister.NotFoundException e) {
-            throw new RuntimeException(e);
+        String req_val;
+        if(req.hasEmail()) {
+            req_val = req.getEmail();
+        } else {
+            req_val = req.getName();
         }
+        log.info(req_val + " gRPC getting request");
+        int id = 0;
+        if (req.hasEmail()) {
+            try {
+                id = memberService.findByEmail(req_val).getId();
+            } catch (ChangeSetPersister.NotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            id = memberService.findByName(req_val).getId();
+        }
+        IdReply reply = IdReply.newBuilder().setId(id).build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }

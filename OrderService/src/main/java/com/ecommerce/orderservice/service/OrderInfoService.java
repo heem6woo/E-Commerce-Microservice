@@ -41,13 +41,13 @@ public class OrderInfoService {
 
     public List<OrderInfo> listAllOrdersForItem(String itemName) {
         // int id = itemClient.requestItemId(itemName);
-        int id = 1;
-        return orderInfoRepository.findAllByItemId(id);
+        int itemId = itemIdClient.requestItemId(itemName);
+        return orderInfoRepository.findAllByItemId(itemId);
     }
 
     public List<OrderInfo> findAllByItemNameCustomerEmailSellerEmail(String itemName, String customerEmail, String sellerEmail) {
-        //int itemId = itemClient.requestItemId(itemName);
-        int itemId = 1;
+        int itemId = itemIdClient.requestItemId(itemName);
+
         int customerId = memberIdClient.requestMemberId(customerEmail);
         int sellerId = memberIdClient.requestMemberId(sellerEmail);
         return orderInfoRepository.findAllByItemIdAndCustomerIdAndSellerId(itemId, customerId, sellerId);
@@ -55,14 +55,14 @@ public class OrderInfoService {
 
     public List<OrderInfo> findAllByItemNameCustomerEmail(String itemName, String customerEmail) {
         //int itemId = itemClient.requestItemId(itemName);
-        int itemId = 1;
+        int itemId = itemIdClient.requestItemId(itemName);
         int customerId = memberIdClient.requestMemberId(customerEmail);
         return orderInfoRepository.findAllByItemIdAndCustomerId(itemId, customerId);
     }
 
     public List<OrderInfo> findAllByItemNameSellerEmail(String itemName, String sellerEmail) {
         //int itemId = itemClient.requestItemId(itemName);
-        int itemId = 1;
+        int itemId = itemIdClient.requestItemId(itemName);
         int sellerId = memberIdClient.requestMemberId(sellerEmail);
         return orderInfoRepository.findAllByItemIdAndCustomerId(itemId, sellerId);
     }
@@ -75,7 +75,7 @@ public class OrderInfoService {
 
     public List<OrderInfo> findAllByItemName(String itemName) {
         //int itemId = itemClient.requestItemId(itemName);
-        int itemId = 1;
+        int itemId = itemIdClient.requestItemId(itemName);
         return orderInfoRepository.findAllByItemId(itemId);
     }
 

@@ -6,88 +6,88 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.58.0)",
-    comments = "Source: member.proto")
+    comments = "Source: id.proto")
 @io.grpc.stub.annotations.GrpcGenerated
-public final class MemberIdServiceGrpc {
+public final class IdServiceGrpc {
 
-  private MemberIdServiceGrpc() {}
+  private IdServiceGrpc() {}
 
-  public static final java.lang.String SERVICE_NAME = "MemberIdService";
+  public static final java.lang.String SERVICE_NAME = "IdService";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<com.ecommerce.grpc.IdRequest,
-      com.ecommerce.grpc.IdReply> getGetMemberIdMethod;
+      com.ecommerce.grpc.IdReply> getGetIdMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "getMemberId",
+      fullMethodName = SERVICE_NAME + '/' + "getId",
       requestType = com.ecommerce.grpc.IdRequest.class,
       responseType = com.ecommerce.grpc.IdReply.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<com.ecommerce.grpc.IdRequest,
-      com.ecommerce.grpc.IdReply> getGetMemberIdMethod() {
-    io.grpc.MethodDescriptor<com.ecommerce.grpc.IdRequest, com.ecommerce.grpc.IdReply> getGetMemberIdMethod;
-    if ((getGetMemberIdMethod = MemberIdServiceGrpc.getGetMemberIdMethod) == null) {
-      synchronized (MemberIdServiceGrpc.class) {
-        if ((getGetMemberIdMethod = MemberIdServiceGrpc.getGetMemberIdMethod) == null) {
-          MemberIdServiceGrpc.getGetMemberIdMethod = getGetMemberIdMethod =
+      com.ecommerce.grpc.IdReply> getGetIdMethod() {
+    io.grpc.MethodDescriptor<com.ecommerce.grpc.IdRequest, com.ecommerce.grpc.IdReply> getGetIdMethod;
+    if ((getGetIdMethod = IdServiceGrpc.getGetIdMethod) == null) {
+      synchronized (IdServiceGrpc.class) {
+        if ((getGetIdMethod = IdServiceGrpc.getGetIdMethod) == null) {
+          IdServiceGrpc.getGetIdMethod = getGetIdMethod =
               io.grpc.MethodDescriptor.<com.ecommerce.grpc.IdRequest, com.ecommerce.grpc.IdReply>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getMemberId"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getId"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.ecommerce.grpc.IdRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.ecommerce.grpc.IdReply.getDefaultInstance()))
-              .setSchemaDescriptor(new MemberIdServiceMethodDescriptorSupplier("getMemberId"))
+              .setSchemaDescriptor(new IdServiceMethodDescriptorSupplier("getId"))
               .build();
         }
       }
     }
-    return getGetMemberIdMethod;
+    return getGetIdMethod;
   }
 
   /**
    * Creates a new async stub that supports all call types for the service
    */
-  public static MemberIdServiceStub newStub(io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<MemberIdServiceStub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<MemberIdServiceStub>() {
+  public static IdServiceStub newStub(io.grpc.Channel channel) {
+    io.grpc.stub.AbstractStub.StubFactory<IdServiceStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<IdServiceStub>() {
         @java.lang.Override
-        public MemberIdServiceStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new MemberIdServiceStub(channel, callOptions);
+        public IdServiceStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new IdServiceStub(channel, callOptions);
         }
       };
-    return MemberIdServiceStub.newStub(factory, channel);
+    return IdServiceStub.newStub(factory, channel);
   }
 
   /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
-  public static MemberIdServiceBlockingStub newBlockingStub(
+  public static IdServiceBlockingStub newBlockingStub(
       io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<MemberIdServiceBlockingStub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<MemberIdServiceBlockingStub>() {
+    io.grpc.stub.AbstractStub.StubFactory<IdServiceBlockingStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<IdServiceBlockingStub>() {
         @java.lang.Override
-        public MemberIdServiceBlockingStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new MemberIdServiceBlockingStub(channel, callOptions);
+        public IdServiceBlockingStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new IdServiceBlockingStub(channel, callOptions);
         }
       };
-    return MemberIdServiceBlockingStub.newStub(factory, channel);
+    return IdServiceBlockingStub.newStub(factory, channel);
   }
 
   /**
    * Creates a new ListenableFuture-style stub that supports unary calls on the service
    */
-  public static MemberIdServiceFutureStub newFutureStub(
+  public static IdServiceFutureStub newFutureStub(
       io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<MemberIdServiceFutureStub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<MemberIdServiceFutureStub>() {
+    io.grpc.stub.AbstractStub.StubFactory<IdServiceFutureStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<IdServiceFutureStub>() {
         @java.lang.Override
-        public MemberIdServiceFutureStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new MemberIdServiceFutureStub(channel, callOptions);
+        public IdServiceFutureStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new IdServiceFutureStub(channel, callOptions);
         }
       };
-    return MemberIdServiceFutureStub.newStub(factory, channel);
+    return IdServiceFutureStub.newStub(factory, channel);
   }
 
   /**
@@ -96,98 +96,98 @@ public final class MemberIdServiceGrpc {
 
     /**
      */
-    default void getMemberId(com.ecommerce.grpc.IdRequest request,
+    default void getId(com.ecommerce.grpc.IdRequest request,
         io.grpc.stub.StreamObserver<com.ecommerce.grpc.IdReply> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetMemberIdMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetIdMethod(), responseObserver);
     }
   }
 
   /**
-   * Base class for the server implementation of the service MemberIdService.
+   * Base class for the server implementation of the service IdService.
    */
-  public static abstract class MemberIdServiceImplBase
+  public static abstract class IdServiceImplBase
       implements io.grpc.BindableService, AsyncService {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return MemberIdServiceGrpc.bindService(this);
+      return IdServiceGrpc.bindService(this);
     }
   }
 
   /**
-   * A stub to allow clients to do asynchronous rpc calls to service MemberIdService.
+   * A stub to allow clients to do asynchronous rpc calls to service IdService.
    */
-  public static final class MemberIdServiceStub
-      extends io.grpc.stub.AbstractAsyncStub<MemberIdServiceStub> {
-    private MemberIdServiceStub(
+  public static final class IdServiceStub
+      extends io.grpc.stub.AbstractAsyncStub<IdServiceStub> {
+    private IdServiceStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected MemberIdServiceStub build(
+    protected IdServiceStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new MemberIdServiceStub(channel, callOptions);
+      return new IdServiceStub(channel, callOptions);
     }
 
     /**
      */
-    public void getMemberId(com.ecommerce.grpc.IdRequest request,
+    public void getId(com.ecommerce.grpc.IdRequest request,
         io.grpc.stub.StreamObserver<com.ecommerce.grpc.IdReply> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetMemberIdMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetIdMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
   /**
-   * A stub to allow clients to do synchronous rpc calls to service MemberIdService.
+   * A stub to allow clients to do synchronous rpc calls to service IdService.
    */
-  public static final class MemberIdServiceBlockingStub
-      extends io.grpc.stub.AbstractBlockingStub<MemberIdServiceBlockingStub> {
-    private MemberIdServiceBlockingStub(
+  public static final class IdServiceBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<IdServiceBlockingStub> {
+    private IdServiceBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected MemberIdServiceBlockingStub build(
+    protected IdServiceBlockingStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new MemberIdServiceBlockingStub(channel, callOptions);
+      return new IdServiceBlockingStub(channel, callOptions);
     }
 
     /**
      */
-    public com.ecommerce.grpc.IdReply getMemberId(com.ecommerce.grpc.IdRequest request) {
+    public com.ecommerce.grpc.IdReply getId(com.ecommerce.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetMemberIdMethod(), getCallOptions(), request);
+          getChannel(), getGetIdMethod(), getCallOptions(), request);
     }
   }
 
   /**
-   * A stub to allow clients to do ListenableFuture-style rpc calls to service MemberIdService.
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service IdService.
    */
-  public static final class MemberIdServiceFutureStub
-      extends io.grpc.stub.AbstractFutureStub<MemberIdServiceFutureStub> {
-    private MemberIdServiceFutureStub(
+  public static final class IdServiceFutureStub
+      extends io.grpc.stub.AbstractFutureStub<IdServiceFutureStub> {
+    private IdServiceFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected MemberIdServiceFutureStub build(
+    protected IdServiceFutureStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new MemberIdServiceFutureStub(channel, callOptions);
+      return new IdServiceFutureStub(channel, callOptions);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.ecommerce.grpc.IdReply> getMemberId(
+    public com.google.common.util.concurrent.ListenableFuture<com.ecommerce.grpc.IdReply> getId(
         com.ecommerce.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetMemberIdMethod(), getCallOptions()), request);
+          getChannel().newCall(getGetIdMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_GET_MEMBER_ID = 0;
+  private static final int METHODID_GET_ID = 0;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -206,8 +206,8 @@ public final class MemberIdServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_GET_MEMBER_ID:
-          serviceImpl.getMemberId((com.ecommerce.grpc.IdRequest) request,
+        case METHODID_GET_ID:
+          serviceImpl.getId((com.ecommerce.grpc.IdRequest) request,
               (io.grpc.stub.StreamObserver<com.ecommerce.grpc.IdReply>) responseObserver);
           break;
         default:
@@ -229,18 +229,18 @@ public final class MemberIdServiceGrpc {
   public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
     return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
         .addMethod(
-          getGetMemberIdMethod(),
+          getGetIdMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               com.ecommerce.grpc.IdRequest,
               com.ecommerce.grpc.IdReply>(
-                service, METHODID_GET_MEMBER_ID)))
+                service, METHODID_GET_ID)))
         .build();
   }
 
-  private static abstract class MemberIdServiceBaseDescriptorSupplier
+  private static abstract class IdServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
-    MemberIdServiceBaseDescriptorSupplier() {}
+    IdServiceBaseDescriptorSupplier() {}
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
@@ -249,21 +249,21 @@ public final class MemberIdServiceGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.ServiceDescriptor getServiceDescriptor() {
-      return getFileDescriptor().findServiceByName("MemberIdService");
+      return getFileDescriptor().findServiceByName("IdService");
     }
   }
 
-  private static final class MemberIdServiceFileDescriptorSupplier
-      extends MemberIdServiceBaseDescriptorSupplier {
-    MemberIdServiceFileDescriptorSupplier() {}
+  private static final class IdServiceFileDescriptorSupplier
+      extends IdServiceBaseDescriptorSupplier {
+    IdServiceFileDescriptorSupplier() {}
   }
 
-  private static final class MemberIdServiceMethodDescriptorSupplier
-      extends MemberIdServiceBaseDescriptorSupplier
+  private static final class IdServiceMethodDescriptorSupplier
+      extends IdServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
     private final java.lang.String methodName;
 
-    MemberIdServiceMethodDescriptorSupplier(java.lang.String methodName) {
+    IdServiceMethodDescriptorSupplier(java.lang.String methodName) {
       this.methodName = methodName;
     }
 
@@ -278,12 +278,12 @@ public final class MemberIdServiceGrpc {
   public static io.grpc.ServiceDescriptor getServiceDescriptor() {
     io.grpc.ServiceDescriptor result = serviceDescriptor;
     if (result == null) {
-      synchronized (MemberIdServiceGrpc.class) {
+      synchronized (IdServiceGrpc.class) {
         result = serviceDescriptor;
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
-              .setSchemaDescriptor(new MemberIdServiceFileDescriptorSupplier())
-              .addMethod(getGetMemberIdMethod())
+              .setSchemaDescriptor(new IdServiceFileDescriptorSupplier())
+              .addMethod(getGetIdMethod())
               .build();
         }
       }

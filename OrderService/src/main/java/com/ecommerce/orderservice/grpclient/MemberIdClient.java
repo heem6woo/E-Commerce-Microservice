@@ -1,10 +1,9 @@
-package com.ecommerce.reviewservice.grpclient;
+package com.ecommerce.orderservice.grpclient;
 
 import com.ecommerce.grpc.IdReply;
 import com.ecommerce.grpc.IdRequest;
 import com.ecommerce.grpc.IdServiceGrpc;
 import io.grpc.StatusRuntimeException;
-import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;

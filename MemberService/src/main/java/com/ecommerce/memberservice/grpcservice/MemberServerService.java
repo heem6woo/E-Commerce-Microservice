@@ -23,7 +23,7 @@ public class MemberServerService extends IdServiceGrpc.IdServiceImplBase {
         log.info(email + " gRPC getting request");
         IdReply reply = null;
         try {
-            reply = IdReply.newBuilder().setId(memberService.findByEmail(email).getId()).build();
+            reply = IdReply.newBuilder().setId(memberService.findByEmail(email).getId()).build();// 실질적인 값 반환
         } catch (ChangeSetPersister.NotFoundException e) {
             throw new RuntimeException(e);
         }

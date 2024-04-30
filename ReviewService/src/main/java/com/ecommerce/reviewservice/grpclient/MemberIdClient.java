@@ -21,7 +21,7 @@ public class MemberIdClient {
         var request = IdRequest.newBuilder().setEmail(email).build();
         try{
             log.info("Trying to request Id to gRPC server");
-            IdReply response = this.client.getId(IdRequest.newBuilder().setEmail(email).build());
+            IdReply response = this.client.getId(IdRequest.newBuilder().setEmail(email).build()); // 실질적 요청 코드
             log.info("Getting response from gRPC.");
             return response.getId();
         } catch (StatusRuntimeException e) {

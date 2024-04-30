@@ -1,6 +1,8 @@
 package com.ecommerce.itemservice.service;
 
 import com.ecommerce.itemservice.dto.ItemDTO;
+import com.ecommerce.itemservice.dto.SalesValues;
+import com.ecommerce.itemservice.entity.SalesInfo;
 import com.ecommerce.itemservice.repository.ItemSearchingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ public class ItemSearchingService {
     @Transactional
     public List<ItemDTO> findItemDTOsByName(String itemName){ // 이름 기준 검색이후 itemDTO 리스트반환
         System.out.println("adad");
+        return itemSearchingRepository.findItemsByNameLike(itemName);
+    }
+    @Transactional
+    public List<SalesValues> findByIdSalesValues(int sellerId,String itemName ){
         return itemSearchingRepository.findItemsByNameLike(itemName);
     }
     @Transactional

@@ -26,13 +26,25 @@ spring:
     level:
       org.hibernate.SQL: debug
 
-#
-## Ereka
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://localhost:8761/eureka
+
+# Ereka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
 
 # ?? ?? ??
 server:
   port: 8100
+
+#
+# Grpc Settings
+#
+grpc:
+  client:
+    item-service:
+      address: 'discovery:///item-service'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
+

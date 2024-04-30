@@ -1,5 +1,6 @@
 package com.ecommerce.memberservice.service;
 
+import com.ecommerce.grpc.IdServiceGrpc;
 import com.ecommerce.memberservice.dto.CustomerDto;
 import com.ecommerce.memberservice.entity.CustomerDetail;
 import com.ecommerce.memberservice.entity.Member;
@@ -93,5 +94,13 @@ public class MemberService {
                         .build();
     }
 
+    public Member findByName(String name) {
+        return memberRepository.findByName(name);
+    }
 
+
+//    public Member findBySellerName(String sellerName) {
+//        // Seller Name should be unique
+//        return memberRepository.findByName(sellerName);
+//    }
 }

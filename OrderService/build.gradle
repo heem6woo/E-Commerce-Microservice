@@ -26,6 +26,14 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation 'org.apache.logging.log4j:log4j-api:2.7'
+
+	//    grpc client dependency
+	implementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE'
+	implementation files('libs/GrpcInterface-1.0-SNAPSHOT.jar')
+
+	implementation 'io.grpc:grpc-netty-shaded'
+
+
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

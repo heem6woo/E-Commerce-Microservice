@@ -13,7 +13,6 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/GrpcInterface" />
-        <option name="gradleHome" value="" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/GrpcInterface" />
@@ -49,14 +48,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/ReviewService" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/itemservice" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/itemservice" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -15,11 +15,15 @@ public class OrderInfo {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "item_id")
+    private int itemId;
+
     @Column(name = "customer_id")
-    private int cutomer_id;
+    private int customerId;
 
     @Column(name = "seller_id")
-    private int seller_id;
+    private int sellerId;
+
 
     @Column(name = "date")
     private Timestamp date;

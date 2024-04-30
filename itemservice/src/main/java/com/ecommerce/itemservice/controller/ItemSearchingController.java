@@ -23,10 +23,11 @@ public class ItemSearchingController {
 //
 //    }
     @GetMapping("/")
-    public ResponseEntity<List<ItemDTO>> likeNameItemsSameCat(@RequestParam(name = "item-name", required = false, defaultValue = "-1") String itemName,
-                                                       @RequestParam(name = "item-cat", required = false, defaultValue = "-1") Short itemCat,
-                                                              @RequestParam(name = "min-price", required = false, defaultValue = "-1") int minPrice,
-                                                              @RequestParam(name = "max-price",required = false, defaultValue = "-1") int maxPrice) throws Exception {
+
+    public ResponseEntity<List<ItemDTO>> likeNameItemsSameCat(@RequestParam(name = "item-name", defaultValue = "-1") String itemName,
+                                                       @RequestParam(name = "item-cat", defaultValue = "-1") Short itemCat,
+                                                              @RequestParam(name = "min-price", defaultValue = "-1") int minPrice,
+                                                              @RequestParam(name = "max-price", defaultValue = "-1") int maxPrice) throws Exception {
 
         // itemName을 서비스 계층에 전달하여 해당 이름을 포함하는 아이템 목록들을 검색합니다.
         List<ItemDTO> itemList;

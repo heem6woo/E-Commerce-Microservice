@@ -29,10 +29,8 @@ public class ItemServiceGrpcServer extends IdServiceGrpc.IdServiceImplBase {
                 log.info(sellerId + " gRPC getting request");
 
                 List<ItemDTO> itemDTOs = itemSearchingService.findByIdSalesValues(sellerId, itemName);
-
                 if (!itemDTOs.isEmpty()) {
                         try {
-                                for (ItemDTO itemDTO : itemDTOs) {
                                         ItemReply reply = new ItemReply.newBuilder()
                                                 .setItemName(itemDTO.getName())
                                                 .setCategoryId(itemDTO.getCategoryId())
@@ -41,10 +39,12 @@ public class ItemServiceGrpcServer extends IdServiceGrpc.IdServiceImplBase {
                                                 .setItemStatus(itemDTO.getItemStatus())
                                                 .build();
 
-                                        responseObserver.onNext(reply);
-                                }
+
+                                
                         } catch (Exception e) {
                                 throw new RuntimeException(e);
+                        }finally {
+                                responseObserver.onNext(reply);
                         }
                 }
 

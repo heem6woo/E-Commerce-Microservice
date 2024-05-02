@@ -5,7 +5,7 @@ option java_package = "com.ecommerce.grpc";
 option java_outer_classname = "ItemProto";
 
 service ItemInfoService {
-  rpc getItemInfo (ItemRequest) returns (stream ItemReply) {
+  rpc getItemInfo (ItemRequest) returns (ItemReply) {
   }
 }
 

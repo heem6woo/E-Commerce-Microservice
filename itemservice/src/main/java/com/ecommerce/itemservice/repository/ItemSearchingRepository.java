@@ -33,7 +33,7 @@ public interface ItemSearchingRepository extends JpaRepository<Item, Integer> {
             whereItemName +
             "AND s.salesInfoId = :sellerId "
     )
-    List<SalesValues> findItemsBysellerIdSalesInfos(@Param("sellerId") int sellerId, @Param("name") String name );
+    List<ItemDTO> findItemsBysellerIdSalesInfos(@Param("sellerId") int sellerId, @Param("name") String name );
 
     @Query(ItemDTOjoinQuery+
             whereItemName +

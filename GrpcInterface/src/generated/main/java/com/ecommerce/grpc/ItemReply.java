@@ -16,7 +16,6 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private ItemReply() {
-    itemName_ = "";
   }
 
   @java.lang.Override
@@ -39,43 +38,15 @@ private static final long serialVersionUID = 0L;
             com.ecommerce.grpc.ItemReply.class, com.ecommerce.grpc.ItemReply.Builder.class);
   }
 
-  public static final int ITEMNAME_FIELD_NUMBER = 1;
-  @SuppressWarnings("serial")
-  private volatile java.lang.Object itemName_ = "";
+  public static final int ITEMID_FIELD_NUMBER = 1;
+  private int itemId_ = 0;
   /**
-   * <code>string itemName = 1;</code>
-   * @return The itemName.
+   * <code>int32 itemId = 1;</code>
+   * @return The itemId.
    */
   @java.lang.Override
-  public java.lang.String getItemName() {
-    java.lang.Object ref = itemName_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      itemName_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string itemName = 1;</code>
-   * @return The bytes for itemName.
-   */
-  @java.lang.Override
-  public com.google.protobuf.ByteString
-      getItemNameBytes() {
-    java.lang.Object ref = itemName_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      itemName_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public int getItemId() {
+    return itemId_;
   }
 
   public static final int CATEGORYID_FIELD_NUMBER = 2;
@@ -136,8 +107,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(itemName_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, itemName_);
+    if (itemId_ != 0) {
+      output.writeInt32(1, itemId_);
     }
     if (categoryId_ != 0) {
       output.writeInt32(2, categoryId_);
@@ -160,8 +131,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(itemName_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, itemName_);
+    if (itemId_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(1, itemId_);
     }
     if (categoryId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
@@ -194,8 +166,8 @@ private static final long serialVersionUID = 0L;
     }
     com.ecommerce.grpc.ItemReply other = (com.ecommerce.grpc.ItemReply) obj;
 
-    if (!getItemName()
-        .equals(other.getItemName())) return false;
+    if (getItemId()
+        != other.getItemId()) return false;
     if (getCategoryId()
         != other.getCategoryId()) return false;
     if (getItemCount()
@@ -215,8 +187,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + ITEMNAME_FIELD_NUMBER;
-    hash = (53 * hash) + getItemName().hashCode();
+    hash = (37 * hash) + ITEMID_FIELD_NUMBER;
+    hash = (53 * hash) + getItemId();
     hash = (37 * hash) + CATEGORYID_FIELD_NUMBER;
     hash = (53 * hash) + getCategoryId();
     hash = (37 * hash) + ITEMCOUNT_FIELD_NUMBER;
@@ -356,7 +328,7 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
-      itemName_ = "";
+      itemId_ = 0;
       categoryId_ = 0;
       itemCount_ = 0;
       itemPrice_ = 0;
@@ -395,7 +367,7 @@ private static final long serialVersionUID = 0L;
     private void buildPartial0(com.ecommerce.grpc.ItemReply result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.itemName_ = itemName_;
+        result.itemId_ = itemId_;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
         result.categoryId_ = categoryId_;
@@ -455,10 +427,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.ecommerce.grpc.ItemReply other) {
       if (other == com.ecommerce.grpc.ItemReply.getDefaultInstance()) return this;
-      if (!other.getItemName().isEmpty()) {
-        itemName_ = other.itemName_;
-        bitField0_ |= 0x00000001;
-        onChanged();
+      if (other.getItemId() != 0) {
+        setItemId(other.getItemId());
       }
       if (other.getCategoryId() != 0) {
         setCategoryId(other.getCategoryId());
@@ -498,11 +468,11 @@ private static final long serialVersionUID = 0L;
             case 0:
               done = true;
               break;
-            case 10: {
-              itemName_ = input.readStringRequireUtf8();
+            case 8: {
+              itemId_ = input.readInt32();
               bitField0_ |= 0x00000001;
               break;
-            } // case 10
+            } // case 8
             case 16: {
               categoryId_ = input.readInt32();
               bitField0_ |= 0x00000002;
@@ -540,74 +510,34 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private java.lang.Object itemName_ = "";
+    private int itemId_ ;
     /**
-     * <code>string itemName = 1;</code>
-     * @return The itemName.
+     * <code>int32 itemId = 1;</code>
+     * @return The itemId.
      */
-    public java.lang.String getItemName() {
-      java.lang.Object ref = itemName_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        itemName_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    @java.lang.Override
+    public int getItemId() {
+      return itemId_;
     }
     /**
-     * <code>string itemName = 1;</code>
-     * @return The bytes for itemName.
-     */
-    public com.google.protobuf.ByteString
-        getItemNameBytes() {
-      java.lang.Object ref = itemName_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        itemName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string itemName = 1;</code>
-     * @param value The itemName to set.
+     * <code>int32 itemId = 1;</code>
+     * @param value The itemId to set.
      * @return This builder for chaining.
      */
-    public Builder setItemName(
-        java.lang.String value) {
-      if (value == null) { throw new NullPointerException(); }
-      itemName_ = value;
+    public Builder setItemId(int value) {
+
+      itemId_ = value;
       bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
     /**
-     * <code>string itemName = 1;</code>
+     * <code>int32 itemId = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder clearItemName() {
-      itemName_ = getDefaultInstance().getItemName();
+    public Builder clearItemId() {
       bitField0_ = (bitField0_ & ~0x00000001);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string itemName = 1;</code>
-     * @param value The bytes for itemName to set.
-     * @return This builder for chaining.
-     */
-    public Builder setItemNameBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) { throw new NullPointerException(); }
-      checkByteStringIsUtf8(value);
-      itemName_ = value;
-      bitField0_ |= 0x00000001;
+      itemId_ = 0;
       onChanged();
       return this;
     }

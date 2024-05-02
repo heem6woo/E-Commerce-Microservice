@@ -8,16 +8,10 @@ public interface ItemReplyOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string itemName = 1;</code>
-   * @return The itemName.
+   * <code>int32 itemId = 1;</code>
+   * @return The itemId.
    */
-  java.lang.String getItemName();
-  /**
-   * <code>string itemName = 1;</code>
-   * @return The bytes for itemName.
-   */
-  com.google.protobuf.ByteString
-      getItemNameBytes();
+  int getItemId();
 
   /**
    * <code>int32 categoryId = 2;</code>

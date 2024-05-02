@@ -15,7 +15,7 @@ message ItemRequest {
 }
 
 message ItemReply {
-  string itemName = 1;
+  int32 itemId = 1;
   int32 categoryId = 2;
   int32 itemCount = 3;
   int32 itemPrice = 4;

@@ -30,24 +30,22 @@ public class ItemServiceGrpcServer extends ItemInfoServiceGrpc.ItemInfoServiceIm
                 if (itemDTO != null) {
                         try {
                                 reply = ItemReply.newBuilder()
-                                                .setItemName(itemDTO.getItemValues().getItemName())
+                                                .setItemId((int) itemDTO.getItemValues().getItemId())
                                                 .setCategoryId(itemDTO.getItemValues().getCategory())
                                                 .setItemCount(itemDTO.getSalesValues().getItemCount())
                                                 .setItemPrice(itemDTO.getSalesValues().getItemPrice())
                                                 .setItemStatus(itemDTO.getSalesValues().getItemStatus())
                                                 .build();
-
-
-                                
                         } catch (Exception e) {
                                 throw new RuntimeException(e);
                         }finally {
                                 responseObserver.onNext(reply);
                         }
                 }
-
                 responseObserver.onCompleted();
         }
+
+
 
 
 }

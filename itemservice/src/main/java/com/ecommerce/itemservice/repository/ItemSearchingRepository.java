@@ -29,12 +29,8 @@ public interface ItemSearchingRepository extends JpaRepository<Item, Integer> {
     )
     List<ItemDTO> findItemsByNameLikeAndSameCat(@Param("name") String name,@Param("catId") short catId );
 
-    @Query(ItemDTOjoinQuery +
-            whereItemName +
-            "AND s.salesInfoId = :sellerId " +
-            "LIMT 1"
-    )
-    ItemDTO findItemsBysellerIdSalesInfos(@Param("sellerId") int sellerId, @Param("name") String name );
+    @Query(ItemDTOjoinQuery + whereItemName + "AND s.salesInfoId = :sellerId")
+    ItemDTO findItemsBysellerIdSalesInfos(@Param("sellerId") int sellerId, @Param("name") String name);
 
     @Query(ItemDTOjoinQuery+
             whereItemName +

@@ -34,13 +34,12 @@ public final class ItemProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\016itemInfo.proto\"1\n\013ItemRequest\022\020\n\010selle" +
-      "rId\030\001 \001(\005\022\020\n\010itemName\030\002 \001(\t\"k\n\tItemReply" +
-      "\022\020\n\010itemName\030\001 \001(\t\022\022\n\ncategoryId\030\002 \001(\005\022\021" +
-      "\n\titemCount\030\003 \001(\005\022\021\n\titemPrice\030\004 \001(\005\022\022\n\n" +
-      "itemStatus\030\005 \001(\0052<\n\017ItemInfoService\022)\n\013g" +
-      "etItemInfo\022\014.ItemRequest\032\n.ItemReply\"\000B!" +
-      "\n\022com.ecommerce.grpcB\tItemProtoP\001b\006proto" +
-      "3"
+      "rId\030\001 \001(\005\022\020\n\010itemName\030\002 \001(\t\"i\n\tItemReply" +
+      "\022\016\n\006itemId\030\001 \001(\005\022\022\n\ncategoryId\030\002 \001(\005\022\021\n\t" +
+      "itemCount\030\003 \001(\005\022\021\n\titemPrice\030\004 \001(\005\022\022\n\nit" +
+      "emStatus\030\005 \001(\0052<\n\017ItemInfoService\022)\n\013get" +
+      "ItemInfo\022\014.ItemRequest\032\n.ItemReply\"\000B!\n\022" +
+      "com.ecommerce.grpcB\tItemProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -57,7 +56,7 @@ public final class ItemProto {
     internal_static_ItemReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ItemReply_descriptor,
-        new java.lang.String[] { "ItemName", "CategoryId", "ItemCount", "ItemPrice", "ItemStatus", });
+        new java.lang.String[] { "ItemId", "CategoryId", "ItemCount", "ItemPrice", "ItemStatus", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -22,7 +22,7 @@ public class ItemSearchingService {
         return itemSearchingRepository.findItemsByNameLike(itemName);
     }
     @Transactional
-    public List<ItemDTO> findByIdSalesValues(int sellerId,String itemName ){
+    public ItemDTO findByIdSalesValues(int sellerId,String itemName ){
         return itemSearchingRepository.findItemsBysellerIdSalesInfos(sellerId,itemName);
     }
     @Transactional

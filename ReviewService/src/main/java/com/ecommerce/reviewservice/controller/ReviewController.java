@@ -29,8 +29,25 @@ public class ReviewController {
     // for all
     @GetMapping("/")
     public ResponseEntity<List<Review>> listAllReviews(@RequestParam(name = "item-name", required = false) String itemName,
-                                                             @RequestParam(name = "customer-email", required = false) String email,
-                                                             @RequestParam(name = "score", required = false, defaultValue = "-1") int score) {
+                                                       @RequestParam(name = "customer-email", required = false) String email,
+                                                       @RequestParam(name = "seller-name", required = false) String name,
+                                                       @RequestParam(name = "score", required = false, defaultValue = "-1") int score) {
+
+        if(itemName != null && email != null && score != -1 && name != null) {
+            return ResponseEntity.ok(reviewService.findAllByItemNameEmailScoreSellerName(itemName,email, name, score));
+        }
+
+        if(email != null && score != -1 && name != null) {
+            return ResponseEntity.ok(reviewService.findAllByEmailScoreSellerName(email, name, score));
+        }
+
+        if(itemName != null && score != -1 && name != null) {
+            return ResponseEntity.ok(reviewService.findAllByItemNameScoreSellerName(itemName, name, score));
+        }
+
+        if(itemName != null && email != null && name != null) {
+            return ResponseEntity.ok(reviewService.findAllByItemNameEmailSellerName(itemName,email, name));
+        }
 
         if(itemName != null && email != null && score != -1) {
             return ResponseEntity.ok(reviewService.findAllByItemNameEmailScore(itemName,email,score));
@@ -44,6 +61,9 @@ public class ReviewController {
         if(email != null && score != -1) {
             return ResponseEntity.ok(reviewService.findAllByEmailScore(email,score));
         }
+        if(name != null && itemName != null) {
+            return ResponseEntity.ok(reviewService.findAllBySellerNameAndItemName(name, itemName));
+        }
         if(itemName != null) {
             return ResponseEntity.ok(reviewService.findAllByItemName(itemName));
         }
@@ -52,6 +72,9 @@ public class ReviewController {
         }
         if(score != -1) {
             return ResponseEntity.ok(reviewService.findAllByScore(score));
+        }
+        if(name != null) {
+            return ResponseEntity.ok(reviewService.findAllBySellerName(name));
         }
 
         //해당 상품의 모든 리뷰 쿼리 findAllByItemId

@@ -33,7 +33,7 @@ Authorization: Bearer {{auth-token}}
 
 
 ###
-GET http://localhost:8765/api/reviews/?customer-email=heem6woo@gmail.com&item-name=T-shirt
+GET http://localhost:8765/api/reviews/?item-name=T-shirt&score=3
 Authorization: Bearer {{auth-token}}
 
 ###

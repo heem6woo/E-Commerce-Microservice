@@ -156,4 +156,60 @@ public class ReviewService {
     public List<Review> findAllByScore(int score) {
         return reviewRepository.findAllByScore(score);
     }
+
+    public List<Review> findAllByItemNameEmailScoreSellerName(String itemName, String email, String name, int score) {
+        int customerId = customerIdClient.requestMemberId(email);
+
+        int itemId = itemIdClient.requestItemId(itemName);
+
+        int sellerId = sellerIdClient.requestMemberId(name);
+
+        return reviewRepository.findAllByCustomerIdAndSellerIdAndItemIdAndScore(customerId, sellerId, itemId,score);
+
+
+    }
+
+    public List<Review> findAllByEmailScoreSellerName(String email, String name, int score) {
+        int customerId = customerIdClient.requestMemberId(email);
+
+        int sellerId = sellerIdClient.requestMemberId(name);
+
+        return reviewRepository.findAllByCustomerIdAndSellerId(customerId, sellerId);
+
+    }
+
+    public List<Review> findAllByItemNameScoreSellerName(String itemName, String name, int score) {
+        int sellerId = sellerIdClient.requestMemberId(name);
+
+        int itemId = itemIdClient.requestItemId(itemName);
+
+        return reviewRepository.findAllBySellerIdAndItemIdAndScore(sellerId, itemId, score);
+
+    }
+
+    public List<Review> findAllByItemNameEmailSellerName(String itemName, String email, String name) {
+
+        int customerId = customerIdClient.requestMemberId(email);
+
+        int sellerId = sellerIdClient.requestMemberId(name);
+
+        int itemId = itemIdClient.requestItemId(itemName);
+
+        return reviewRepository.findAllByCustomerIdAndSellerIdAndItemId(customerId, sellerId, itemId);
+    }
+
+    public List<Review> findAllBySellerName(String name) {
+
+        return reviewRepository.findAllBySellerId(sellerIdClient.requestMemberId(name));
+
+    }
+
+    public List<Review> findAllBySellerNameAndItemName(String name, String itemName) {
+
+        int sellerId = sellerIdClient.requestMemberId(name);
+
+        int itemId = itemIdClient.requestItemId(itemName);
+
+        return reviewRepository.findAllBySellerIdAndItemId(sellerId, itemId);
+    }
 }

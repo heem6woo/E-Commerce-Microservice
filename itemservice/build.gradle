@@ -66,7 +66,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 	//Grpc
-	implementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE'
+	implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE'
 	implementation files('libs/GrpcInterface-1.0-SNAPSHOT.jar')
 	implementation 'io.grpc:grpc-netty-shaded'
 

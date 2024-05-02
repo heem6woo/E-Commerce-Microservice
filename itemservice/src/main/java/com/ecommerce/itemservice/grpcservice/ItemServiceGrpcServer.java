@@ -2,6 +2,7 @@ package com.ecommerce.itemservice.grpcservice;
 
 import com.ecommerce.grpc.IdReply;
 import com.ecommerce.grpc.IdRequest;
+import com.ecommerce.itemservice.dto.ItemDTO;
 import com.ecommerce.itemservice.service.ItemSearchingService;
 import com.ecommerce.itemservice.service.ItemService;
 import io.grpc.stub.StreamObserver;
@@ -11,6 +12,9 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import com.ecommerce.grpc.IdServiceGrpc;
 import org.springframework.data.crossstore.ChangeSetPersister;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @GrpcService
 @RequiredArgsConstructor
@@ -19,17 +23,31 @@ public class ItemServiceGrpcServer extends IdServiceGrpc.IdServiceImplBase {
         private final ItemSearchingService itemSearchingService;
 
         @Override
-        public void getItemInfo(final IdRequest req, final StreamObserver<IdReply> responseObserver) {
-                String sellerId = req.getsellerId();
-                String itemName = req.getitemName();
+        public void getItemInfo(final ItemRequest req, final StreamObserver<ItemReply> responseObserver) {
+                int sellerId = Integer.parseInt(req.getSellerId());
+                String itemName = req.getItemName();
                 log.info(sellerId + " gRPC getting request");
-                IdReply reply = null;
-                try {
-                        reply = IdReply.newBuilder().setId(itemSearchingService.findItemDTOsByName(itemName)).build();// 실질적인 값 반환
-                } catch (ChangeSetPersister.NotFoundException e) {
-                        throw new RuntimeException(e);
+
+                List<ItemDTO> itemDTOs = itemSearchingService.findByIdSalesValues(sellerId, itemName);
+                if (!itemDTOs.isEmpty()) {
+                        try {
+                                        ItemReply reply = new ItemReply.newBuilder()
+                                                .setItemName(itemDTO.getName())
+                                                .setCategoryId(itemDTO.getCategoryId())
+                                                .setItemCount(itemDTO.getItemCount())
+                                                .setItemPrice(itemDTO.getItemPrice())
+                                                .setItemStatus(itemDTO.getItemStatus())
+                                                .build();
+
+
+                                
+                        } catch (Exception e) {
+                                throw new RuntimeException(e);
+                        }finally {
+                                responseObserver.onNext(reply);
+                        }
                 }
-                responseObserver.onNext(reply);
+
                 responseObserver.onCompleted();
         }
 

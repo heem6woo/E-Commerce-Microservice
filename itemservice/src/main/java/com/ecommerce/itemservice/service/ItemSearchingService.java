@@ -22,8 +22,8 @@ public class ItemSearchingService {
         return itemSearchingRepository.findItemsByNameLike(itemName);
     }
     @Transactional
-    public List<SalesValues> findByIdSalesValues(int sellerId,String itemName ){
-        return itemSearchingRepository.findItemsByNameLike(itemName);
+    public ItemDTO findByIdSalesValues(int sellerId,String itemName ){
+        return itemSearchingRepository.findItemsBysellerIdSalesInfos(sellerId,itemName);
     }
     @Transactional
     public List<ItemDTO> findItemDTOsByNameAndCat(String itemName,short itemCat){ // 이름 ,카테 기준 검색이후 itemDTO 리스트반환

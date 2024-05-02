@@ -6,6 +6,7 @@ import com.ecommerce.memberservice.exception.AuthenticationException;
 import com.ecommerce.memberservice.repository.MemberRepository;
 import com.ecommerce.memberservice.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jdi.request.InvalidRequestStateException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,10 @@ public class AuthenticationService {
 //        if (customerRepository.findByEmail(request.getEmail()).isPresent()) {
 //
 //        }
+// Seller Name duplication check
+        if (request.getRole().equals(Role.SELLER) && memberRepository.findByEmail(request.getName()).isPresent() ) {
+            throw new AuthenticationException("Seller name cannot be duplicated", HttpStatus.BAD_REQUEST);
+        }
 
         if (request.getRole().equals(Role.ADMIN)) {
             throw new AuthenticationException("You do not have permission to create an ADMIN member", HttpStatus.FORBIDDEN);

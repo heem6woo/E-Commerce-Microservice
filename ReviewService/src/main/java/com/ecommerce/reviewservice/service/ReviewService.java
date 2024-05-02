@@ -212,4 +212,19 @@ public class ReviewService {
 
         return reviewRepository.findAllBySellerIdAndItemId(sellerId, itemId);
     }
+
+
+    public List<Review> findAllBySellerEmailAndItemName(String sellerEmail, String itemName) {
+        int sellerId = customerIdClient.requestMemberId(sellerEmail);
+
+        int itemId = itemIdClient.requestItemId(itemName);
+
+        return reviewRepository.findAllBySellerIdAndItemId(sellerId, itemId);
+    }
+
+    public List<Review>  findAllBySellerEmail(String sellerEmail) {
+        int sellerId = customerIdClient.requestMemberId(sellerEmail);
+
+        return reviewRepository.findAllBySellerId(sellerId);
+    }
 }

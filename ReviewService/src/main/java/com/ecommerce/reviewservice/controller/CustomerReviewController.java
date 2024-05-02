@@ -25,6 +25,13 @@ public class CustomerReviewController {
         return ResponseEntity.ok(reviewService.findAllByCustomerEmail(userEmail));
     }
 
+    @GetMapping("/items/{item_name}")
+    public ResponseEntity<List<Review>> listAllReviewOfCustomerItem(HttpServletRequest httpServletRequest,
+                                              @PathVariable(name = "item_name") String item_name)
+            throws HttpResponseException {
+        String userEmail = httpServletRequest.getHeader("email");
+        return ResponseEntity.ok(reviewService.findAllByItemNameEmail(item_name, userEmail));
+    }
 
     // for customer
     @PostMapping("/items/{item_name}")

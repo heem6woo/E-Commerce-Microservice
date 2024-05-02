@@ -27,13 +27,13 @@ private static final long serialVersionUID = 0L;
 
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.ecommerce.grpc.MemberProto.internal_static_IdRequest_descriptor;
+    return com.ecommerce.grpc.IdProto.internal_static_IdRequest_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.ecommerce.grpc.MemberProto.internal_static_IdRequest_fieldAccessorTable
+    return com.ecommerce.grpc.IdProto.internal_static_IdRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
             com.ecommerce.grpc.IdRequest.class, com.ecommerce.grpc.IdRequest.Builder.class);
   }
@@ -376,13 +376,13 @@ private static final long serialVersionUID = 0L;
       com.ecommerce.grpc.IdRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.ecommerce.grpc.MemberProto.internal_static_IdRequest_descriptor;
+      return com.ecommerce.grpc.IdProto.internal_static_IdRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.ecommerce.grpc.MemberProto.internal_static_IdRequest_fieldAccessorTable
+      return com.ecommerce.grpc.IdProto.internal_static_IdRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.ecommerce.grpc.IdRequest.class, com.ecommerce.grpc.IdRequest.Builder.class);
     }
@@ -409,7 +409,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.ecommerce.grpc.MemberProto.internal_static_IdRequest_descriptor;
+      return com.ecommerce.grpc.IdProto.internal_static_IdRequest_descriptor;
     }
 
     @java.lang.Override

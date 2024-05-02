@@ -23,5 +23,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     List<Review> findAllByScore(int score);
 
     List<Review> findAllByCustomerIdAndScore(int customerId, int score);
+
+    Review findByCustomerIdAndSellerIdAndItemId(int customerId, int sellerId, int itemId);
 }
 

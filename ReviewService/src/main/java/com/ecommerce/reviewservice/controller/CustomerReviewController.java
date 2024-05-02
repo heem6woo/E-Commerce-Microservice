@@ -39,11 +39,12 @@ public class CustomerReviewController {
     // for customer
     @DeleteMapping("/items/{item_name}")
     public ResponseEntity<String> deleteReview(HttpServletRequest httpServletRequest,
-                                               @PathVariable(name = "item_name") String item_name) {
+                                               @PathVariable(name = "item_name") String item_name,
+                                               @RequestParam(name = "seller") String seller_name) {
 
         String userEmail = httpServletRequest.getHeader("email");
 
-        return ResponseEntity.ok(reviewService.deleteReview(userEmail, item_name));
+        return ResponseEntity.ok(reviewService.deleteReview(userEmail,seller_name, item_name));
     }
 
     @PatchMapping("/items/{item_name}")

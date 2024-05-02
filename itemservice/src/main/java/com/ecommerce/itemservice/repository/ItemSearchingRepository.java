@@ -19,15 +19,6 @@ public interface ItemSearchingRepository extends JpaRepository<Item, Integer> {
             "JOIN i.salesInfos s\n";
     String whereItemName = "WHERE i.itemName LIKE concat('%', :name, '%') ";
 
-    String SalesValuesjoinQuery = "SELECT new com.ecommerce.itemservice.dto.SalesValues(\n" +
-            " ,\n" +
-            " ,\n" +
-            " ,\n" +
-            " ,\n" +
-            "  )\n" +
-            "FROM Item i\n" +
-            "JOIN i.category c\n" +
-            "JOIN i.salesInfos s\n";
 
     @Query( ItemDTOjoinQuery+
             whereItemName)
@@ -40,9 +31,9 @@ public interface ItemSearchingRepository extends JpaRepository<Item, Integer> {
 
     @Query(ItemDTOjoinQuery +
             whereItemName +
-            "AND c.categoryId = :catId "
+            "AND s.salesInfoId = :sellerId "
     )
-    List<SalesValues> findItemsBysellerIdSalesInfos(@Param("sellerId") int sellerId, @Param("itemName") String itemName );
+    List<SalesValues> findItemsBysellerIdSalesInfos(@Param("sellerId") int sellerId, @Param("name") String name );
 
     @Query(ItemDTOjoinQuery+
             whereItemName +

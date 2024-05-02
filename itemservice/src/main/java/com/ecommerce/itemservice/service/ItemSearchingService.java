@@ -23,7 +23,7 @@ public class ItemSearchingService {
     }
     @Transactional
     public List<SalesValues> findByIdSalesValues(int sellerId,String itemName ){
-        return itemSearchingRepository.findItemsByNameLike(itemName);
+        return itemSearchingRepository.findItemsBysellerIdSalesInfos(sellerId,itemName);
     }
     @Transactional
     public List<ItemDTO> findItemDTOsByNameAndCat(String itemName,short itemCat){ // 이름 ,카테 기준 검색이후 itemDTO 리스트반환

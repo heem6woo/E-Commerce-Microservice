@@ -20,15 +20,18 @@ public class ItemServiceGrpcServer extends IdServiceGrpc.IdServiceImplBase {
 
         @Override
         public void getItemInfo(final IdRequest req, final StreamObserver<IdReply> responseObserver) {
-                String sellerId = req.getsellerId();
+                int sellerId = Integer.parseInt(req.getsellerId());
                 String itemName = req.getitemName();
                 log.info(sellerId + " gRPC getting request");
-                IdReply reply = null;
+                ItemReply reply = null;
                 try {
-                        reply = IdReply.newBuilder().setId(itemSearchingService.findItemDTOsByName(itemName)).build();// 실질적인 값 반환
+
+                        reply = IdReply.newBuilder().set().
+                                build();// 실질적인 값 반환
                 } catch (ChangeSetPersister.NotFoundException e) {
                         throw new RuntimeException(e);
                 }
+                itemSearchingService.findByIdSalesValues(sellerId,itemName)
                 responseObserver.onNext(reply);
                 responseObserver.onCompleted();
         }

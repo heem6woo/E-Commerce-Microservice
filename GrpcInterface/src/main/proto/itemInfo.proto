@@ -11,8 +11,9 @@ service ItemInfoService {
 
 message ItemRequest {
 
-    string sellerId = 1;
+    int32 sellerId = 1;
     string itemName = 2;
+    string
 
 }
 

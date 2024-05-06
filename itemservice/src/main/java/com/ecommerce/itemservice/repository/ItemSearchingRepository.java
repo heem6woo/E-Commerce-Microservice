@@ -63,4 +63,7 @@ public interface ItemSearchingRepository extends JpaRepository<Item, Integer> {
     )
     List<ItemDTO> findItemsByCatMin(@Param("catId") short catId,@Param("minPrice")int minPrice );
 
+
+    // gRPC for review
+    Item findByItemName(String name);
 }

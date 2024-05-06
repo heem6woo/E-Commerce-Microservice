@@ -19,13 +19,6 @@ public class OrderController {
 
     // requesting order
 
-    // listing orders
-
-    @GetMapping("")
-    public ResponseEntity<List<OrderInfo>> listAllOrders(HttpServletRequest request) {
-
-        return ResponseEntity.ok(orderInfoService.listAllOrders(request));
-    }
 
     @GetMapping("/items/{item-name}")
     public ResponseEntity<List<OrderInfo>> listAllOrdersForItem(@PathVariable("item-name") String itemName) {
@@ -33,8 +26,6 @@ public class OrderController {
     }
 
     // Request order
-
-
 
 
     // ADMIN ONLY

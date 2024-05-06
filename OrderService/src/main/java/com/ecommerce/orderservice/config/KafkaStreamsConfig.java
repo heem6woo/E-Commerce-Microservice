@@ -96,24 +96,6 @@ public class KafkaStreamsConfig {
         return orderStream;
     }
 
-    @Bean
-    public KStream<Integer, String> kStream(StreamsBuilder kStreamBuilder) {
-        KStream<Integer, String> stream = kStreamBuilder.stream("streamingTopic1");
-        stream
-                .mapValues((ValueMapper<String, String>) String::toUpperCase)
-                .groupByKey()
-                .windowedBy(TimeWindows.of(Duration.ofMillis(1_000)))
-                .reduce((String value1, String value2) -> value1 + value2,
-                        Named.as("windowStore"))
-                .toStream()
-                .map((windowedId, value) -> new KeyValue<>(windowedId.key(), value))
-                .filter((i, s) -> s.length() > 40)
-                .to("streamingTopic2");
-
-        stream.print(Printed.toSysOut());
-
-        return stream;
-    }
 
     public Order confirm(Order orderPayment, Order orderStock) {
 

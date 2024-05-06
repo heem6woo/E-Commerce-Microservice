@@ -21,6 +21,9 @@ public class Review {
     @Column(name = "customer_id")
     private int customerId;
 
+    @Column(name = "seller_id")
+    private int sellerId;
+
     @Column(name = "item_id")
     private int itemId;
 

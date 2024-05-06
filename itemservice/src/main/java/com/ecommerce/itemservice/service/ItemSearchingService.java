@@ -1,7 +1,8 @@
 package com.ecommerce.itemservice.service;
 
 import com.ecommerce.itemservice.dto.ItemDTO;
-import com.ecommerce.itemservice.entity.Item;
+import com.ecommerce.itemservice.dto.SalesValues;
+import com.ecommerce.itemservice.entity.SalesInfo;
 import com.ecommerce.itemservice.repository.ItemSearchingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ public class ItemSearchingService {
     public List<ItemDTO> findItemDTOsByName(String itemName){ // 이름 기준 검색이후 itemDTO 리스트반환
         System.out.println("adad");
         return itemSearchingRepository.findItemsByNameLike(itemName);
+    }
+    @Transactional
+    public ItemDTO findByIdSalesValues(int sellerId,String itemName ){
+        return itemSearchingRepository.findItemsBysellerIdSalesInfos(sellerId,itemName);
     }
     @Transactional
     public List<ItemDTO> findItemDTOsByNameAndCat(String itemName,short itemCat){ // 이름 ,카테 기준 검색이후 itemDTO 리스트반환
@@ -50,12 +55,6 @@ public class ItemSearchingService {
     public List<ItemDTO> findItemDTOsByCatMax(short itemCat, int maxPrice){ // 카테, 최대가격 기준 검색이후 itemDTO 리스트반환
         System.out.println("adad");
         return itemSearchingRepository.findItemsByCatMax(itemCat,maxPrice);
-    }
-
-
-    // gRPC for review
-    public Item findByItemName(String itemName) {
-        return itemSearchingRepository.findByItemName(itemName);
     }
 
 }

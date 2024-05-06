@@ -26,19 +26,27 @@ spring:
     level:
       org.hibernate.SQL: debug
 
-#
-## Ereka
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://localhost:8761/eureka
+
+# Ereka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
 
 # ?? ?? ??
 server:
   port: 8100
 
-  #grpc
 
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace
+
+#
+# Grpc Settings
+#
 grpc:
   server:
-    port: 9998
+    port = 9998
+

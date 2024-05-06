@@ -13,3 +13,30 @@ Content-Type: application/json
 ### Query the Demo endpoint
 GET http://localhost:8765/api/demo-controller
 Authorization: Bearer {{auth-token}}
+
+
+### Query the Demo endpoint
+POST http://localhost:8765/api/items/
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInRva2VuVHlwZSI6ImFjY2VzcyIsInN1YiI6ImhlZW02d29vQGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ1MDIzNywiZXhwIjoxNzE0NDUyMDM3fQ.BwnzbGhsi4KarWJNlEcMS8zMRftxrjyFo6fTzjuQGbI
+Content-Type: application/json
+
+{
+  "itemValues": {
+    "itemId": 123,
+    "category": 1,
+    "itemName": "Wireless Headphones",
+    "itemDescription": "High-quality wireless headphones for immersive audio experience.",
+    "regDt": "2024-04-30T12:00:00Z"
+  },
+  "salesValues": {
+    "salesId": 456,
+    "sellerId": 1001,
+    "itemId": 123,
+    "itemCount": 20,
+    "itemPrice": 200,
+    "itemStatus": 1
+  }
+}
+### Query the Demo endpoint
+GET http://localhost:8765/api/item-search/?item-name=e
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInRva2VuVHlwZSI6ImFjY2VzcyIsInN1YiI6ImhlZW02d29vQGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ1MzM4NSwiZXhwIjoxNzE0NDU1MTg1fQ.4r84A59qZmuYhgYCE5OkOjBdUuk2yRcjMSZr6voYJkU

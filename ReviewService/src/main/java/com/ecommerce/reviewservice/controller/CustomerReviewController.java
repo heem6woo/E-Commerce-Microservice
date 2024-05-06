@@ -25,6 +25,13 @@ public class CustomerReviewController {
         return ResponseEntity.ok(reviewService.findAllByCustomerEmail(userEmail));
     }
 
+    @GetMapping("/items/{item_name}")
+    public ResponseEntity<List<Review>> listAllReviewOfCustomerItem(HttpServletRequest httpServletRequest,
+                                              @PathVariable(name = "item_name") String item_name)
+            throws HttpResponseException {
+        String userEmail = httpServletRequest.getHeader("email");
+        return ResponseEntity.ok(reviewService.findAllByItemNameEmail(item_name, userEmail));
+    }
 
     // for customer
     @PostMapping("/items/{item_name}")
@@ -39,11 +46,12 @@ public class CustomerReviewController {
     // for customer
     @DeleteMapping("/items/{item_name}")
     public ResponseEntity<String> deleteReview(HttpServletRequest httpServletRequest,
-                                               @PathVariable(name = "item_name") String item_name) {
+                                               @PathVariable(name = "item_name") String item_name,
+                                               @RequestParam(name = "seller") String seller_name) {
 
         String userEmail = httpServletRequest.getHeader("email");
 
-        return ResponseEntity.ok(reviewService.deleteReview(userEmail, item_name));
+        return ResponseEntity.ok(reviewService.deleteReview(userEmail,seller_name, item_name));
     }
 
     @PatchMapping("/items/{item_name}")

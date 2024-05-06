@@ -12,6 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="E-Commerce-Microservice.itemservice.main" target="17" />
       <module name="Spring-Cart-Microservice-E-Commerce-Platform.NamingServer" target="17" />
       <module name="Spring-Cart-Microservice-E-Commerce-Platform.NamingServer.main" target="17" />
       <module name="Spring-Cart-Microservice-E-Commerce-Platform.NamingServer.test" target="17" />

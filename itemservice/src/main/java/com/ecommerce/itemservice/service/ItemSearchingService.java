@@ -1,6 +1,7 @@
 package com.ecommerce.itemservice.service;
 
 import com.ecommerce.itemservice.dto.ItemDTO;
+import com.ecommerce.itemservice.entity.Item;
 import com.ecommerce.itemservice.repository.ItemSearchingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,12 @@ public class ItemSearchingService {
     public List<ItemDTO> findItemDTOsByCatMax(short itemCat, int maxPrice){ // 카테, 최대가격 기준 검색이후 itemDTO 리스트반환
         System.out.println("adad");
         return itemSearchingRepository.findItemsByCatMax(itemCat,maxPrice);
+    }
+
+
+    // gRPC for review
+    public Item findByItemName(String itemName) {
+        return itemSearchingRepository.findByItemName(itemName);
     }
 
 }

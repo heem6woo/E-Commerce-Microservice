@@ -64,6 +64,12 @@ dependencies {
 
 	//Redis cache
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	//    grpc server dependency
+	implementation files('libs/GrpcInterface-1.0-SNAPSHOT.jar')
+
+	implementation ('net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE')
+	implementation 'io.grpc:grpc-netty-shaded'
 }
 
 dependencyManagement {

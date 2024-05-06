@@ -6,4 +6,6 @@ public class OrderRequest {
 
     private String sellerEmail;
 
+    private int quantity;
+
 }

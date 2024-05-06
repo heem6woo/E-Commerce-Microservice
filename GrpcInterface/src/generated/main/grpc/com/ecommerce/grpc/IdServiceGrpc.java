@@ -244,7 +244,7 @@ public final class IdServiceGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return com.ecommerce.grpc.MemberProto.getDescriptor();
+      return com.ecommerce.grpc.IdProto.getDescriptor();
     }
 
     @java.lang.Override

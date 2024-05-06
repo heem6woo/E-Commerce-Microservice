@@ -24,6 +24,8 @@ public class OrderInfo {
     @Column(name = "seller_id")
     private int sellerId;
 
+    @Column(name = "quantity")
+    private int quantity;
 
     @Column(name = "date")
     private Timestamp date;

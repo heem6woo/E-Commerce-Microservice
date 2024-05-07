@@ -12,19 +12,22 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Order {
     private Long id;
-    private Long customerId;
-    private Long productId;
-    private int productCount;
+    private int customerId;
+    private int sellerId;
+    private int itemId;
+    private int itemQuantity;
     private int price;
     private OrderStatus status;
+
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", customerId=" + customerId +
-                ", productId=" + productId +
-                ", productCount=" + productCount +
+                ", sellerId=" + sellerId +
+                ", itemId=" + itemId +
+                ", itemQuantity=" + itemQuantity +
                 ", price=" + price +
                 ", status=" + status +
                 '}';

@@ -1,14 +1,15 @@
 package com.ecommerce.orderservice.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @Entity
 @Data
 @Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "order_info")
 public class OrderInfo {
 

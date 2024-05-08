@@ -46,7 +46,7 @@ public class OrderService {
 //        int itemId = itemIdClient.requestItemId(orderRequest.getItemName());
 
         Order order = Order.builder()
-                .id(id.incrementAndGet())
+                .id(id.getAndIncrement())
                 .customerId(1)
                 .sellerId(1)
                 .itemId(1)
@@ -96,4 +96,23 @@ public class OrderService {
         return orders;
 
     }
+
+    public Order updateOrder(HttpServletRequest request, long id, String status) {
+
+        Order order = Order.builder()
+                .id(id)
+                .itemQuantity(0)
+                .price(0)
+                .status(OrderStatus.CONFIRMED)
+                .customerId(1)
+                .sellerId(1)
+                .itemId(1)
+                .build();
+
+        orderProducer.sendMessage(order);
+
+        return order;
+    }
+
+
 }

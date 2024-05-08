@@ -1,23 +1,15 @@
 package com.ecommerce.orderservice.controller;
 
 import com.ecommerce.orderservice.dto.OrderRequest;
-import com.ecommerce.orderservice.dto.TopicEnum;
 import com.ecommerce.orderservice.entity.Order;
-import com.ecommerce.orderservice.entity.OrderInfo;
 import com.ecommerce.orderservice.service.OrderInfoService;
 import com.ecommerce.orderservice.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.streams.StoreQueryParameters;
-import org.apache.kafka.streams.state.KeyValueIterator;
-import org.apache.kafka.streams.state.QueryableStoreTypes;
-import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -47,6 +39,13 @@ public class OrderCustomerController {
     public ResponseEntity<Order> createOrder(HttpServletRequest request, @RequestBody OrderRequest orderRequest) {
 
         return ResponseEntity.ok(orderService.createOrder(request, orderRequest));
+    }
+
+    // Only for testing
+    @PatchMapping("/{id}/{status}")
+    public ResponseEntity<Order> updateOrder(HttpServletRequest request, @PathVariable long id, @PathVariable String status) {
+
+        return ResponseEntity.ok(orderService.updateOrder(request, id, status));
     }
 
 }

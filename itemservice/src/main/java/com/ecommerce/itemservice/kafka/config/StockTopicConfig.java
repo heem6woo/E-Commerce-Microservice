@@ -1,5 +1,6 @@
 package com.ecommerce.itemservice.kafka.config;
 
+import com.ecommerce.itemservice.dto.TopicEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;

@@ -1,5 +1,6 @@
 package com.ecommerce.itemservice.kafka.consumer;
 
+import com.ecommerce.itemservice.dto.TopicEnum;
 import com.ecommerce.itemservice.kafka.payload.Order;
 import com.ecommerce.itemservice.kafka.payload.OrderStatus;
 import com.ecommerce.itemservice.kafka.producer.StockProducer;

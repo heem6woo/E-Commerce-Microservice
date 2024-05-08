@@ -15,8 +15,6 @@ public class StockTopicConfig {
 //                .compact()
                 .build();
     }
-
      */
-
 
 }

@@ -1,4 +1,4 @@
-package com.ecommerce.itemservice.kafka.payload;
+package com.ecommerce.itemservice.dto;
 
 public enum TopicEnum {
     ORDERS,

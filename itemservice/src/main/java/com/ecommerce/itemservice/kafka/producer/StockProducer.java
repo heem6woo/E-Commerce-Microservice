@@ -19,7 +19,8 @@ public class StockProducer {
       Message<Order> message = MessageBuilder
               .withPayload(order)
               .setHeader(KafkaHeaders.TOPIC,String.valueOf(TopicEnum.STOCK))
+              .setHeader(KafkaHeaders.KEY,order.getId())
               .build();
-      kafkaTemplate.send(String.valueOf(TopicEnum.STOCK),order.getId(),order);
+      kafkaTemplate.send(message);
   }
 }

@@ -78,11 +78,17 @@ public class KafkaStreamsConfig {
                 .stream(String.valueOf(STOCK),Consumed.with(keySerde, valueSerde));
 
         //join records from both streams
-        KStream<Long, Order> orderStream = stockStream.leftJoin(
-                paymentStream,
-                this::confirm,
-                JoinWindows.ofTimeDifferenceWithNoGrace(Duration.ofSeconds(1)),
-                StreamJoined.with(keySerde, valueSerde, valueSerde)
+//        KStream<Long, Order> orderStream = stockStream.leftJoin(
+//                paymentStream,
+//                this::confirm,
+//                JoinWindows.ofTimeDifferenceWithNoGrace(Duration.ofSeconds(1)),
+//                StreamJoined.with(keySerde, valueSerde, valueSerde)
+//        );
+
+        KStream<Long, Order> orderStream = stockStream.mapValues(
+                value -> {
+                    return confirm(value, value);
+                }
         );
 
         // produce processed message to order topic

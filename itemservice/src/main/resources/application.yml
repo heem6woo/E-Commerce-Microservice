@@ -63,5 +63,5 @@ logging:
 #
 grpc:
   server:
-    port = 9998
+    port: 9998
 

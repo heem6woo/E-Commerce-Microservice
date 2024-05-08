@@ -16,15 +16,15 @@ public class ItemIdClient {
     @GrpcClient("item-service")
     private IdServiceGrpc.IdServiceBlockingStub client;
 
-    public int requestItemId(final String email) {
-        var request = IdRequest.newBuilder().setEmail(email).build();
+    public int requestItemId(final String itemName) {
+        var request = IdRequest.newBuilder().setName(itemName).build();
         try{
             log.info("Trying to request Id to gRPC server");
-            IdReply response = this.client.getId(IdRequest.newBuilder().setEmail(email).build());
+            IdReply response = this.client.getId(request);
             log.info("Getting response from gRPC.");
             return response.getId();
         } catch (StatusRuntimeException e) {
-            throw new RuntimeException("Not found email");
+            throw new RuntimeException("Not found itemName");
         }
     }
 }

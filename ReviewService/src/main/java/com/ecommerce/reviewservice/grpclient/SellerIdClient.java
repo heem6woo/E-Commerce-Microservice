@@ -1,4 +1,4 @@
-package com.ecommerce.orderservice.grpclient;
+package com.ecommerce.reviewservice.grpclient;
 
 import com.ecommerce.grpc.IdReply;
 import com.ecommerce.grpc.IdRequest;
@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ItemIdClient {
-    @GrpcClient("item-service")
+public class SellerIdClient {
+    @GrpcClient("member-service")
     private IdServiceGrpc.IdServiceBlockingStub client;
 
-    public int requestItemId(final String name) {
+    public int requestMemberId(final String name) {
         var request = IdRequest.newBuilder().setName(name).build();
         try{
             log.info("Trying to request Id to gRPC server");
-            IdReply response = this.client.getId(request);
+            IdReply response = this.client.getId(request); // 실질적 요청 코드
             log.info("Getting response from gRPC.");
             return response.getId();
         } catch (StatusRuntimeException e) {

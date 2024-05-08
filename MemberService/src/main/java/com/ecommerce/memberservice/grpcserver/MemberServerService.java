@@ -1,4 +1,4 @@
-package com.ecommerce.memberservice.grpcservice;
+package com.ecommerce.memberservice.grpcserver;
 
 import com.ecommerce.grpc.IdReply;
 import com.ecommerce.grpc.IdRequest;

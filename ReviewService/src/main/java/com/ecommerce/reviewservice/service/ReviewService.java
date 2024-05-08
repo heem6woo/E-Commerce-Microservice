@@ -5,19 +5,16 @@ import com.ecommerce.reviewservice.controller.MemberFeign;
 import com.ecommerce.reviewservice.dto.ReviewDto;
 import com.ecommerce.reviewservice.entity.Review;
 import com.ecommerce.reviewservice.grpclient.ItemIdClient;
-import com.ecommerce.reviewservice.grpclient.MemberIdClient;
+import com.ecommerce.reviewservice.grpclient.CustomerIdClient;
+import com.ecommerce.reviewservice.grpclient.SellerIdClient;
 import com.ecommerce.reviewservice.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,7 +25,8 @@ public class ReviewService {
     private final ItemFeign itemFeign;
 
     // gRPC
-    private final MemberIdClient memberIdClient;
+    private final CustomerIdClient customerIdClient;
+    private final SellerIdClient sellerIdClient;
     private final ItemIdClient itemIdClient;
 
 
@@ -55,7 +53,9 @@ public class ReviewService {
         // 추 후 상품 구매목록을 확인하여 해당 고객이 상품을 구매했는지 확인
 
         //int customerId = memberFeign.retrieveCustomerId(email).getId();
-        int customerId = memberIdClient.requestMemberId(email);
+        int customerId = customerIdClient.requestMemberId(email);
+
+        int sellerId = sellerIdClient.requestMemberId(reviewRequest.getSellerName());
         //int itemId = itemFeign.retrieveItemId(itemName).getId();
         //int itemId = 0;
         int itemId = itemIdClient.requestItemId(itemName);
@@ -67,6 +67,7 @@ public class ReviewService {
 
         Review review = Review.builder()
                 .customerId(customerId)
+                .sellerId(sellerId)
                 .itemId(itemId)
                 .contains(reviewRequest.getContains())
                 .date(reviewRequest.getDate())
@@ -78,14 +79,15 @@ public class ReviewService {
     }
 
     @Transactional
-    public String deleteReview(String userEmail, String itemName) {
+    public String deleteReview(String userEmail, String itemName, String sellerName) {
 
         //int customerId = memberFeign.retrieveCustomerId(userEmail).getId();
-        int customerId = memberIdClient.requestMemberId(userEmail);
+        int customerId = customerIdClient.requestMemberId(userEmail);
+        int sellerId = sellerIdClient.requestMemberId(sellerName);
         int itemId = itemIdClient.requestItemId(itemName);
 
         // int itemId = itemFeign.retrieveItemId(itemName).getId();
-        Review review = reviewRepository.findByCustomerIdAndItemId(customerId, itemId);
+        Review review = reviewRepository.findByCustomerIdAndSellerIdAndItemId(customerId, sellerId, itemId);
 
         reviewRepository.delete(review);
 
@@ -95,13 +97,15 @@ public class ReviewService {
     @Transactional
     public String updateReview(String email, String itemName, ReviewDto reviewRequest) {
         //int customerId = memberFeign.retrieveCustomerId(email).getId();
-        int customerId = memberIdClient.requestMemberId(email);
+        int customerId = customerIdClient.requestMemberId(email);
 
         int itemId = itemIdClient.requestItemId(itemName);
 
+        int sellerId = sellerIdClient.requestMemberId(reviewRequest.getSellerName());
+
         //int itemId = itemFeign.retrieveItemId(itemName).getId();
 
-        Review review = reviewRepository.findByCustomerIdAndItemId(customerId,itemId);
+        Review review = reviewRepository.findByCustomerIdAndSellerIdAndItemId(customerId,sellerId, itemId);
 
         if (reviewRequest.getContains() != null) {
             review.setContains(reviewRequest.getContains());
@@ -117,7 +121,7 @@ public class ReviewService {
 
     public List<Review> findAllByItemNameEmailScore(String itemName, String email, int score) {
         //int customerId = memberFeign.retrieveCustomerId(email).getId();
-        int customerId = memberIdClient.requestMemberId(email);
+        int customerId = customerIdClient.requestMemberId(email);
         //int itemId = itemFeign.retrieveItemId(itemName);
         int itemId = itemIdClient.requestItemId(itemName);
         return reviewRepository.findAllByItemIdAndCustomerIdAndScore(itemId,customerId,score);
@@ -125,7 +129,7 @@ public class ReviewService {
 
     public List<Review> findAllByItemNameEmail(String itemName, String email) {
         //int customerId = memberFeign.retrieveCustomerId(email).getId();
-        int customerId = memberIdClient.requestMemberId(email);
+        int customerId = customerIdClient.requestMemberId(email);
         //int itemId = itemFeign.retrieveItemId(itemName);
         int itemId = itemIdClient.requestItemId(itemName);
         return reviewRepository.findAllByItemIdAndCustomerId(itemId, customerId);
@@ -139,17 +143,88 @@ public class ReviewService {
 
     public List<Review> findAllByEmailScore(String email, int score) {
         //int customerId = memberFeign.retrieveCustomerId(email).getId();
-        int customerId = memberIdClient.requestMemberId(email);
+        int customerId = customerIdClient.requestMemberId(email);
         return reviewRepository.findAllByCustomerIdAndScore(customerId,score);
     }
 
     public List<Review> findAllByEmail(String email) {
         //int customerId = memberFeign.retrieveCustomerId(email).getId();
-        int customerId = memberIdClient.requestMemberId(email);
+        int customerId = customerIdClient.requestMemberId(email);
         return reviewRepository.findAllByCustomerId(customerId);
     }
 
     public List<Review> findAllByScore(int score) {
         return reviewRepository.findAllByScore(score);
+    }
+
+    public List<Review> findAllByItemNameEmailScoreSellerName(String itemName, String email, String name, int score) {
+        int customerId = customerIdClient.requestMemberId(email);
+
+        int itemId = itemIdClient.requestItemId(itemName);
+
+        int sellerId = sellerIdClient.requestMemberId(name);
+
+        return reviewRepository.findAllByCustomerIdAndSellerIdAndItemIdAndScore(customerId, sellerId, itemId,score);
+
+
+    }
+
+    public List<Review> findAllByEmailScoreSellerName(String email, String name, int score) {
+        int customerId = customerIdClient.requestMemberId(email);
+
+        int sellerId = sellerIdClient.requestMemberId(name);
+
+        return reviewRepository.findAllByCustomerIdAndSellerId(customerId, sellerId);
+
+    }
+
+    public List<Review> findAllByItemNameScoreSellerName(String itemName, String name, int score) {
+        int sellerId = sellerIdClient.requestMemberId(name);
+
+        int itemId = itemIdClient.requestItemId(itemName);
+
+        return reviewRepository.findAllBySellerIdAndItemIdAndScore(sellerId, itemId, score);
+
+    }
+
+    public List<Review> findAllByItemNameEmailSellerName(String itemName, String email, String name) {
+
+        int customerId = customerIdClient.requestMemberId(email);
+
+        int sellerId = sellerIdClient.requestMemberId(name);
+
+        int itemId = itemIdClient.requestItemId(itemName);
+
+        return reviewRepository.findAllByCustomerIdAndSellerIdAndItemId(customerId, sellerId, itemId);
+    }
+
+    public List<Review> findAllBySellerName(String name) {
+
+        return reviewRepository.findAllBySellerId(sellerIdClient.requestMemberId(name));
+
+    }
+
+    public List<Review> findAllBySellerNameAndItemName(String name, String itemName) {
+
+        int sellerId = sellerIdClient.requestMemberId(name);
+
+        int itemId = itemIdClient.requestItemId(itemName);
+
+        return reviewRepository.findAllBySellerIdAndItemId(sellerId, itemId);
+    }
+
+
+    public List<Review> findAllBySellerEmailAndItemName(String sellerEmail, String itemName) {
+        int sellerId = customerIdClient.requestMemberId(sellerEmail);
+
+        int itemId = itemIdClient.requestItemId(itemName);
+
+        return reviewRepository.findAllBySellerIdAndItemId(sellerId, itemId);
+    }
+
+    public List<Review>  findAllBySellerEmail(String sellerEmail) {
+        int sellerId = customerIdClient.requestMemberId(sellerEmail);
+
+        return reviewRepository.findAllBySellerId(sellerId);
     }
 }

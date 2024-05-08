@@ -1,5 +1,10 @@
 package com.ecommerce.itemservice.kafka.payload;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Order {
     private Long id;
     private int customerId;

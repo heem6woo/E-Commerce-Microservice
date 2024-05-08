@@ -37,12 +37,10 @@ import static com.ecommerce.orderservice.dto.TopicEnum.*;
 @EnableKafkaStreams
 public class KafkaStreamsConfig {
 
-
-
     @Bean
     public StreamsBuilderFactoryBeanConfigurer configurer() {
         return fb -> fb.setStateListener((newState, oldState) -> {
-            System.out.println("State transition from " + oldState + " to " + newState);
+            log.info("State transition from " + oldState + " to " + newState);
         });
     }
 
@@ -101,12 +99,12 @@ public class KafkaStreamsConfig {
     public KTable<Long, Order> table(StreamsBuilder builder) {
         // name of ktable
         KeyValueBytesStoreSupplier store =
-                Stores.persistentKeyValueStore("orders");
+                Stores.persistentKeyValueStore(String.valueOf(ORDERS));
 
         JsonSerde<Order> orderSerde = new JsonSerde<>(Order.class);
 
         KStream<Long, Order> stream = builder
-                .stream("orders", Consumed.with(Serdes.Long(), orderSerde));
+                .stream(String.valueOf(ORDERS), Consumed.with(Serdes.Long(), orderSerde));
 
 
         return stream.toTable(Materialized.<Long, Order>as(store)

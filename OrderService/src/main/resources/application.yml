@@ -33,14 +33,14 @@ spring:
   # kafka
   #
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 43.202.136.98:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.LongSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     streams:
       properties:
           application-id: order-streams
-          default.key.serde: org.apache.kafka.common.serialization.s
+          default.key.serde: org.apache.kafka.common.serialization.Serdes$LongSerde
           default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
 
 
@@ -66,5 +66,9 @@ grpc:
       enableKeepAlive: true
       keepAliveWithoutCalls: true
       negotiationType: plaintext
-
+    item-service:
+      address: 'discovery:///item-service'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
 

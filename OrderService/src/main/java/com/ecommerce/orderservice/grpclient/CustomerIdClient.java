@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ItemIdClient {
-    @GrpcClient("item-service")
+public class CustomerIdClient {
+    @GrpcClient("member-service")
     private IdServiceGrpc.IdServiceBlockingStub client;
 
-    public int requestItemId(final String name) {
-        var request = IdRequest.newBuilder().setName(name).build();
+    public int requestMemberId(final String email) {
+        var request = IdRequest.newBuilder().setEmail(email).build();
         try{
             log.info("Trying to request Id to gRPC server");
-            IdReply response = this.client.getId(request);
+            IdReply response = this.client.getId(IdRequest.newBuilder().setEmail(email).build());
             log.info("Getting response from gRPC.");
             return response.getId();
         } catch (StatusRuntimeException e) {

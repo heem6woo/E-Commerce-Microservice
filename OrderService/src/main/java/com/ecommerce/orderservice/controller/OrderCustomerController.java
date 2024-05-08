@@ -1,5 +1,6 @@
 package com.ecommerce.orderservice.controller;
 
+import com.ecommerce.orderservice.dto.OrderRequest;
 import com.ecommerce.orderservice.dto.TopicEnum;
 import com.ecommerce.orderservice.entity.Order;
 import com.ecommerce.orderservice.entity.OrderInfo;
@@ -14,10 +15,7 @@ import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.config.StreamsBuilderFactoryBean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +26,8 @@ import java.util.List;
 @RequestMapping("/api/customer/orders")
 public class OrderCustomerController {
 
-    private OrderInfoService orderInfoService;
-    private OrderService orderService;
+    private final OrderInfoService orderInfoService;
+    private final OrderService orderService;
 
     /*
     @GetMapping("")
@@ -46,9 +44,9 @@ public class OrderCustomerController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Order> createOrder(HttpServletRequest request) {
+    public ResponseEntity<Order> createOrder(HttpServletRequest request, @RequestBody OrderRequest orderRequest) {
 
-        return ResponseEntity.ok(orderService.createOrder(request));
+        return ResponseEntity.ok(orderService.createOrder(request, orderRequest));
     }
 
 }

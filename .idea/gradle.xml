@@ -44,6 +44,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/PayMentService" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/PayMentService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/ReviewService" />
         <option name="modules">
           <set>

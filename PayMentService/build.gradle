@@ -1,0 +1,85 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+ext {
+	springModulithVersion = "1.1.4"
+}
+
+group = 'com.ecommerce'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.projectlombok:lombok'
+	implementation 'junit:junit:4.13.1'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation "org.assertj:assertj-core:3.24.2"
+	// JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+//jwt 사용
+	implementation group: 'com.auth0', name: 'java-jwt', version: '3.10.2'
+	//새로추가(jjwt library)
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	// JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// Web & WebSocket
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	// Development Tools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Database Drivers
+	runtimeOnly 'mysql:mysql-connector-java:8.0.32'
+	runtimeOnly 'com.h2database:h2'
+	// Spring Cloud
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
+
+	//Redis cache
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	//Grpc
+	implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE'
+	implementation files('libs/GrpcInterface-1.0-SNAPSHOT.jar')
+	implementation 'io.grpc:grpc-netty-shaded'
+
+
+	implementation 'org.springframework.kafka:spring-kafka'
+
+	testImplementation 'junit:junit:4.12'
+
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.modulith:spring-modulith-bom:$springModulithVersion"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

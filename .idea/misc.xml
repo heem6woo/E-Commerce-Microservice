@@ -9,6 +9,7 @@
     <file type="web" url="file://$PROJECT_DIR$/MemberService" />
     <file type="web" url="file://$PROJECT_DIR$/NamingServer" />
     <file type="web" url="file://$PROJECT_DIR$/OrderService" />
+    <file type="web" url="file://$PROJECT_DIR$/PayMentService" />
     <file type="web" url="file://$PROJECT_DIR$/ReviewService" />
     <file type="web" url="file://$PROJECT_DIR$/../Spring-Cart-Microservice-E-Commerce-Platform/ApiGateway" />
     <file type="web" url="file://$PROJECT_DIR$/../Spring-Cart-Microservice-E-Commerce-Platform/NamingServer" />

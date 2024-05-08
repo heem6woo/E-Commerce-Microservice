@@ -15,7 +15,9 @@ public class OrderConsumer {
     ItemStockService itemStockService;
     @KafkaListener(topics = "ORDERS")
     public void consumeJsonMsg(Order order) {
-        if(itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity()))
+        Boolean flag = false;
+        flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
+        if(flag)
             System.out.println(order.getPrice()+"아이템 가격");
         else System.out.println("재고없음");
     }

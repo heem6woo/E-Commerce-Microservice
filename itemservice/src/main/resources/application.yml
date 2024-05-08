@@ -8,8 +8,8 @@ spring:
     password: RKAWK78044*
 
   kafka:
+    bootstrap-servers: 43.202.136.98:9092
     consumer:
-      bootstrap-servers: 43.202.136.98:9092
       group-id: stock
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
@@ -17,7 +17,6 @@ spring:
       properties:
         spring.json.trusted.packages: com.ecommerce.itemservice.kafka.payload
     producer:
-      bootstrap-servers: 43.202.136.98:9092
       key-serializer: org.apache.kafka.common.serialization.LongSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 

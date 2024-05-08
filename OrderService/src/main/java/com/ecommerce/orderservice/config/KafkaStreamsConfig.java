@@ -4,6 +4,8 @@ package com.ecommerce.orderservice.config;
 import com.ecommerce.orderservice.dto.OrderStatus;
 import com.ecommerce.orderservice.dto.TopicEnum;
 import com.ecommerce.orderservice.entity.Order;
+import com.ecommerce.orderservice.service.OrderInfoService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.serialization.Serde;
@@ -34,8 +36,11 @@ import static com.ecommerce.orderservice.dto.TopicEnum.*;
 @Configuration
 @EnableKafka
 @Slf4j
+@RequiredArgsConstructor
 @EnableKafkaStreams
 public class KafkaStreamsConfig {
+
+    private final OrderInfoService orderInfoService;
 
     @Bean
     public StreamsBuilderFactoryBeanConfigurer configurer() {
@@ -81,8 +86,8 @@ public class KafkaStreamsConfig {
                 .stream(String.valueOf(STOCK),Consumed.with(keySerde, valueSerde));
 
         //join records from both streams
-        KStream<Long, Order> orderStream = paymentStream.join(
-                stockStream,
+        KStream<Long, Order> orderStream = stockStream.leftJoin(
+                paymentStream,
                 this::confirm,
                 JoinWindows.ofTimeDifferenceWithNoGrace(Duration.ofSeconds(10)),
                 StreamJoined.with(keySerde, valueSerde, valueSerde)
@@ -110,22 +115,24 @@ public class KafkaStreamsConfig {
         return stream.toTable(Materialized.<Long, Order>as(store)
                 .withKeySerde(Serdes.Long())
                 .withValueSerde(orderSerde));
-    }
+    }g
 
 
-    public Order confirm(Order orderPayment, Order orderStock) {
+    public Order confirm(Order orderStock, Order orderPayment) {
 
         Order order = Order.builder()
-                .id(orderPayment.getId())
-                .customerId(orderPayment.getCustomerId())
-                .itemId(orderPayment.getItemId())
-                .itemQuantity(orderPayment.getItemQuantity())
-                .price(orderPayment.getPrice())
+                .id(orderStock.getId())
+                .customerId(orderStock.getCustomerId())
+                .itemId(orderStock.getItemId())
+                .itemQuantity(orderStock.getItemQuantity())
+                .price(orderStock.getPrice())
                 .build();
 
         if (orderPayment.getStatus().equals(OrderStatus.ACCEPTED) &&
                 orderStock.getStatus().equals(OrderStatus.ACCEPTED)) {
             order.setStatus(OrderStatus.CONFIRMED);
+            orderInfoService.save(order);
+
         } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED) &&
                 orderStock.getStatus().equals(OrderStatus.REJECTED)) {
             order.setStatus(OrderStatus.REJECTED);

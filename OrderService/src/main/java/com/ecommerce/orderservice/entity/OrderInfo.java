@@ -1,12 +1,14 @@
 package com.ecommerce.orderservice.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
 
 @Entity
 @Data
+@Builder
 @Table(name = "order_info")
 public class OrderInfo {
 
@@ -26,6 +28,9 @@ public class OrderInfo {
 
     @Column(name = "quantity")
     private int quantity;
+
+    @Column(name = "price")
+    private int price;
 
     @Column(name = "date")
     private Timestamp date;

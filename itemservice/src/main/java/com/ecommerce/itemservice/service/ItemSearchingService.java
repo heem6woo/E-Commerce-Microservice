@@ -57,4 +57,5 @@ public class ItemSearchingService {
         return itemSearchingRepository.findItemsByCatMax(itemCat,maxPrice);
     }
 
+
 }

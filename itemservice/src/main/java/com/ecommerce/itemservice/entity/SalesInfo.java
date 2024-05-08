@@ -36,4 +36,11 @@ public class SalesInfo {
     private Byte itemStatus;
 
     // standard getters and setters
+    public Boolean stockCheck(Integer qty) {
+        if(this.itemCount - qty < 0 ){
+            return false;
+        }
+        return true;
+    }
+
 }

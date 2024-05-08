@@ -1,7 +1,7 @@
 package com.ecommerce.orderservice.kafka;
 
 import com.ecommerce.orderservice.dto.TopicEnum;
-import com.ecommerce.orderservice.entity.Order;
+import com.ecommerce.common.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;

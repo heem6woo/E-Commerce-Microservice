@@ -1,35 +1,27 @@
 package com.ecommerce.orderservice.config;
 
 
-import com.ecommerce.orderservice.dto.OrderStatus;
-import com.ecommerce.orderservice.dto.TopicEnum;
-import com.ecommerce.orderservice.entity.Order;
+import com.ecommerce.common.OrderStatus;
+import com.ecommerce.common.Order;
 import com.ecommerce.orderservice.service.OrderInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.*;
-import org.apache.kafka.streams.processor.WallclockTimestampExtractor;
 import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
 import org.apache.kafka.streams.state.Stores;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.EnableKafkaStreams;
-import org.springframework.kafka.annotation.KafkaStreamsDefaultConfiguration;
-import org.springframework.kafka.config.KafkaStreamsConfiguration;
 import org.springframework.kafka.config.StreamsBuilderFactoryBeanConfigurer;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.support.serializer.JsonSerde;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.ecommerce.orderservice.dto.TopicEnum.*;
 
@@ -89,7 +81,7 @@ public class KafkaStreamsConfig {
         KStream<Long, Order> orderStream = stockStream.leftJoin(
                 paymentStream,
                 this::confirm,
-                JoinWindows.ofTimeDifferenceWithNoGrace(Duration.ofSeconds(10)),
+                JoinWindows.ofTimeDifferenceWithNoGrace(Duration.ofSeconds(1)),
                 StreamJoined.with(keySerde, valueSerde, valueSerde)
         );
 

@@ -1,9 +1,9 @@
 package com.ecommerce.orderservice.service;
 
 import com.ecommerce.orderservice.dto.OrderRequest;
-import com.ecommerce.orderservice.dto.OrderStatus;
+import com.ecommerce.common.OrderStatus;
 import com.ecommerce.orderservice.dto.TopicEnum;
-import com.ecommerce.orderservice.entity.Order;
+import com.ecommerce.common.Order;
 import com.ecommerce.orderservice.grpclient.ItemIdClient;
 import com.ecommerce.orderservice.grpclient.CustomerIdClient;
 import com.ecommerce.orderservice.grpclient.SellerIdClient;

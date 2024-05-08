@@ -1,5 +1,6 @@
 package com.ecommerce.itemservice.kafka.payload;
 
+import com.ecommerce.common.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 

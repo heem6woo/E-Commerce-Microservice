@@ -1,4 +1,4 @@
-package com.ecommerce.itemservice.kafka.payload;
+package com.ecommerce.common;
 
 import lombok.Getter;
 import lombok.Setter;

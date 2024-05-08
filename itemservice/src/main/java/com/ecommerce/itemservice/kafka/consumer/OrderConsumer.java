@@ -1,8 +1,7 @@
 package com.ecommerce.itemservice.kafka.consumer;
 
-import com.ecommerce.itemservice.dto.TopicEnum;
-import com.ecommerce.itemservice.kafka.payload.Order;
-import com.ecommerce.itemservice.kafka.payload.OrderStatus;
+import com.ecommerce.common.Order;
+import com.ecommerce.common.OrderStatus;
 import com.ecommerce.itemservice.kafka.producer.StockProducer;
 import com.ecommerce.itemservice.service.ItemStockService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,13 +16,17 @@ public class OrderConsumer {
     ItemStockService itemStockService;
     @Autowired
     StockProducer stockProducer;
-    @KafkaListener(topics = "ORDERS", groupId = "stock")
-    public void consumeJsonMsg(Order order) {
-        Boolean flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
-        if(flag) {
+
+
+
+    @KafkaListener(id = "order", topics = "ORDERS", groupId = "stock")
+    public void onEvent(Order order) {
+        //Boolean flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
+        // for test
+        if(true) {
             order.setStatus(OrderStatus.CONFIRMED);
             stockProducer.send(order);
-            System.out.println("주문 완료");
+            log.info("주문번호 " + order.getId() + " 주문 완료");
         }
         else {
             order.setStatus(OrderStatus.ROLLBACK_STOCK);

@@ -12,6 +12,7 @@ import org.springframework.kafka.config.TopicBuilder;
 public class StockTopicConfig {
 
 
+    /*
     @Bean
     public NewTopic stock() {
         return TopicBuilder.name(String.valueOf(TopicEnum.STOCK))
@@ -19,6 +20,8 @@ public class StockTopicConfig {
 //                .compact()
                 .build();
     }
+
+     */
 
 
 }

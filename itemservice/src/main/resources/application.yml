@@ -10,14 +10,14 @@ spring:
   kafka:
     bootstrap-servers: 43.202.136.98:9092
     consumer:
-      group-id: stock
+      group-id: STOCK
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.trusted.packages: com.ecommerce.itemservice.kafka.payload
+        spring.json.trusted.packages: '*'
     producer:
-      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 

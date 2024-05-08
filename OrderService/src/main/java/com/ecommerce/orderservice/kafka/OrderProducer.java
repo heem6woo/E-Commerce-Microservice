@@ -15,19 +15,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderProducer {
 
-    private final KafkaTemplate<Long, Order> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void sendMessage(Order order) {
         Message<Order> message = MessageBuilder
                 .withPayload(order)
                 .setHeader(KafkaHeaders.TOPIC, String.valueOf(TopicEnum.ORDERS))
+                .setHeader(KafkaHeaders.KEY,order.getId())
                 .build();
-
-
         log.info("Sent: {}", order);
-
-        kafkaTemplate.send(String.valueOf(TopicEnum.ORDERS), order.getId(), order);
-
-
+        kafkaTemplate.send(message);
     }
 }

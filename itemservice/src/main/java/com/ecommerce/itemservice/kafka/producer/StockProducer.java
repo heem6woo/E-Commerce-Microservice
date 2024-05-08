@@ -2,6 +2,7 @@ package com.ecommerce.itemservice.kafka.producer;
 
 
 import com.ecommerce.itemservice.dto.TopicEnum;
+import com.ecommerce.itemservice.kafka.payload.Order;
 import com.ecommerce.itemservice.kafka.payload.Stock;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,12 +15,12 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class StockProducer {
-  private final KafkaTemplate<Long, Stock> kafkaTemplate;
-  public void send(Stock stock) {
-      Message<Stock> message = MessageBuilder
-              .withPayload(stock)
+  private final KafkaTemplate<Long, Order> kafkaTemplate;
+  public void send(Order order) {
+      Message<Order> message = MessageBuilder
+              .withPayload(order)
               .setHeader(KafkaHeaders.TOPIC,String.valueOf(TopicEnum.STOCK))
               .build();
-      kafkaTemplate.send(String.valueOf(TopicEnum.STOCK),stock.getId(),stock);
+      kafkaTemplate.send(String.valueOf(TopicEnum.STOCK),order.getId(),order);
   }
 }

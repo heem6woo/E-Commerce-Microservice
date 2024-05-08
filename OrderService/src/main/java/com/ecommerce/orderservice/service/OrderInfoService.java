@@ -15,11 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderInfoService {
 
-    private OrderInfoRepository orderInfoRepository;
+    private final OrderInfoRepository orderInfoRepository;
 
-    private CustomerIdClient customerIdClient;
+    private final CustomerIdClient customerIdClient;
 
-    private ItemIdClient itemIdClient;
+    private final ItemIdClient itemIdClient;
 
     public List<OrderInfo> listAllOrders(HttpServletRequest request) {
 

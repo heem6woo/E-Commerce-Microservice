@@ -27,7 +27,7 @@ public class OrderConsumer {
 
 
 
-    @KafkaListener(id = "order", topics = "ORDERS", groupId = "stock")
+    @KafkaListener(topics = "ORDERS", groupId = "stock")
     public void onEvent(Order order) {
 
         //Boolean flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());

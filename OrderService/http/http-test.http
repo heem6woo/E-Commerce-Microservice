@@ -68,5 +68,5 @@ Authorization: Bearer {{auth-token}}
 
 
 ###
-GET http://localhost:8765/api/orders/?email=heem6woo@gmail.com
+GET http://localhost:8765/api/orders/?customer-email=heem6woo@gmail.com
 Authorization: Bearer {{auth-token}}

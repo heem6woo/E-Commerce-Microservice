@@ -1,5 +1,6 @@
 package com.ecommerce.orderservice.service;
 
+import com.ecommerce.orderservice.entity.Order;
 import com.ecommerce.orderservice.entity.OrderInfo;
 import com.ecommerce.orderservice.grpclient.ItemIdClient;
 import com.ecommerce.orderservice.grpclient.CustomerIdClient;
@@ -87,5 +88,16 @@ public class OrderInfoService {
     public List<OrderInfo> findAllBySellerEmail(String sellerEmail) {
         int sellerId = customerIdClient.requestMemberId(sellerEmail);
         return orderInfoRepository.findAllBySellerId(sellerId);
+    }
+
+    public void save(Order order) {
+
+        orderInfoRepository.save(OrderInfo.builder()
+                .quantity(order.getItemQuantity())
+                .itemId(order.getItemId())
+                .customerId(order.getCustomerId())
+                .sellerId(order.getSellerId())
+                .price(order.getPrice())
+                .build());
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class OrderConsumer {
     @Autowired
     ItemStockService itemStockService;
-    @KafkaListener(topics = "ORDERS")
+    @KafkaListener(topics = "ORDERS", groupId = "stock")
     public void consumeJsonMsg(Order order) {
         Boolean flag = false;
         flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());

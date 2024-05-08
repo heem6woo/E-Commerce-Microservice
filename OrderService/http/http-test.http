@@ -61,3 +61,12 @@ Content-Type: application/json
 
   "quantity" : "3"
 }
+
+###
+PATCH http://localhost:8765/api/customer/orders/2/confrimed
+Authorization: Bearer {{auth-token}}
+
+
+###
+GET http://localhost:8765/api/orders/?email=heem6woo@gmail.com
+Authorization: Bearer {{auth-token}}

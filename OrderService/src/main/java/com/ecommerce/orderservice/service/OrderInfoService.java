@@ -1,6 +1,6 @@
 package com.ecommerce.orderservice.service;
 
-import com.ecommerce.orderservice.entity.Order;
+import com.ecommerce.common.Order;
 import com.ecommerce.orderservice.entity.OrderInfo;
 import com.ecommerce.orderservice.grpclient.ItemIdClient;
 import com.ecommerce.orderservice.grpclient.CustomerIdClient;

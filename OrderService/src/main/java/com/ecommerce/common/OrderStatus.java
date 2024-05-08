@@ -1,4 +1,4 @@
-package com.ecommerce.orderservice.dto;
+package com.ecommerce.common;
 
 public enum OrderStatus {
     PLACED, // 주문 요청됨

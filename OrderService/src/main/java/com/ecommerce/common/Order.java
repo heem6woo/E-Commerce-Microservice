@@ -1,7 +1,5 @@
-package com.ecommerce.orderservice.entity;
+package com.ecommerce.common;
 
-import com.ecommerce.orderservice.dto.OrderStatus;
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

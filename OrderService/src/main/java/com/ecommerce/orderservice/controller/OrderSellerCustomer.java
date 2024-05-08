@@ -1,7 +1,6 @@
 package com.ecommerce.orderservice.controller;
 
-import com.ecommerce.orderservice.entity.Order;
-import com.ecommerce.orderservice.entity.OrderInfo;
+import com.ecommerce.common.Order;
 import com.ecommerce.orderservice.service.OrderInfoService;
 import com.ecommerce.orderservice.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;

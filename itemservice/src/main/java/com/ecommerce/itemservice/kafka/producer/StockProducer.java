@@ -1,9 +1,8 @@
 package com.ecommerce.itemservice.kafka.producer;
 
 
-import com.ecommerce.itemservice.kafka.payload.TopicEnum;
-import com.ecommerce.itemservice.kafka.payload.Order;
-import com.ecommerce.itemservice.kafka.payload.Stock;
+import com.ecommerce.itemservice.dto.TopicEnum;
+import com.ecommerce.common.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;

@@ -13,6 +13,8 @@ import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.*;
 import org.apache.kafka.streams.processor.WallclockTimestampExtractor;
+import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
+import org.apache.kafka.streams.state.Stores;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -35,12 +37,10 @@ import static com.ecommerce.orderservice.dto.TopicEnum.*;
 @EnableKafkaStreams
 public class KafkaStreamsConfig {
 
-
-
     @Bean
     public StreamsBuilderFactoryBeanConfigurer configurer() {
         return fb -> fb.setStateListener((newState, oldState) -> {
-            System.out.println("State transition from " + oldState + " to " + newState);
+            log.info("State transition from " + oldState + " to " + newState);
         });
     }
 
@@ -67,33 +67,49 @@ public class KafkaStreamsConfig {
                 .compact()
                 .build();
     }
+
     @Bean
     public KStream<Long, Order> stream(StreamsBuilder builder) {
-        //provides serialization and deserialization in JSON format
 
-
-        Serde<Long> keySerde =  Serdes.Long();// same as // Serdes.LongSerde keySerde=new Serdes.LongSerde();
+        Serde<Long> keySerde =  Serdes.Long();
         JsonSerde<Order> valueSerde = new JsonSerde<>(Order.class);
 
-        // Kafka stream => it's a record stream that represents key & value pairs
-        // key and value serdes means Key & value serializers & deserializers
-        //of course, the key in our case is the order id
         KStream<Long, Order> paymentStream = builder
-                .stream(String.valueOf(PAYMENTS), Consumed.with(keySerde, valueSerde));//Consumed With == passing some parameters for configuring the generated stream
+                .stream(String.valueOf(PAYMENTS), Consumed.with(keySerde, valueSerde));
 
         KStream<Long, Order> stockStream = builder
                 .stream(String.valueOf(STOCK),Consumed.with(keySerde, valueSerde));
 
-        //join records from both tables
+        //join records from both streams
         KStream<Long, Order> orderStream = paymentStream.join(
-                        stockStream,
-                        this::confirm,//the value joiner == the one responsible for joining the two records
-                        JoinWindows.ofTimeDifferenceWithNoGrace(Duration.ofSeconds(10)), // timestamps of matched records must fall within this window of time
-                        StreamJoined.with(keySerde, valueSerde, valueSerde)//the key must be the same, 1st stream serde, 2nd stream serde
-                )
-                .peek((k,v)->log.info("Kafka stream match: key[{}],value[{}]"));
+                stockStream,
+                this::confirm,
+                JoinWindows.ofTimeDifferenceWithNoGrace(Duration.ofSeconds(10)),
+                StreamJoined.with(keySerde, valueSerde, valueSerde)
+        );
+
+        // produce processed message to order topic
+        orderStream.to(String.valueOf(ORDERS), Produced.with(keySerde, valueSerde));
+
 
         return orderStream;
+    }
+
+    @Bean
+    public KTable<Long, Order> table(StreamsBuilder builder) {
+        // name of ktable
+        KeyValueBytesStoreSupplier store =
+                Stores.persistentKeyValueStore(String.valueOf(ORDERS));
+
+        JsonSerde<Order> orderSerde = new JsonSerde<>(Order.class);
+
+        KStream<Long, Order> stream = builder
+                .stream(String.valueOf(ORDERS), Consumed.with(Serdes.Long(), orderSerde));
+
+
+        return stream.toTable(Materialized.<Long, Order>as(store)
+                .withKeySerde(Serdes.Long())
+                .withValueSerde(orderSerde));
     }
 
 
@@ -102,8 +118,8 @@ public class KafkaStreamsConfig {
         Order order = Order.builder()
                 .id(orderPayment.getId())
                 .customerId(orderPayment.getCustomerId())
-                .productId(orderPayment.getProductId())
-                .productCount(orderPayment.getProductCount())
+                .itemId(orderPayment.getItemId())
+                .itemQuantity(orderPayment.getItemQuantity())
                 .price(orderPayment.getPrice())
                 .build();
 
@@ -113,9 +129,10 @@ public class KafkaStreamsConfig {
         } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED) &&
                 orderStock.getStatus().equals(OrderStatus.REJECTED)) {
             order.setStatus(OrderStatus.REJECTED);
-        } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED) ||
-                orderStock.getStatus().equals(OrderStatus.REJECTED)) {
-            order.setStatus(OrderStatus.ROLLBACK);
+        } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED)) {
+            order.setStatus(OrderStatus.ROLLBACK_STOCK);
+        } else if (orderStock.getStatus().equals(OrderStatus.REJECTED)) {
+            order.setStatus(OrderStatus.ROLLBACK_PAYMENT);
         }
         return order;
     }

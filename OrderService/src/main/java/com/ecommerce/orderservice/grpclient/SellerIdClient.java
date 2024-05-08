@@ -12,19 +12,19 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MemberIdClient {
+public class SellerIdClient {
     @GrpcClient("member-service")
     private IdServiceGrpc.IdServiceBlockingStub client;
 
-    public int requestMemberId(final String email) {
-        var request = IdRequest.newBuilder().setEmail(email).build();
+    public int requestMemberId(final String name) {
+        var request = IdRequest.newBuilder().setName(name).build();
         try{
             log.info("Trying to request Id to gRPC server");
-            IdReply response = this.client.getId(IdRequest.newBuilder().setEmail(email).build());
+            IdReply response = this.client.getId(IdRequest.newBuilder().setName(name).build());
             log.info("Getting response from gRPC.");
             return response.getId();
         } catch (StatusRuntimeException e) {
-            throw new RuntimeException("Not found email");
+            throw new RuntimeException("Not found seller");
         }
     }
 }

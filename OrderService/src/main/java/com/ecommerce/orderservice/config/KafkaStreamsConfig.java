@@ -115,7 +115,7 @@ public class KafkaStreamsConfig {
         return stream.toTable(Materialized.<Long, Order>as(store)
                 .withKeySerde(Serdes.Long())
                 .withValueSerde(orderSerde));
-    }g
+    }
 
 
     public Order confirm(Order orderStock, Order orderPayment) {

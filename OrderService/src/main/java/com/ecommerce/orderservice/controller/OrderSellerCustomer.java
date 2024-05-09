@@ -19,9 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderSellerCustomer {
 
-    private OrderInfoService orderInfoService;
+    private final OrderInfoService orderInfoService;
 
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @GetMapping("")
     public ResponseEntity<List<Order>> listAllOrders(HttpServletRequest request) {

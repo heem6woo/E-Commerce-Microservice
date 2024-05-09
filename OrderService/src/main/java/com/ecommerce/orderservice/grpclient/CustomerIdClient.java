@@ -20,7 +20,7 @@ public class CustomerIdClient {
         var request = IdRequest.newBuilder().setEmail(email).build();
         try{
             log.info("Trying to request Id to gRPC server");
-            IdReply response = this.client.getId(IdRequest.newBuilder().setEmail(email).build());
+            IdReply response = this.client.getId(request);
             log.info("Getting response from gRPC.");
             return response.getId();
         } catch (StatusRuntimeException e) {

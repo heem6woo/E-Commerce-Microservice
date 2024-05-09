@@ -18,11 +18,6 @@ public class OrderProducer {
     private final KafkaTemplate<Long, Order> kafkaTemplate;
 
     public void sendMessage(Order order) {
-        Message<Order> message = MessageBuilder
-                .withPayload(order)
-                .setHeader(KafkaHeaders.TOPIC, String.valueOf(TopicEnum.ORDERS))
-                .build();
-
 
         log.info("Sent: {}", order);
 

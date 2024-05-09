@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemValues { // 아이템 간이 정보
-    private long itemId;
+    private int itemId;
     private short category;
     private String itemName;
     private String itemDescription;

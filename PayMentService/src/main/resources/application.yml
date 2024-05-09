@@ -1,6 +1,6 @@
 spring:
   application:
-    name: PayMentService
+    name: payment-service
   kafka:
     bootstrap-servers: 43.202.136.98:9092
     consumer:

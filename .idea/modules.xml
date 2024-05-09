@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/E-Commerce-Microservice.iml" filepath="$PROJECT_DIR$/.idea/E-Commerce-Microservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MemberService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MemberService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/OrderService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/OrderService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PayMentService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PayMentService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/itemservice.main.iml" filepath="$PROJECT_DIR$/.idea/modules/itemservice.main.iml" />
     </modules>
   </component>

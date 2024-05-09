@@ -68,10 +68,11 @@ dependencies {
 	implementation files('libs/GrpcInterface-1.0-SNAPSHOT.jar')
 	implementation 'io.grpc:grpc-netty-shaded'
 
-	//kafka
+
 	implementation 'org.springframework.kafka:spring-kafka'
 
 	testImplementation 'junit:junit:4.12'
+
 
 
 }

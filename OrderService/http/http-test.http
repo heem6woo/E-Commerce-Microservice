@@ -24,6 +24,16 @@ Content-Type: application/json
   "password": "password",
   "role":  "CUSTOMER"
 }
+###
+POST http://localhost:8765/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Heemin",
+  "email":  "qqwqwqw@mail.com",
+  "password": "password",
+  "role":  "SELLER"
+}
 
 ### Login with 아무개
 POST http://localhost:8765/api/auth/authenticate
@@ -31,6 +41,17 @@ Content-Type: application/json
 
 {
   "email":  "anybody@mail.com",
+  "password": "password"
+}
+> {% client.global.set("auth-token", response.body.accessToken);
+    client.global.set("refresh-token", response.body.refreshToken);%}
+
+### Login with Heemin
+POST http://localhost:8765/api/auth/authenticate
+Content-Type: application/json
+
+{
+  "email":  "qqwqwqw@mail.com",
   "password": "password"
 }
 > {% client.global.set("auth-token", response.body.accessToken);
@@ -53,13 +74,13 @@ Authorization: Bearer {{auth-token}}
 Content-Type: application/json
 
 {
-  "itemName" : "T-Shirt",
+  "itemName" : "Smartphone",
 
   "sellerName" : "Heemin",
 
   "price" : "10000",
 
-  "quantity" : "3"
+  "quantity" : "7"
 }
 
 ###

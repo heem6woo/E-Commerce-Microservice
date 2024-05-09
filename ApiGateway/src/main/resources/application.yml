@@ -129,8 +129,15 @@ spring:
           filters:
             JwtAuthenticationFilter
 
-
-
+        #
+        # PAYMENT SERVICE ROUTES POLICIES
+        #
+        - id: payment-route
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/payment/**
+          filters:
+            JwtAuthenticationFilter
 
 application:
   security:

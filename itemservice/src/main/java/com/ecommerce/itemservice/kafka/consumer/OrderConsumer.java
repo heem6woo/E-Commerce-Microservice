@@ -33,8 +33,7 @@ public class OrderConsumer {
         //Boolean flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
         // for test
         if(order.getStatus() == OrderStatus.PLACED) {
-            Boolean flag = true;
-            //itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
+            Boolean flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
             if(flag){
                 order.setStatus(OrderStatus.ACCEPTED);
                 stockProducer.send(order);
@@ -49,6 +48,7 @@ public class OrderConsumer {
             log.info("주문번호 " + order.getId() + " 주문 완료");
         }
         if(order.getStatus() == OrderStatus.ROLLBACK_STOCK) {
+            itemStockService.rollBack(order.getItemId(),order.getSellerId(),order.getItemQuantity());
             log.info("주문번호 " + order.getId() + "재고 롤백");
         }
 

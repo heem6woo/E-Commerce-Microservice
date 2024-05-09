@@ -2,7 +2,9 @@ package com.ecommerce.itemservice.service;
 
 import com.ecommerce.itemservice.entity.Item;
 import com.ecommerce.itemservice.entity.SalesInfo;
+import com.ecommerce.itemservice.repository.ItemRepository;
 import com.ecommerce.itemservice.repository.ItemStockRepository;
+import com.ecommerce.itemservice.repository.SalesInfoRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired; // Autowired를 임포트해야 함
 import org.springframework.stereotype.Service;
@@ -12,19 +14,37 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ItemStockService {
     @Autowired
-    private ItemStockRepository itemStockRepository; // StockRepository 필드 추가
+    private SalesInfoRepository salesInfoRepository; // StockRepository 필드 추가
     @Autowired
-    private EntityManager entityManager;
+    private ItemRepository itemRepository;
+
     @Transactional(propagation = Propagation.REQUIRES_NEW) // 재고관리
     public Boolean decrease(Integer id,Integer sellerId, Integer qty) {
-        Item item = entityManager.find(Item.class, id);
-        if(item == null) {
-            throw  new RuntimeException("Item not found");
+        Item item = itemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 아이디가 없습니다 id : " + id));
+        SalesInfo salesInfo = salesInfoRepository.findByItemAndSellerId(item, sellerId).orElseThrow(() -> new IllegalArgumentException("해당하는 salesinfo가 없습니다 id : " + id));;
+
+        if(salesInfo.stockCheck(qty)){
+            salesInfo.setItemCount(salesInfo.getItemCount() - qty);
+            salesInfoRepository.save(salesInfo);
+            return true;
         }
-        SalesInfo salesInfo = itemStockRepository.findByItemAndSellerId(item, sellerId);
-        if (salesInfo == null) {
-            throw new RuntimeException("Stock not found");
-        }
-        return salesInfo.stockCheck(qty);//해당 재고있나없나 체크
+
+        return false;
+
     }
+    @Transactional(propagation = Propagation.REQUIRES_NEW) // 재고관리
+    public Boolean rollBack(Integer id,Integer sellerId, Integer qty) {
+        Item item = itemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 아이디가 없습니다 id : " + id));
+        SalesInfo salesInfo = salesInfoRepository.findByItemAndSellerId(item, sellerId).orElseThrow(() -> new IllegalArgumentException("해당하는 salesinfo가 없습니다 id : " + id));;
+
+        if(!salesInfo.stockCheck(qty)){
+            salesInfo.setItemCount(salesInfo.getItemCount() + qty);
+            salesInfoRepository.save(salesInfo);
+            return true;
+        }
+
+        return false;
+
+    }
+
 }

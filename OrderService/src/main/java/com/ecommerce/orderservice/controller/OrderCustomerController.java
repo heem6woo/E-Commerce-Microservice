@@ -2,6 +2,7 @@ package com.ecommerce.orderservice.controller;
 
 import com.ecommerce.orderservice.dto.OrderRequest;
 import com.ecommerce.common.Order;
+import com.ecommerce.orderservice.entity.OrderInfo;
 import com.ecommerce.orderservice.service.OrderInfoService;
 import com.ecommerce.orderservice.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,22 +22,22 @@ public class OrderCustomerController {
     private final OrderInfoService orderInfoService;
     private final OrderService orderService;
 
-    /*
-    @GetMapping("")
-    public ResponseEntity<List<OrderInfo>> listAllOrders(HttpServletRequest request) {
+
+    @GetMapping("/confrimed")
+    public ResponseEntity<List<OrderInfo>> listAllOrdersConfirmed(HttpServletRequest request) {
 
         return ResponseEntity.ok(orderInfoService.listAllOrders(request));
     }
 
-     */
+
     @GetMapping("")
-    public ResponseEntity<List<Order>> listAllOrders(HttpServletRequest request) {
+    public ResponseEntity<List<Order>> listAllOrdersInProgress(HttpServletRequest request) {
 
         return ResponseEntity.ok(orderService.listAllOrders(request));
     }
 
     @PostMapping("")
-    public ResponseEntity<Order> createOrder(HttpServletRequest request, @RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<Order> createOrder(HttpServletRequest request, @RequestBody OrderRequest orderRequest) throws Exception {
 
         return ResponseEntity.ok(orderService.createOrder(request, orderRequest));
     }

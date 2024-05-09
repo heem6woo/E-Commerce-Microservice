@@ -29,7 +29,7 @@ POST http://localhost:8765/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "Heemin",
+  "name": "아무개",
   "email":  "qqwqwqw@mail.com",
   "password": "password",
   "role":  "SELLER"
@@ -76,7 +76,7 @@ Content-Type: application/json
 {
   "itemName" : "Smartphone",
 
-  "sellerName" : "Heemin",
+  "sellerName" : "아무개",
 
   "price" : "10000",
 

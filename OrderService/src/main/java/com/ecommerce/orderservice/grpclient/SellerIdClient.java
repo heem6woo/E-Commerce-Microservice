@@ -19,9 +19,9 @@ public class SellerIdClient {
     public int requestMemberId(final String name) {
         var request = IdRequest.newBuilder().setName(name).build();
         try{
-            log.info("Trying to request Id to gRPC server");
-            IdReply response = this.client.getId(IdRequest.newBuilder().setName(name).build());
-            log.info("Getting response from gRPC.");
+            log.info("Trying to request Seller Id to gRPC server");
+            IdReply response = this.client.getId(request);
+            log.info("Getting response from gRPC." + "Seller: " + name + " Seller Id: " + response.getId());
             return response.getId();
         } catch (StatusRuntimeException e) {
             throw new RuntimeException("Not found seller");

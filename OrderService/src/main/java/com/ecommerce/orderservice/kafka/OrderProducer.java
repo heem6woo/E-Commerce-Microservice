@@ -2,6 +2,8 @@ package com.ecommerce.orderservice.kafka;
 
 import com.ecommerce.orderservice.dto.TopicEnum;
 import com.ecommerce.common.Order;
+import com.ecommerce.orderservice.service.OrderInfoService;
+import com.ecommerce.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -17,9 +19,11 @@ public class OrderProducer {
 
     private final KafkaTemplate<Long, Order> kafkaTemplate;
 
+
     public void sendMessage(Order order) {
 
         log.info("Sent: {}", order);
+
 
         kafkaTemplate.send(String.valueOf(TopicEnum.ORDERS), order.getId(), order);
 

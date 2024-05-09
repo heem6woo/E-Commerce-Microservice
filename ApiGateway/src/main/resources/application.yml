@@ -104,9 +104,9 @@ spring:
           filters:
             JwtAuthenticationFilter
 
-          #
-          # ORDER SERVICE ROUTE
-          #
+        #
+        # ORDER SERVICE ROUTE
+        #
 
         - id: order-route
           uri: lb://ORDER-SERVICE
@@ -120,14 +120,20 @@ spring:
           predicates:
             - Path=/api/customer/orders/**
           filters:
-            JwtAuthenticationFilter
+            - name: JwtAuthenticationFilter
+              args:
+                role: ROLE_CUSTOMER, ROLE_ADMIN
+                tokenType:
 
         - id: order-seller-route
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/api/seller/orders/**
           filters:
-            JwtAuthenticationFilter
+            - name: JwtAuthenticationFilter
+              args:
+                role: ROLE_SELLER, ROLE_ADMIN
+                tokenType:
 
         #
         # PAYMENT SERVICE ROUTES POLICIES

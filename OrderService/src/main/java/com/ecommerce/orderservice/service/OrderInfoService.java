@@ -90,14 +90,18 @@ public class OrderInfoService {
         return orderInfoRepository.findAllBySellerId(sellerId);
     }
 
-    public void save(Order order) {
+    public OrderInfo save(Order order) {
 
-        orderInfoRepository.save(OrderInfo.builder()
+        return orderInfoRepository.save(OrderInfo.builder()
                 .quantity(order.getItemQuantity())
                 .itemId(order.getItemId())
                 .customerId(order.getCustomerId())
                 .sellerId(order.getSellerId())
                 .price(order.getPrice())
                 .build());
+    }
+
+    public void deleteById(Long id) {
+        orderInfoRepository.deleteById(id);
     }
 }

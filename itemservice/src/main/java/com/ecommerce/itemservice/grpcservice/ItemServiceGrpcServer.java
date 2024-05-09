@@ -36,6 +36,7 @@ public class ItemServiceGrpcServer extends ItemInfoServiceGrpc.ItemInfoServiceIm
                                                 .setItemPrice(itemDTO.getSalesValues().getItemPrice())
                                                 .setItemStatus(itemDTO.getSalesValues().getItemStatus())
                                                 .build();
+                                log.info("reply: " + reply);
                         } catch (Exception e) {
                                 throw new RuntimeException(e);
                         }finally {

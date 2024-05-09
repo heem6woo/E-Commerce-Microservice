@@ -91,3 +91,27 @@ Authorization: Bearer {{auth-token}}
 ###
 GET http://localhost:8765/api/orders/?customer-email=heem6woo@gmail.com
 Authorization: Bearer {{auth-token}}
+
+
+###
+POST http://localhost:8765/api/items/rollback
+Authorization: Bearer {{auth-token}}
+Content-Type: application/json
+
+{
+  "itemValues": {
+    "itemId": 1,
+    "category": 1,
+    "itemName": "Smartphone",
+    "itemDescription": "High-performance smartphone with advanced features",
+    "req_Dt": "2024-05-09T01:03:09.000000"
+  },
+  "salesValues": {
+    "salesId": 1,
+    "sellerId": 1,
+    "itemId": 1,
+    "itemCount": 100,
+    "itemPrice": 100000,
+    "itemStatus": 1
+  }
+}

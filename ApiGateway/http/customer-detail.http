@@ -70,7 +70,6 @@ Authorization: Bearer {{auth-token}}
 Content-Type: application/json
 
 {
-  "age" : "19",
   "gender" : "1",
   "address" : "Waterloo, ON, Canada"
 }

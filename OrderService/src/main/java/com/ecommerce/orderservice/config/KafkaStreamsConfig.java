@@ -13,10 +13,15 @@ import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.*;
 import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
 import org.apache.kafka.streams.state.Stores;
+import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.EnableKafkaStreams;
+import org.springframework.kafka.config.KafkaStreamsConfiguration;
+import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.kafka.config.StreamsBuilderFactoryBeanConfigurer;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.support.serializer.JsonSerde;
@@ -33,6 +38,7 @@ import static com.ecommerce.orderservice.dto.TopicEnum.*;
 public class KafkaStreamsConfig {
 
     private final OrderInfoService orderInfoService;
+
 
     @Bean
     public StreamsBuilderFactoryBeanConfigurer configurer() {
@@ -114,7 +120,6 @@ public class KafkaStreamsConfig {
 
 
     public Order confirm(Order orderStock, Order orderPayment) {
-        System.out.println(orderStock.getStatus() +"aaaa " + orderPayment.getStatus());
         Order order = Order.builder()
                 .id(orderStock.getId())
                 .customerId(orderStock.getCustomerId())
@@ -126,15 +131,16 @@ public class KafkaStreamsConfig {
         if (orderPayment.getStatus().equals(OrderStatus.ACCEPTED) &&
                 orderStock.getStatus().equals(OrderStatus.ACCEPTED)) {
             order.setStatus(OrderStatus.CONFIRMED);
-            orderInfoService.save(order);
-
         } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED) &&
                 orderStock.getStatus().equals(OrderStatus.REJECTED)) {
             order.setStatus(OrderStatus.REJECTED);
+            orderInfoService.deleteById(order.getId());
         } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED)) {
             order.setStatus(OrderStatus.ROLLBACK_STOCK);
+            orderInfoService.deleteById(order.getId());
         } else if (orderStock.getStatus().equals(OrderStatus.REJECTED)) {
             order.setStatus(OrderStatus.ROLLBACK_PAYMENT);
+            orderInfoService.deleteById(order.getId());
         }
         return order;
     }

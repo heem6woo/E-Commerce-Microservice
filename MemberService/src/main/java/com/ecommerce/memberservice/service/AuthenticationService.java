@@ -46,8 +46,11 @@ public class AuthenticationService {
 //
 //        }
 // Seller Name duplication check
-        if (request.getRole().equals(Role.SELLER) && memberRepository.findByEmail(request.getName()).isPresent() ) {
-            throw new AuthenticationException("Seller name cannot be duplicated", HttpStatus.BAD_REQUEST);
+        if (request.getRole().equals(Role.SELLER)) {
+            Member found = memberRepository.findByNameAndRole(request.getName(), Role.SELLER);
+            if (found != null) {
+                throw new AuthenticationException("Seller name cannot be duplicated", HttpStatus.BAD_REQUEST);
+            }
         }
 
         if (request.getRole().equals(Role.ADMIN)) {

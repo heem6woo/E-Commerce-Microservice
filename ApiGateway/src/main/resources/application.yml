@@ -104,9 +104,9 @@ spring:
           filters:
             JwtAuthenticationFilter
 
-          #
-          # ORDER SERVICE ROUTE
-          #
+        #
+        # ORDER SERVICE ROUTE
+        #
 
         - id: order-route
           uri: lb://ORDER-SERVICE
@@ -120,14 +120,20 @@ spring:
           predicates:
             - Path=/api/customer/orders/**
           filters:
-            JwtAuthenticationFilter
+            - name: JwtAuthenticationFilter
+              args:
+                role: ROLE_CUSTOMER, ROLE_ADMIN
+                tokenType:
 
         - id: order-seller-route
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/api/seller/orders/**
           filters:
-            JwtAuthenticationFilter
+            - name: JwtAuthenticationFilter
+              args:
+                role: ROLE_SELLER, ROLE_ADMIN
+                tokenType:
 
         #
         # PAYMENT SERVICE ROUTES POLICIES
@@ -149,6 +155,16 @@ application:
         # 1000(milli) * 60 (second) * 30(minute) = 30 minutes
       refresh-token:
         expiration: 604800000
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 
 #Eureka
 

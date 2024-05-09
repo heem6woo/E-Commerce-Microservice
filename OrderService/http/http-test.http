@@ -30,7 +30,7 @@ Content-Type: application/json
 
 {
   "name": "아무개",
-  "email":  "qqwqwqw@mail.com",
+  "email":  "qqwaqwqw@mail.com",
   "password": "password",
   "role":  "SELLER"
 }
@@ -78,9 +78,9 @@ Content-Type: application/json
 
   "sellerName" : "아무개",
 
-  "price" : "10000",
+  "price" : "100000",
 
-  "quantity" : "7"
+  "quantity" : "5"
 }
 
 ###

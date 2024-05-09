@@ -70,6 +70,16 @@ dependencies {
 	implementation files('libs/GrpcInterface-1.0-SNAPSHOT.jar')
 	implementation 'io.grpc:grpc-netty-shaded'
 
+	// Micrometer for observation
+	implementation 'io.micrometer:micrometer-observation'
+
+	// Micrometer bridge for OpenTelemetry
+	implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+
+	// OpenTelemetry exporter for Zipkin
+	implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 
 	implementation 'org.springframework.kafka:spring-kafka'
 

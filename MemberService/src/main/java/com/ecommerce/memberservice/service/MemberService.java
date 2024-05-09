@@ -4,6 +4,7 @@ import com.ecommerce.grpc.IdServiceGrpc;
 import com.ecommerce.memberservice.dto.CustomerDto;
 import com.ecommerce.memberservice.entity.CustomerDetail;
 import com.ecommerce.memberservice.entity.Member;
+import com.ecommerce.memberservice.entity.Role;
 import com.ecommerce.memberservice.entity.SellerDetail;
 import com.ecommerce.memberservice.repository.CustomerDetailRepository;
 import com.ecommerce.memberservice.repository.MemberRepository;
@@ -99,8 +100,8 @@ public class MemberService {
     }
 
 
-//    public Member findBySellerName(String sellerName) {
-//        // Seller Name should be unique
-//        return memberRepository.findByName(sellerName);
-//    }
+    public Member findBySellerName(String sellerName) {
+        // Seller Name should be unique
+        return memberRepository.findByNameAndRole(sellerName, Role.SELLER);
+    }
 }

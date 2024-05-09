@@ -1,9 +1,7 @@
 package com.ecommerce.itemservice.service;
 
 import com.ecommerce.itemservice.dto.ItemDTO;
-import com.ecommerce.itemservice.dto.SalesValues;
-import com.ecommerce.itemservice.entity.SalesInfo;
-import com.ecommerce.itemservice.repository.ItemSearchingRepository;
+import com.ecommerce.itemservice.repository.costumer.ItemSearchingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

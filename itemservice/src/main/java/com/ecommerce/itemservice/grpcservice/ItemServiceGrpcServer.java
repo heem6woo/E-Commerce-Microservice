@@ -27,17 +27,16 @@ public class ItemServiceGrpcServer extends ItemInfoServiceGrpc.ItemInfoServiceIm
                 log.info(sellerId + " gRPC getting request");
                 ItemReply reply = null;
                 ItemDTO itemDTO = itemSearchingService.findByIdSalesValues(sellerId, itemName);
-                log.info("found!");
                 if (itemDTO != null) {
                         try {
                                 reply = ItemReply.newBuilder()
-                                                .setItemId((int) itemDTO.getItemValues().getItemId())
+                                                .setItemId(itemDTO.getItemValues().getItemId())
                                                 .setCategoryId(itemDTO.getItemValues().getCategory())
                                                 .setItemCount(itemDTO.getSalesValues().getItemCount())
                                                 .setItemPrice(itemDTO.getSalesValues().getItemPrice())
                                                 .setItemStatus(itemDTO.getSalesValues().getItemStatus())
                                                 .build();
-                                log.info("message built!");
+                                log.info("reply: " + reply);
                         } catch (Exception e) {
                                 throw new RuntimeException(e);
                         }finally {

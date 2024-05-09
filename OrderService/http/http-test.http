@@ -78,7 +78,7 @@ Content-Type: application/json
 
   "sellerName" : "아무개",
 
-  "price" : "10000",
+  "price" : "100000",
 
   "quantity" : "7"
 }

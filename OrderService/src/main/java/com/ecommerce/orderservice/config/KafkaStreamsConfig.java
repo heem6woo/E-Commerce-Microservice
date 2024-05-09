@@ -114,7 +114,6 @@ public class KafkaStreamsConfig {
 
 
     public Order confirm(Order orderStock, Order orderPayment) {
-        System.out.println(orderStock.getStatus() +"aaaa " + orderPayment.getStatus());
         Order order = Order.builder()
                 .id(orderStock.getId())
                 .customerId(orderStock.getCustomerId())

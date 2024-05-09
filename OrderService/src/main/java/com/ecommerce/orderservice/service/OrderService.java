@@ -5,6 +5,7 @@ import com.ecommerce.orderservice.dto.OrderRequest;
 import com.ecommerce.common.OrderStatus;
 import com.ecommerce.orderservice.dto.TopicEnum;
 import com.ecommerce.common.Order;
+import com.ecommerce.orderservice.exception.OrderException;
 import com.ecommerce.orderservice.grpclient.ItemIdClient;
 import com.ecommerce.orderservice.grpclient.CustomerIdClient;
 import com.ecommerce.orderservice.grpclient.ItemInfoClient;
@@ -17,6 +18,7 @@ import org.apache.kafka.streams.StoreQueryParameters;
 import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
+import org.springframework.http.HttpStatus;
 import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.stereotype.Service;
 
@@ -66,13 +68,13 @@ public class OrderService {
 
     }
 
-    private void itemValidation(OrderRequest orderRequest, ItemReply itemReply) throws Exception {
+    private void itemValidation(OrderRequest orderRequest, ItemReply itemReply) throws OrderException {
 
         if (orderRequest.getQuantity() > itemReply.getItemCount() ||
                 orderRequest.getPrice() != itemReply.getItemPrice() ||
                 itemReply.getItemStatus() == 0)
         {
-            throw new Exception("Order is invalid!");
+            throw new OrderException("Order is invalid!", HttpStatus.BAD_REQUEST);
         }
 
     }

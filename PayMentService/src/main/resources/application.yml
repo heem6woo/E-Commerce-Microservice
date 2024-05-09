@@ -27,10 +27,17 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
 
+management:
+  tracing:
+    sampling:
+      probability: 1.0
 
-  logging:
-    level:
-      org.hibernate.SQL: debug
+
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+  level:
+    org.hibernate.SQL: debug
 # Ereka
 eureka:
   client:

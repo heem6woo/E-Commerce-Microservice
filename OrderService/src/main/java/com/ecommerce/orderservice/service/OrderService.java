@@ -1,11 +1,13 @@
 package com.ecommerce.orderservice.service;
 
+import com.ecommerce.grpc.ItemReply;
 import com.ecommerce.orderservice.dto.OrderRequest;
 import com.ecommerce.common.OrderStatus;
 import com.ecommerce.orderservice.dto.TopicEnum;
 import com.ecommerce.common.Order;
 import com.ecommerce.orderservice.grpclient.ItemIdClient;
 import com.ecommerce.orderservice.grpclient.CustomerIdClient;
+import com.ecommerce.orderservice.grpclient.ItemInfoClient;
 import com.ecommerce.orderservice.grpclient.SellerIdClient;
 import com.ecommerce.orderservice.kafka.OrderProducer;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,23 +35,26 @@ public class OrderService {
 
     private final AtomicLong id = new AtomicLong();
 
-    private final ItemIdClient itemIdClient;
+    private final ItemInfoClient itemInfoClient;
 
     private final SellerIdClient sellerIdClient;
 
     private final OrderProducer orderProducer;
 
-    public Order createOrder(HttpServletRequest request, OrderRequest orderRequest) {
+    public Order createOrder(HttpServletRequest request, OrderRequest orderRequest) throws Exception {
 
-//        int customerId = customerIdClient.requestMemberId(request.getHeader("email"));
-//        int sellerId = sellerIdClient.requestMemberId(orderRequest.getSellerName());
-//        int itemId = itemIdClient.requestItemId(orderRequest.getItemName());
+        int customerId = customerIdClient.requestMemberId(request.getHeader("email"));
+        int sellerId = sellerIdClient.requestMemberId(orderRequest.getSellerName());
+
+        ItemReply itemReply = itemInfoClient.requestItemInfo(sellerId, orderRequest.getItemName());
+
+        itemValidation(orderRequest, itemReply);
 
         Order order = Order.builder()
                 .id(id.getAndIncrement())
-                .customerId(1)
-                .sellerId(1)
-                .itemId(1)
+                .customerId(customerId)
+                .sellerId(sellerId)
+                .itemId(itemReply.getItemId())
                 .price(orderRequest.getPrice())
                 .itemQuantity(orderRequest.getQuantity())
                 .status(OrderStatus.PLACED)
@@ -58,6 +63,17 @@ public class OrderService {
         orderProducer.sendMessage(order);
 
         return order;
+
+    }
+
+    private void itemValidation(OrderRequest orderRequest, ItemReply itemReply) throws Exception {
+
+        if (orderRequest.getQuantity() > itemReply.getItemCount() ||
+                orderRequest.getPrice() != itemReply.getItemPrice() ||
+                itemReply.getItemStatus() == 0)
+        {
+            throw new Exception("Order is invalid!");
+        }
 
     }
 
@@ -72,8 +88,8 @@ public class OrderService {
                         String.valueOf(TopicEnum.ORDERS),
                         QueryableStoreTypes.keyValueStore()));
 
-//        int memberId = customerIdClient.requestMemberId(request.getHeader("email"));
-        int memberId = 1;
+        int memberId = customerIdClient.requestMemberId(request.getHeader("email"));
+
         KeyValueIterator<Long, Order> it = store.all();
 
         while(it.hasNext()) {

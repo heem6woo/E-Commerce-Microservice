@@ -1,3 +1,5 @@
+DROP SCHEMA IF EXISTS `member_directory`;
+
 CREATE SCHEMA `member_directory`;
 
 use `member_directory`;
@@ -9,10 +11,13 @@ CREATE TABLE `member` (
   `name` varchar(45) NOT NULL,
   `email` varchar(60) NOT NULL,
   `password` varchar(68) NOT NULL,
+  `role` ENUM('ADMIN' , 'CUSTOMER', 'SELLER'),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
-
+insert into `member` (id, name, email, password, role) values 
+(1, '우희민', 'heem6woo@gmail.com', '$2a$10$/So2kYEFDhOdCZmu/D7xiO1qR1Dp8JQPHfKrU2JXNQUOUBLALnQCe', 'ADMIN'),
+(2, '김도현', 'rkawkaos77@naver.com', '$2a$10$zh0jF1Je28jUpPX1v/.GJejWH.Z5uS4QZzmMY4MrnvlYd1Q1EVGha', 'ADMIN');
 
 CREATE TABLE `customer_detail` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -21,10 +26,11 @@ CREATE TABLE `customer_detail` (
   `gender` int DEFAULT NULL,
   `address` varchar(100) default null,
   PRIMARY KEY (`id`),
-  KEY `FK_DETAIL_idx` (`membe_id`),
-  CONSTRAINT `FK_DETAIL` FOREIGN KEY (`member_id`) 
+  KEY `FK_CUSTOMER_DETAIL_idx` (`member_id`),
+  CONSTRAINT `FK_CUSTOMER_DETAIL` FOREIGN KEY (`member_id`)
   REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
 
 CREATE TABLE `seller_detail` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -34,20 +40,10 @@ CREATE TABLE `seller_detail` (
   `domain` varchar(60) default null,
   `age` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_DETAIL_idx` (`membe_id`),
-  CONSTRAINT `FK_DETAIL` FOREIGN KEY (`member_id`) 
+  KEY `FK_SELLER_DETAIL_idx` (`member_id`),
+  CONSTRAINT `FK_SELLER_DETAIL` FOREIGN KEY (`member_id`) 
   REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-
-CREATE TABLE `authorities` (
-  `username` varchar(50) NOT NULL,
-  `authority` varchar(50) NOT NULL,
-  UNIQUE KEY `authorities4_idx_1` (`username`,`authority`),
-  CONSTRAINT `authorities4_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
 SET FOREIGN_KEY_CHECKS = 1;

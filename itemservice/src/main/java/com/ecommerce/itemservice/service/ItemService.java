@@ -6,7 +6,7 @@ import com.ecommerce.itemservice.dto.SalesValues;
 import com.ecommerce.itemservice.entity.Category;
 import com.ecommerce.itemservice.entity.Item;
 import com.ecommerce.itemservice.entity.SalesInfo;
-import com.ecommerce.itemservice.repository.ItemRepository;
+import com.ecommerce.itemservice.repository.seller.ItemRepository;
 import com.ecommerce.itemservice.repository.SalesInfoRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.jar.JarException;
 
 @Service
 public class ItemService {
@@ -50,6 +49,7 @@ public class ItemService {
                         .itemStatus(itemDTO.getSalesValues().getItemStatus())
                         .build();
                 salesInfo = salesInfoRepository.save(salesInfo);
+                entityManager.close();
             }
             // Create and save the Item entity from itemDTO
         } finally {
@@ -69,11 +69,28 @@ public class ItemService {
 
     @Transactional
     public ItemDTO updateItem(ItemDTO itemDTO) {
-        // apply changes to item and its associated salesInfo
-        return itemRepository.updateItem(itemDTO.getItemValues().getItemId(),
-                itemDTO.getItemValues().getItemName(),
-                itemDTO.getItemValues().getItemDescription(),
-                entityManager.getReference(Category.class, itemDTO.getItemValues().getCategory()));
+        // ItemDTO로부터 정보 추출
+        ItemValues itemValues = itemDTO.getItemValues();
+        SalesValues salesValues = itemDTO.getSalesValues();
+
+        // 아이템 엔티티 조회 및 업데이트
+        Item item = itemRepository.findById(itemValues.getItemId()).orElseThrow(() -> new RuntimeException("Item not found"));
+        item.setItemName(itemValues.getItemName());
+        item.setItemDescription(itemValues.getItemDescription());
+        // 여기서 필요에 따라 다른 아이템 속성 업데이트
+        itemRepository.save(item);
+
+        // 판매 정보 엔티티 조회 및 업데이트
+        SalesInfo salesInfo = salesInfoRepository.findById(salesValues.getSalesId()).orElseThrow(() -> new RuntimeException("SalesInfo not found"));
+        salesInfo.setSellerId(salesValues.getSellerId());
+        salesInfo.setItemCount(salesValues.getItemCount());
+        salesInfo.setItemPrice(salesValues.getItemPrice());
+        salesInfo.setItemStatus(salesValues.getItemStatus());
+        // 여기서 필요에 따라 다른 판매 정보 속성 업데이트
+        salesInfoRepository.save(salesInfo);
+
+        // 업데이트된 정보 반환
+        return itemDTO;
     }
 
     @Transactional
@@ -94,6 +111,7 @@ public class ItemService {
         if(category != null){
             item1.setCategory(entityManager.getReference(Category.class, itemId));
         }
+        entityManager.close();
         return itemRepository.save(item1);
     }
 

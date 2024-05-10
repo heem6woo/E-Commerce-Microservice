@@ -2,7 +2,7 @@ package com.ecommerce.itemservice.service;
 
 import com.ecommerce.itemservice.entity.Item;
 import com.ecommerce.itemservice.entity.SalesInfo;
-import com.ecommerce.itemservice.repository.seller.ItemRepository;
+import com.ecommerce.itemservice.repository.ItemRepository;
 import com.ecommerce.itemservice.repository.SalesInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired; // Autowired를 임포트해야 함
 import org.springframework.stereotype.Service;

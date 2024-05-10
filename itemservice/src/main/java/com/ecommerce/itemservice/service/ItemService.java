@@ -6,7 +6,7 @@ import com.ecommerce.itemservice.dto.SalesValues;
 import com.ecommerce.itemservice.entity.Category;
 import com.ecommerce.itemservice.entity.Item;
 import com.ecommerce.itemservice.entity.SalesInfo;
-import com.ecommerce.itemservice.repository.seller.ItemRepository;
+import com.ecommerce.itemservice.repository.ItemRepository;
 import com.ecommerce.itemservice.repository.SalesInfoRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;

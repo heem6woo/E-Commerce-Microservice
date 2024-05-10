@@ -2,12 +2,10 @@ package com.ecommerce.itemservice.service;
 
 import com.ecommerce.itemservice.dto.ItemDTO;
 import com.ecommerce.itemservice.dto.ItemListDTO;
-import com.ecommerce.itemservice.dto.ItemValues;
-import com.ecommerce.itemservice.dto.SalesValues;
 import com.ecommerce.itemservice.entity.Item;
 import com.ecommerce.itemservice.entity.SalesInfo;
-import com.ecommerce.itemservice.repository.costumer.ItemSearchingRepository;
-import com.ecommerce.itemservice.repository.seller.ItemRepository;
+
+import com.ecommerce.itemservice.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,8 +31,8 @@ public class ItemSearchingService {
     }
     @Transactional(readOnly = true)
     public ItemDTO findItemDTOByItemNameAndSellerId(int sellerId, String itemName) {
-        String pattern = "%"+itemName+"%"; // e를 포함하는 패턴
-        Item item = itemRepository.findBySalesInfosSellerIdAndItemName(sellerId, pattern).orElseThrow(() -> new IllegalArgumentException("해당하는 아이디가 없습니다 id : " + sellerId));;
+        System.out.println("셀러 sellerId" + sellerId);
+        Item item = itemRepository.findBySalesInfosSellerIdAndItemName(sellerId, itemName).orElseThrow(() -> new IllegalArgumentException("해당하는 아이디가 없습니다 id : " + sellerId));;
         SalesInfo salesInfo = item.getSalesInfos().get(0);
         return itemMapper.convertToItemDto(item, salesInfo);
     }

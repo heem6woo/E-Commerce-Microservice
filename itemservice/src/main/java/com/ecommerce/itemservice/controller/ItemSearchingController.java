@@ -57,7 +57,7 @@ public class ItemSearchingController {
     }
 
     @GetMapping("getitem/")
-    public ResponseEntity<List<ItemListDTO>> www(@RequestParam(name = "item-name", defaultValue = "-1", required = false) String itemName,
+    public ResponseEntity<ItemDTO> www(@RequestParam(name = "item-name", defaultValue = "-1", required = false) String itemName,
                                                  @RequestParam(name = "seller-id", defaultValue = "-1", required = false) int sellerId
     ) throws Exception {
         System.out.println("name" + itemName);
@@ -69,7 +69,7 @@ public class ItemSearchingController {
         System.out.println("얻어오기 2성공" + itemDTO.getItemValues().getItemId());
 
         System.out.println("Searching by name and category and min & max");
-        return ResponseEntity.ok(itemList); // 검색 결과를 OK 상태 코드와 함께 반환합니다.
+        return ResponseEntity.ok(itemDTO); // 검색 결과를 OK 상태 코드와 함께 반환합니다.
 
     }
 

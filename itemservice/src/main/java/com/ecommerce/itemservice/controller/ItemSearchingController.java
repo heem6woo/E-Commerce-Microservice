@@ -1,71 +1,79 @@
 package com.ecommerce.itemservice.controller;
 
+
 import com.ecommerce.itemservice.dto.ItemDTO;
+import com.ecommerce.itemservice.dto.ItemListDTO;
 import com.ecommerce.itemservice.service.ItemSearchingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/item-search")
+@RequestMapping("api/item-search/")
 public class ItemSearchingController {
     @Autowired
-    private ItemSearchingService itemService;
-//    @PostMapping("/")
-//    public ResponseEntity<List<ItemDTO>> allItems()
-//            throws Exception {
-//            List<ItemDTO> N = null;
-//        return (ResponseEntity<List<ItemDTO>>) ResponseEntity.ok(N);
-//
-//    }
-    @GetMapping("/")
-
-    public ResponseEntity<List<ItemDTO>> likeNameItemsSameCat(@RequestParam(name = "item-name", defaultValue = "-1") String itemName,
-                                                       @RequestParam(name = "item-cat", defaultValue = "-1") Short itemCat,
-                                                              @RequestParam(name = "min-price", defaultValue = "-1") int minPrice,
-                                                              @RequestParam(name = "max-price", defaultValue = "-1") int maxPrice) throws Exception {
-
+    private ItemSearchingService itemSearchingService;
+    @GetMapping("getitems/")
+    public ResponseEntity<List<ItemListDTO>> likeNameItemsSameCat(@RequestParam(name = "item-name", defaultValue = "-1",required = false) String itemName,
+                                                                  @RequestParam(name = "cat-name", defaultValue = "-1",required = false) String catName,
+                                                                  @RequestParam(name = "min-price", defaultValue = "-1",required = false) int minPrice,
+                                                                  @RequestParam(name = "max-price", defaultValue = "-1",required = false) int maxPrice) throws Exception {
+        System.out.println("name" + itemName + "cat" + catName + "min" + minPrice + "max" + maxPrice);
         // itemName을 서비스 계층에 전달하여 해당 이름을 포함하는 아이템 목록들을 검색합니다.
-        List<ItemDTO> itemList;
-        if(itemName!= "-1" && itemCat != -1 && minPrice != -1 && maxPrice != -1){ // 이름, 카테, 최소 최대  가격
-            itemList = itemService.findItemDTOsByNameAndCatMinMax(itemName, itemCat,minPrice,maxPrice);
+        List<ItemListDTO> itemList;
+        if (!itemName.equals("-1") && !catName.equals("-1") && minPrice != -1 && maxPrice != -1) { // 이름, 카테, 최소 최대  가격
+            itemList = itemSearchingService.findItemListDTOsByNameAndCatMinMax(itemName, catName, minPrice, maxPrice);
             System.out.println("Searching by name and category and min & max");
-        }
-        else if(itemName!= "-1" && itemCat != -1 && minPrice != -1){// 이름, 카테, 최소  가격
-            itemList = itemService.findItemDTOsByNameAndCatMin(itemName, itemCat,minPrice);
+        } else if (!itemName.equals("-1") && !catName.equals("-1") && minPrice != -1) {// 이름, 카테, 최소  가격
+            itemList = itemSearchingService.findItemListDTOsByNameAndCatMin(itemName, catName, minPrice);
             System.out.println("Searching by name and category and min");
-        }
+        } else if (!itemName.equals("-1") && !catName.equals("-1")) {// 이름, 카테
 
-        else if (itemName!= "-1" && itemCat != -1) {// 이름, 카테
-
-            itemList = itemService.findItemDTOsByNameAndCat(itemName, itemCat);
+            itemList = itemSearchingService.findItemListDTOsByNameAndCat(itemName, catName);
             System.out.println("Searching by name and category");
-        }
-        else if (itemName!= "-1")// 이름
+        } else if (!itemName.equals("-1"))// 이름
         {
-            itemList = itemService.findItemDTOsByName(itemName);
+            itemList = itemSearchingService.findItemListDTOsByName(itemName);
             System.out.println("Searching by name only");
-        }
-        else if (itemCat!= -1 && minPrice != -1 && maxPrice != -1){//카테, 최소 최대  가격
-            itemList = itemService.findItemDTOsByCatMinMax(itemCat,minPrice,maxPrice);
+        } else if (!catName.equals("-1") && minPrice != -1 && maxPrice != -1) {//카테, 최소 최대  가격
+            itemList = itemSearchingService.findItemListDTOsByCatMinMax(catName, minPrice, maxPrice);
             System.out.println("Searching by min max only");
-        }
-        else if (itemCat!= -1 && minPrice != -1 ){//카테, 최소 가격
-            itemList = itemService.findItemDTOsByCatMin(itemCat,minPrice);
+        } else if (!catName.equals("-1") && minPrice != -1) {//카테, 최소 가격
+            itemList = itemSearchingService.findItemListDTOsByCatMin(catName, minPrice);
             System.out.println("Searching by min only");
-        }
-        else if (itemCat!= -1 && maxPrice != -1 ){// 카테,최대  가격
-            itemList = itemService.findItemDTOsByCatMax(itemCat,maxPrice);
+        } else if (!catName.equals("-1") && maxPrice != -1) {// 카테,최대  가격
+            itemList = itemSearchingService.findItemListDTOsByCatMax(catName, maxPrice);
             System.out.println("Searching by max only");
-        }
-        else itemList = null;
-
+        } else itemList = null;
         return ResponseEntity.ok(itemList); // 검색 결과를 OK 상태 코드와 함께 반환합니다.
     }
 
+    @GetMapping("getitem/")
+    public ResponseEntity<List<ItemListDTO>> www(@RequestParam(name = "item-name", defaultValue = "-1", required = false) String itemName,
+                                                 @RequestParam(name = "seller-id", defaultValue = "-1", required = false) int sellerId
+    ) throws Exception {
+        System.out.println("name" + itemName);
+        // itemName을 서비스 계층에 전달하여 해당 이름을 포함하는 아이템 목록들을 검색합니다.
+        List<ItemListDTO> itemList = null;
+        List<ItemListDTO> itemDTOList = itemSearchingService.findItemListDTOsByName(itemName);
+        System.out.println("얻어오기 성공" + itemDTOList.get(0).getItemValues().getItemId());
+        ItemDTO itemDTO = itemSearchingService.findItemDTOByItemNameAndSellerId(sellerId, itemName);
+        System.out.println("얻어오기 2성공" + itemDTO.getItemValues().getItemId());
+
+        System.out.println("Searching by name and category and min & max");
+        return ResponseEntity.ok(itemList); // 검색 결과를 OK 상태 코드와 함께 반환합니다.
+
+    }
 
 }
+
+
+

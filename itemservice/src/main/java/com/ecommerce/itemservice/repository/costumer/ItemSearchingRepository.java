@@ -5,9 +5,10 @@ import com.ecommerce.itemservice.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface ItemSearchingRepository extends JpaRepository<Item, Integer> {
     String ItemDTOjoinQuery = "SELECT new com.ecommerce.itemservice.dto.ItemDTO(\n" +
             "  new com.ecommerce.itemservice.dto.ItemValues(i.itemId, c.categoryId, i.itemName, i.itemDescription, i.regDt),\n" +

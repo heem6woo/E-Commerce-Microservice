@@ -29,8 +29,10 @@ POST http://localhost:8765/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "아무개",
-  "email":  "qqwaqwqw@mail.com",
+
+  "name": "Heemin",
+  "email":  "qqwqwqw@mail.com",
+
   "password": "password",
   "role":  "SELLER"
 }
@@ -115,3 +117,11 @@ Content-Type: application/json
     "itemStatus": 1
   }
 }
+
+###
+GET http://localhost:8765/api/item-search/getitems/?item-name=s
+Authorization: Bearer {{auth-token}}
+
+###
+GET http://localhost:8765/api/item-search/getitem/?item-name=Smartphone&seller-id=2
+Authorization: Bearer {{auth-token}}

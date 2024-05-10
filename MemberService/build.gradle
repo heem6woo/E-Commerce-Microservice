@@ -40,9 +40,16 @@ dependencies {
     implementation ('net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE')
     implementation 'io.grpc:grpc-netty-shaded'
 
-//    implementation 'io.grpc:grpc-protobuf:1.63.0'
-//    implementation 'io.grpc:grpc-stub:1.63.0'
-//    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+    // Micrometer for observation
+    implementation 'io.micrometer:micrometer-observation'
+
+    // Micrometer bridge for OpenTelemetry
+    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+
+    // OpenTelemetry exporter for Zipkin
+    implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'

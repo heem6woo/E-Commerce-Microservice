@@ -34,7 +34,7 @@ public class MemberServerService extends IdServiceGrpc.IdServiceImplBase {
                 throw new RuntimeException(e);
             }
         } else {
-            id = memberService.findByName(req_val).getId();
+            id = memberService.findBySellerName(req_val).getId();
         }
         IdReply reply = IdReply.newBuilder().setId(id).build();
         responseObserver.onNext(reply);

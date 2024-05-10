@@ -29,8 +29,10 @@ POST http://localhost:8765/api/auth/register
 Content-Type: application/json
 
 {
+
   "name": "Heemin",
   "email":  "qqwqwqw@mail.com",
+
   "password": "password",
   "role":  "SELLER"
 }
@@ -78,9 +80,9 @@ Content-Type: application/json
 
   "sellerName" : "아무개",
 
-  "price" : "10000",
+  "price" : "100000",
 
-  "quantity" : "7"
+  "quantity" : "5"
 }
 
 ###

@@ -30,6 +30,8 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     runtimeOnly 'mysql:mysql-connector-java:8.0.32'
 
 //    grpc client dependency
@@ -37,6 +39,15 @@ dependencies {
     implementation files('libs/GrpcInterface-1.0-SNAPSHOT.jar')
 
     implementation 'io.grpc:grpc-netty-shaded'
+
+    // Micrometer for observation
+    implementation 'io.micrometer:micrometer-observation'
+
+    // Micrometer bridge for OpenTelemetry
+    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+
+    // OpenTelemetry exporter for Zipkin
+    implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
 
     runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'

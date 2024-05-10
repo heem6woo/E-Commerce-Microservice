@@ -5,10 +5,11 @@ import com.ecommerce.itemservice.entity.SalesInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+@Repository
 public interface SalesInfoRepository extends JpaRepository<SalesInfo, Integer> {
     // Custom query to update sales info
     @Transactional
@@ -20,5 +21,6 @@ public interface SalesInfoRepository extends JpaRepository<SalesInfo, Integer> {
     Optional<SalesInfo> findById(Integer integer);
 
     Optional<SalesInfo> findByItemAndSellerId(Item item, Integer sellerId);
+
 
 }

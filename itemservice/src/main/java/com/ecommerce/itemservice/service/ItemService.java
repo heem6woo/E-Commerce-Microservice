@@ -26,7 +26,7 @@ public class ItemService {
 
     @Autowired
     private SalesInfoRepository salesInfoRepository;
-
+    private final ItemMapper itemMapper = new ItemMapper();
     @Transactional
     public ItemDTO createItem(ItemDTO itemDTO) {
         Item item = null;
@@ -53,7 +53,7 @@ public class ItemService {
             }
             // Create and save the Item entity from itemDTO
         } finally {
-            return toItemDTO(item,salesInfo);
+            return itemMapper.convertToItemDto(item,salesInfo);
         }
         // Create and save the SalesInfo entity from itemDTO
        }
@@ -121,29 +121,6 @@ public class ItemService {
         itemRepository.deleteById(itemId);
     }
 
-    public ItemDTO toItemDTO(Item item,SalesInfo salesInfo) {
-        if (item == null) {
-            return null;
-        }
-        if(salesInfo == null){
-            return null;
-        }
 
-        ItemValues itemValues = ItemValues.builder()
-                .itemId(item.getItemId())
-                .category(item.getCategory().getCategoryId()) // Assuming Category entity has an getId() method.
-                .itemName(item.getItemName())
-                .itemDescription(item.getItemDescription())
-                .req_Dt(item.getRegDt())
-                .build();
 
-        SalesValues salesValues = SalesValues.builder()
-                .salesId(salesInfo.getSalesInfoId()) // Assuming SalesInfo has a getSalesId() method.
-                .sellerId(salesInfo.getSellerId()) // Assuming SalesInfo has a getSellerId() method.
-                .itemCount(salesInfo.getItemCount()) // Assuming SalesInfo has a getItemCount() method.
-                .itemPrice(salesInfo.getItemPrice()) // Assuming SalesInfo has a getItemPrice() method.
-                .itemStatus(salesInfo.getItemStatus()) // Assuming SalesInfo has a getItemStatus() method.
-                .build();
-        return new ItemDTO(itemValues, salesValues);
-    }
 }

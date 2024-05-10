@@ -4,6 +4,7 @@ import com.ecommerce.grpc.IdReply;
 import com.ecommerce.grpc.IdRequest;
 import com.ecommerce.grpc.IdServiceGrpc;
 import com.ecommerce.itemservice.dto.ItemDTO;
+import com.ecommerce.itemservice.dto.ItemListDTO;
 import com.ecommerce.itemservice.service.ItemSearchingService;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ public class ItemServiceGrpcIdServer extends IdServiceGrpc.IdServiceImplBase {
         }
         log.info(req_val + " gRPC getting request");
         int id = -1;
-        List<ItemDTO> itemDTOList = itemSearchingService.findItemDTOsByName(req_val);
-        id = (int) itemDTOList.get(0).getItemValues().getItemId();
+        List<ItemListDTO> itemDTOList = itemSearchingService.findItemListDTOsByName(req_val);
+        id = itemDTOList.get(0).getItemValues().getItemId();
         IdReply reply = IdReply.newBuilder().setId(id).build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();

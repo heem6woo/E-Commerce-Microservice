@@ -9,16 +9,27 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface ItemRepository extends JpaRepository<Item, Integer> {
     // Custom query to update an item
-    @Transactional
-    @Modifying
-    @Query("UPDATE Item i SET i.itemName = :itemName, i.itemDescription = :itemDescription, i.category = :category WHERE i.itemId = :itemId")
-    ItemDTO updateItem(@Param("itemId") int itemId,
-                       @Param("itemName") String itemName,
-                       @Param("itemDescription") String itemDescription,
-                       @Param("category") Category category);
+    Optional<List<Item>> findByItemNameLike(String itemName);
 
+    Optional<Item> findBySalesInfosSellerIdAndItemName(Integer sellerId, String itemName);
 
+    Optional<List<Item>> findByItemNameLikeAndCategory_CategoryName(
+            String itemName, String categoryName);
+    Optional<List<Item>> findByItemNameLikeAndCategory_CategoryNameAndSalesInfosItemPriceGreaterThanEqual(
+            String itemName, String categoryName, double minPrice);
+
+    Optional<List<Item>> findItemsByItemNameLikeAndCategory_CategoryNameAndSalesInfosItemPriceBetween(
+            String itemName, String categoryName, double minPrice, double maxPrice);
+    Optional<List<Item>> findByCategory_CategoryNameAndSalesInfosItemPriceGreaterThanEqual(
+            String categoryName, double minPrice);
+    Optional<List<Item>> findByCategory_CategoryNameAndSalesInfosItemPriceLessThanEqual(
+            String categoryName, double maxPrice);
+    Optional<List<Item>> findByCategory_CategoryNameAndSalesInfosItemPriceBetween(
+            String categoryName, double minPrice, double maxPrice);
 
 }

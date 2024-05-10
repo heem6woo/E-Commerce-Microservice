@@ -19,14 +19,13 @@ import java.util.List;
 public class ItemServiceGrpcServer extends ItemInfoServiceGrpc.ItemInfoServiceImplBase {
 
         private final ItemSearchingService itemSearchingService;
-
         @Override
         public void getItemInfo(final ItemRequest req, final StreamObserver<ItemReply> responseObserver) {
                 int sellerId = req.getSellerId();
                 String itemName = req.getItemName();
                 log.info(sellerId + " gRPC getting request");
                 ItemReply reply = null;
-                ItemDTO itemDTO = itemSearchingService.findByIdSalesValues(sellerId, itemName);
+                ItemDTO itemDTO = itemSearchingService.findItemDTOByItemNameAndSellerId(sellerId, itemName);
                 if (itemDTO != null) {
                         try {
                                 reply = ItemReply.newBuilder()

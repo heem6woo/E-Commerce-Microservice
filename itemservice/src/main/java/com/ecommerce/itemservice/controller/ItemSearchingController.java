@@ -17,13 +17,15 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/itemserching/")
+@RequestMapping("api/item-search/")
 public class ItemSearchingController {
     @Autowired
     private ItemSearchingService itemSearchingService;
-    @GetMapping("getitems")
-    public ResponseEntity<List<ItemListDTO>> likeNameItemsSameCat(@RequestParam(name = "item-name", defaultValue = "-1") String itemName,
-                                                                  @RequestParam(name = "cat-name", defaultValue = "-1") String catName, @RequestParam(name = "min-price", defaultValue = "-1") int minPrice, @RequestParam(name = "max-price", defaultValue = "-1") int maxPrice) throws Exception {
+    @GetMapping("getitems/")
+    public ResponseEntity<List<ItemListDTO>> likeNameItemsSameCat(@RequestParam(name = "item-name", defaultValue = "-1",required = false) String itemName,
+                                                                  @RequestParam(name = "cat-name", defaultValue = "-1",required = false) String catName,
+                                                                  @RequestParam(name = "min-price", defaultValue = "-1",required = false) int minPrice,
+                                                                  @RequestParam(name = "max-price", defaultValue = "-1",required = false) int maxPrice) throws Exception {
         System.out.println("name" + itemName + "cat" + catName + "min" + minPrice + "max" + maxPrice);
         // itemName을 서비스 계층에 전달하여 해당 이름을 포함하는 아이템 목록들을 검색합니다.
         List<ItemListDTO> itemList;
@@ -54,9 +56,9 @@ public class ItemSearchingController {
         return ResponseEntity.ok(itemList); // 검색 결과를 OK 상태 코드와 함께 반환합니다.
     }
 
-    @GetMapping("getitem")
-    public ResponseEntity<List<ItemListDTO>> www(@RequestParam(name = "item-name", defaultValue = "-1") String itemName,
-                                                 @RequestParam(name = "seller-id", defaultValue = "-1") int sellerId
+    @GetMapping("getitem/")
+    public ResponseEntity<List<ItemListDTO>> www(@RequestParam(name = "item-name", defaultValue = "-1", required = false) String itemName,
+                                                 @RequestParam(name = "seller-id", defaultValue = "-1", required = false) int sellerId
     ) throws Exception {
         System.out.println("name" + itemName);
         // itemName을 서비스 계층에 전달하여 해당 이름을 포함하는 아이템 목록들을 검색합니다.

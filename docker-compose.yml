@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  naming-server:
+    image: naming-server
+    ports:
+      - "8761:8761"
+    networks:
+      - ecommerce_network
+
+  redis:
+    image: redis
+    hostname: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - ecommerce_network
+
+
+  api-gateway:
+    image: api-gateway
+    ports:
+      - "8765:8765"
+    networks:
+      - ecommerce_network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
+
+
+  member-service:
+    image: member-service
+    ports:
+      - "8100:8100"
+    networks:
+      - ecommerce_network
+    depends_on:
+      - naming-server
+      - redis
+    links:
+      - redis
+
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
+
+
+  #docker run -p 9411:9411 openzipkin/zipkin:2.23
+  zipkin-server:
+    image: openzipkin/zipkin:2.23
+    ports:
+      - "9411:9411"
+    networks:
+      - ecommerce_network
+    restart: always #Restart if there is a problem
+
+networks:
+  ecommerce_network:
+    driver: bridge

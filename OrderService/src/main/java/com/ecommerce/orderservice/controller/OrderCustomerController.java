@@ -23,7 +23,7 @@ public class OrderCustomerController {
     private final OrderService orderService;
 
 
-    @GetMapping("/confrimed")
+    @GetMapping("/confirmed")
     public ResponseEntity<List<OrderInfo>> listAllOrdersConfirmed(HttpServletRequest request) {
 
         return ResponseEntity.ok(orderInfoService.listAllOrders(request));

@@ -113,7 +113,10 @@ spring:
           predicates:
             - Path=/api/orders/**
           filters:
-            JwtAuthenticationFilter
+            - name: JwtAuthenticationFilter
+              args:
+                role: ROLE_ADMIN
+                tokenType:
 
         - id: order-customer-route
           uri: lb://ORDER-SERVICE

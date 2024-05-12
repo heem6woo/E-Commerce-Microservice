@@ -1,8 +1,10 @@
 package com.ecommerce.orderservice.controller;
 
 
+import com.ecommerce.common.Order;
 import com.ecommerce.orderservice.entity.OrderInfo;
 import com.ecommerce.orderservice.service.OrderInfoService;
+import com.ecommerce.orderservice.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,15 @@ public class OrderController {
 
     private final OrderInfoService orderInfoService;
 
+    private final OrderService orderService;
+
     // requesting order
+
+    @GetMapping("")
+    public ResponseEntity<List<Order>> listAllOrdersInProgress(HttpServletRequest request) {
+
+        return ResponseEntity.ok(orderService.listAllOrders(request));
+    }
 
 
     @GetMapping("/items/{item-name}")

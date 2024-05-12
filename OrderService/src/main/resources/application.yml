@@ -21,13 +21,6 @@ spring:
       properties:
         hibernate.format_sql: true
     database: mysql
-  #
-  # Redis
-  #
-  data:
-    redis:
-      host: localhost
-      port: 6379
 
   #
   # kafka

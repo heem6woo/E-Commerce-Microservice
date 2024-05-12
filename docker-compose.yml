@@ -33,7 +33,7 @@ services:
   member-service:
     image: member-service
     ports:
-      - "8100:8100"
+      - "8080:8080"
     networks:
       - ecommerce_network
     depends_on:
@@ -41,6 +41,58 @@ services:
       - redis
     links:
       - redis
+
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
+
+  review-service:
+    image: review-service
+    ports:
+      - "8000:8000"
+    networks:
+      - ecommerce_network
+    depends_on:
+      - naming-server
+
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
+
+  item-service:
+    image: item-service
+    ports:
+      - "8100:8100"
+    networks:
+      - ecommerce_network
+    depends_on:
+      - naming-server
+
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
+
+  payment-service:
+    image: review-service
+    ports:
+      - "8300:8300"
+    networks:
+      - ecommerce_network
+    depends_on:
+      - naming-server
+
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
+
+  order-service:
+    image: order-service
+    ports:
+      - "8200:8200"
+    networks:
+      - ecommerce_network
+    depends_on:
+      - naming-server
 
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka

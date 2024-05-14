@@ -2,7 +2,7 @@ version: '3'
 
 services:
   naming-server:
-    image: naming-server
+    image: heem6woo/naming-server
     ports:
       - "8761:8761"
     networks:
@@ -18,7 +18,7 @@ services:
 
 
   api-gateway:
-    image: api-gateway
+    image: heem6woo/api-gateway
     ports:
       - "8765:8765"
     networks:
@@ -31,7 +31,7 @@ services:
 
 
   member-service:
-    image: member-service
+    image: heem6woo/member-service
     ports:
       - "8080:8080"
     networks:
@@ -47,7 +47,7 @@ services:
       MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
 
   review-service:
-    image: review-service
+    image: heem6woo/review-service
     ports:
       - "8000:8000"
     networks:
@@ -60,7 +60,7 @@ services:
       MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
 
   item-service:
-    image: item-service
+    image: heem6woo/item-service
     ports:
       - "8100:8100"
     networks:
@@ -73,7 +73,7 @@ services:
       MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
 
   payment-service:
-    image: review-service
+    image: heem6woo/payment-service
     ports:
       - "8300:8300"
     networks:
@@ -86,7 +86,7 @@ services:
       MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
 
   order-service:
-    image: order-service
+    image: heem6woo/order-service
     ports:
       - "8200:8200"
     networks:

@@ -24,38 +24,6 @@
   <li><strong>회원 서비스:</strong> 사용자 계정 정보를 관리하고 쇼핑몰 인증을 처리합니다.</li>
   <li><strong>리뷰 서비스:</strong> 사용자가 상품에 대한 리뷰를 작성하고 관리할 수 있게 합니다.</li>
 </ol>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>서비스 상세</title>
-    <style>
-        .toggle-content {
-            display: none;
-            padding: 10px;
-            border: 1px solid #ccc;
-            margin-top: 5px;
-        }
-        .toggle-button {
-            cursor: pointer;
-            color: blue;
-            text-decoration: underline;
-        }
-    </style>
-    <script>
-        function toggleContent(id) {
-            var content = document.getElementById(id);
-            if (content.style.display === "none" || content.style.display === "") {
-                content.style.display = "block";
-            } else {
-                content.style.display = "none";
-            }
-        }
-    </script>
-</head>
-<body>
-
 <h2 align="center">서비스 상세</h2>
 
 <ol>
@@ -151,8 +119,6 @@
     </li>
 </ol>
 
-</body>
-</html>
 
 <!-- 시작하기 -->
 <h2 align="center">시작하기</h2>

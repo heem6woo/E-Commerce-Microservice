@@ -25,7 +25,7 @@
   <li><strong>리뷰 서비스:</strong> 사용자가 상품에 대한 리뷰를 작성하고 관리할 수 있게 합니다.</li>
 </ol>
 <h2 align="center">서비스 상세</h2>
-
+<details style="margin-bottom: 15px;">
 <ol>
     <li>
         <span class="toggle-button" onclick="toggleContent('payment-service')"><strong>결제 서비스:</strong></span>
@@ -118,7 +118,7 @@
         </div>
     </li>
 </ol>
-
+</details>
 
 <!-- 시작하기 -->
 <h2 align="center">시작하기</h2>

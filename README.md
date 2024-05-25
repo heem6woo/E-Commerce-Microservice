@@ -24,6 +24,135 @@
   <li><strong>회원 서비스:</strong> 사용자 계정 정보를 관리하고 쇼핑몰 인증을 처리합니다.</li>
   <li><strong>리뷰 서비스:</strong> 사용자가 상품에 대한 리뷰를 작성하고 관리할 수 있게 합니다.</li>
 </ol>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서비스 상세</title>
+    <style>
+        .toggle-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+        .toggle-button {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function toggleContent(id) {
+            var content = document.getElementById(id);
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+
+<h2 align="center">서비스 상세</h2>
+
+<ol>
+    <li>
+        <span class="toggle-button" onclick="toggleContent('payment-service')"><strong>결제 서비스:</strong></span>
+        <div id="payment-service" class="toggle-content">
+            <p><strong>기능:</strong> 사용자 결제 정보를 안전하게 처리하고 거래를 완료합니다.</p>
+            <p><strong>주요 기능:</strong></p>
+            <ul>
+                <li>다양한 결제 수단 지원 (신용카드, 은행 송금, 모바일 결제 등)</li>
+                <li>결제 보안 강화 (SSL 인증, 2단계 인증 등)</li>
+                <li>결제 실패 시 알림 및 재시도 기능</li>
+                <li>결제 내역 조회 및 영수증 발급</li>
+            </ul>
+            <p><strong>기술 스택:</strong></p>
+            <ul>
+                <li><strong>gRPC:</strong> 결제 서비스와 다른 마이크로서비스 간의 통신에 사용됩니다. 빠르고 효율적인 데이터 전송을 보장합니다.</li>
+                <li><strong>Kafka:</strong> 결제 이벤트를 실시간으로 처리하고 분석을 위해 메시지 큐에 전송합니다.</li>
+            </ul>
+        </div>
+    </li>
+    <li>
+        <span class="toggle-button" onclick="toggleContent('order-service')"><strong>주문 서비스:</strong></span>
+        <div id="order-service" class="toggle-content">
+            <p><strong>기능:</strong> 사용자 주문을 처리하고 주문 상태를 실시간으로 업데이트합니다.</p>
+            <p><strong>주요 기능:</strong></p>
+            <ul>
+                <li>주문 생성 및 확인</li>
+                <li>주문 상태 추적 (주문 접수, 처리 중, 배송 중, 배송 완료 등)</li>
+                <li>주문 변경 및 취소 기능</li>
+                <li>주문 내역 조회 및 관리</li>
+            </ul>
+            <p><strong>기술 스택:</strong></p>
+            <ul>
+                <li><strong>gRPC:</strong> 주문 서비스와 다른 서비스 간의 효율적인 통신을 지원합니다.</li>
+                <li><strong>Kafka:</strong> 주문 생성 및 상태 업데이트 이벤트를 처리하고 관련 서비스에 전달합니다.</li>
+            </ul>
+        </div>
+    </li>
+    <li>
+        <span class="toggle-button" onclick="toggleContent('product-service')"><strong>상품 서비스:</strong></span>
+        <div id="product-service" class="toggle-content">
+            <p><strong>기능:</strong> 쇼핑몰에서 제공하는 상품 정보를 관리하고 제공합니다.</p>
+            <p><strong>주요 기능:</strong></p>
+            <ul>
+                <li>상품 등록, 수정 및 삭제</li>
+                <li>상품 상세 정보 제공 (설명, 가격, 재고 상태 등)</li>
+                <li>상품 검색 및 필터 기능</li>
+                <li>상품 카테고리 및 태그 관리</li>
+            </ul>
+            <p><strong>기술 스택:</strong></p>
+            <ul>
+                <li><strong>gRPC:</strong> 상품 정보 요청 및 관리 서비스를 다른 서비스와 통합합니다.</li>
+                <li><strong>Kafka:</strong> 상품 정보 변경 이벤트를 브로드캐스트하여 다른 서비스들이 최신 정보를 유지할 수 있도록 합니다.</li>
+            </ul>
+        </div>
+    </li>
+    <li>
+        <span class="toggle-button" onclick="toggleContent('member-service')"><strong>회원 서비스:</strong></span>
+        <div id="member-service" class="toggle-content">
+            <p><strong>기능:</strong> 사용자 계정 정보를 관리하고 쇼핑몰 인증을 처리합니다.</p>
+            <p><strong>주요 기능:</strong></p>
+            <ul>
+                <li>회원 가입 및 로그인</li>
+                <li>회원 정보 수정 및 탈퇴</li>
+                <li>비밀번호 변경 및 찾기 기능</li>
+                <li>회원 등급 및 포인트 시스템</li>
+            </ul>
+            <p><strong>기술 스택:</strong></p>
+            <ul>
+                <li><strong>gRPC:</strong> 회원 서비스와 다른 서비스 간의 통신을 최적화합니다.</li>
+                <li><strong>Kafka:</strong> 회원 가입 및 정보 변경 이벤트를 처리하여 관련 서비스에 전파합니다.</li>
+            </ul>
+        </div>
+    </li>
+    <li>
+        <span class="toggle-button" onclick="toggleContent('review-service')"><strong>리뷰 서비스:</strong></span>
+        <div id="review-service" class="toggle-content">
+            <p><strong>기능:</strong> 사용자가 상품에 대한 리뷰를 작성하고 관리할 수 있게 합니다.</p>
+            <p><strong>주요 기능:</strong></p>
+            <ul>
+                <li>리뷰 작성 및 수정</li>
+                <li>리뷰 평가 (좋아요, 신고 등)</li>
+                <li>리뷰 조회 및 필터링</li>
+                <li>리뷰 통계 제공 (평균 평점, 리뷰 수 등)</li>
+            </ul>
+            <p><strong>기술 스택:</strong></p>
+            <ul>
+                <li><strong>gRPC:</strong> 리뷰 데이터의 실시간 처리를 위해 다른 서비스와 통신합니다.</li>
+                <li><strong>Kafka:</strong> 리뷰 작성 및 수정 이벤트를 처리하고 관련 데이터 분석 서비스에 전달합니다.</li>
+            </ul>
+        </div>
+    </li>
+</ol>
+
+</body>
+</html>
 
 <!-- 시작하기 -->
 <h2 align="center">시작하기</h2>

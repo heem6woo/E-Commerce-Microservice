@@ -46,7 +46,7 @@ jobs:
       with:
         directory: NamingServer
         dockerfile: NamingServer/Dockerfile
-        image: heem6woo/naming-service
+        image: heem6woo/naming-server
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}

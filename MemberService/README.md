@@ -1,4 +1,3 @@
-
 # Member Service
 
 This service is responsible for managing the members of the organization. It provides the following functionalities:
@@ -61,6 +60,7 @@ docker run -p 8080:8080 member-service
 - MySQL 8.0.26
 - gRPC
 - Docker
+- Zipkin
 
 
 

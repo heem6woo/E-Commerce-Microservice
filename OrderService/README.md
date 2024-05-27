@@ -32,7 +32,8 @@ If the updating stock and payment are successfully done, the service sends an co
 
 If the updating stock and payment are not successfully done, the service sends an error message to each service for rollback.
 
-
+The service change the status of the order with the received message from the Payment Service and the Item Service via kafka.
+Kafka Stream is used to manage the status of the order.
 
 ## Setup
 
@@ -58,5 +59,7 @@ docker run -p 8200:8200 order-service
 - Gradle 7.2
 - MySQL 8.0.26
 - gRPC
+- Kafka
+- Kafka Streams
 - Docker
 - Zipkin

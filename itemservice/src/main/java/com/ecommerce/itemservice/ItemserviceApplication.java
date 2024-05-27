@@ -10,5 +10,4 @@ public class ItemserviceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ItemserviceApplication.class, args);
 	}
-
 }

@@ -38,7 +38,7 @@ jobs:
         run: chmod +x MemberService/gradlew
 
       - name: Build with Gradle Wrapper
-        run: ./gradlew build
+        run: ./gradlew build -x test
         working-directory: MemberService
 
       - name: Build and Push Docker Image

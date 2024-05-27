@@ -47,6 +47,7 @@ jobs:
           directory: PaymentService
           dockerfile: PaymentService/Dockerfile
           image: heem6woo/payment-service
+          addLatest: true
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}

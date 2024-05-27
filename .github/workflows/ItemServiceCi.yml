@@ -46,6 +46,7 @@ jobs:
         with:
           directory: itemservice
           dockerfile: itemservice/Dockerfile
+          addLatest: true
           image: heem6woo/item-service
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}

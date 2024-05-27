@@ -47,6 +47,7 @@ jobs:
           directory: ReviewService
           dockerfile: ReviewService/Dockerfile
           image: heem6woo/review-service
+          addLatest: true
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}

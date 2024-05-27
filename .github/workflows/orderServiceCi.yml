@@ -47,6 +47,7 @@ jobs:
           directory: OrderService
           dockerfile: OrderService/Dockerfile
           image: heem6woo/order-service
+          addLatest: true
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}

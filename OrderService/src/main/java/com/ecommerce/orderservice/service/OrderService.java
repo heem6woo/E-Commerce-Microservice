@@ -80,6 +80,7 @@ public class OrderService {
                 orderRequest.getPrice() != itemReply.getItemPrice() ||
                 itemReply.getItemStatus() == 0)
         {
+
             throw new OrderException("Order is invalid!", HttpStatus.BAD_REQUEST);
         }
 

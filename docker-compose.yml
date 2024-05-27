@@ -16,7 +16,7 @@ services:
     networks:
       - ecommerce_network
 
-
+#qeqeqe
   api-gateway:
     image: heem6woo/api-gateway
     ports:

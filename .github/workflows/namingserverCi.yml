@@ -17,13 +17,16 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: set root directory
+      run: cd NamingServer
+
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:

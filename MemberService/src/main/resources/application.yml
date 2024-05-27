@@ -1,0 +1,74 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: member-service
+  sql:
+    init:
+      mode: always
+  datasource:
+    url: jdbc:mysql://wittdbreal.chr10oalkvb3.ap-northeast-2.rds.amazonaws.com:3306/member_directory
+    username: admin
+    password: 1q2w3e4r!!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      show-sql: false
+      properties:
+        hibernate.format_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+
+application:
+  security:
+    jwt:
+      pre-fix: Bearer
+      secret-key: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
+      access-token:
+        expiration: 1800000
+        # 1000(milli) * 60 (second) * 30(minute) = 30 minutes
+      refresh-token:
+        expiration: 604800000
+        #  7 days
+  # Admin member account
+    admin1:
+      name: 우희민
+      email: heem6woo@gmail.com
+      password: $2a$10$/So2kYEFDhOdCZmu/D7xiO1qR1Dp8JQPHfKrU2JXNQUOUBLALnQCe # password123
+    admin2:
+      name: 김도현
+      email: rkawkaos77@naver.com
+      password: $2a$10$zh0jF1Je28jUpPX1v/.GJejWH.Z5uS4QZzmMY4MrnvlYd1Q1EVGha #password123
+
+#Eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace
+
+#grpc
+
+grpc:
+  server:
+    port: 9999

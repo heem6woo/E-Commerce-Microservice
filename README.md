@@ -52,7 +52,7 @@
             <p><strong>주요 기능:</strong></p>
             <ul>
                 <li>주문 생성 및 확인</li>
-                <li>주문 상태 추적 (주문 접수, 처리 중, 배송 중, 배송 완료 등)</li>
+                <li>주문 상태 추적 (주문 접수, 처리 중, 처리 실패, 주문 완료)</li>
                 <li>주문 변경 및 취소 기능</li>
                 <li>주문 내역 조회 및 관리</li>
             </ul>
@@ -94,14 +94,13 @@
             <p><strong>주요 기능:</strong></p>
             <ul>
                 <li>회원 가입 및 로그인</li>
-                <li>회원 정보 수정 및 탈퇴</li>
-                <li>비밀번호 변경 및 찾기 기능</li>
-                <li>회원 등급 및 포인트 시스템</li>
+                <li>회원 정보 수정</li>
+                <li>비밀번호 변경</li>
+                <li>Access Token 재발급</li>
             </ul>
             <p><strong>기술 스택:</strong></p>
             <ul>
                 <li><strong>gRPC:</strong> 회원 서비스와 다른 서비스 간의 통신을 최적화합니다.</li>
-                <li><strong>Kafka:</strong> 회원 가입 및 정보 변경 이벤트를 처리하여 관련 서비스에 전파합니다.</li>
             </ul>
         </div>
     </li>
@@ -112,14 +111,12 @@
             <p><strong>주요 기능:</strong></p>
             <ul>
                 <li>리뷰 작성 및 수정</li>
-                <li>리뷰 평가 (좋아요, 신고 등)</li>
                 <li>리뷰 조회 및 필터링</li>
                 <li>리뷰 통계 제공 (평균 평점, 리뷰 수 등)</li>
             </ul>
             <p><strong>기술 스택:</strong></p>
             <ul>
                 <li><strong>gRPC:</strong> 리뷰 데이터의 실시간 처리를 위해 다른 서비스와 통신합니다.</li>
-                <li><strong>Kafka:</strong> 리뷰 작성 및 수정 이벤트를 처리하고 관련 데이터 분석 서비스에 전달합니다.</li>
             </ul>
         </div>
     </li>

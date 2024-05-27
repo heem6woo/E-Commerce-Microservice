@@ -7,7 +7,6 @@ import org.springframework.kafka.annotation.EnableKafka;
 @EnableKafka
 @SpringBootApplication
 public class PayMentServiceApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(PayMentServiceApplication.class, args);
 	}

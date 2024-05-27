@@ -54,3 +54,4 @@ SellerLogin/src/main/resources/application.yml
 
 
 docker-compose.yml
+*.yml

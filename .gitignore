@@ -16,7 +16,7 @@
 # Gradle:
 .idea/gradle.xml
 .idea/libraries
-
+.yml
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
 

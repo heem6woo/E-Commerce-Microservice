@@ -63,25 +63,31 @@
             </ul>
         </div>
     </li>
-    <li>
-        <span class="toggle-button" onclick="toggleContent('product-service')"><strong>상품 서비스:</strong></span>
-        <div id="product-service" class="toggle-content">
-            <p><strong>기능:</strong> 쇼핑몰에서 제공하는 상품 정보를 관리하고 제공합니다.</p>
-            <p><strong>주요 기능:</strong></p>
-            <ul>
-                <li>상품 등록, 수정 및 삭제</li>
-                <li>상품 상세 정보 제공 (설명, 가격, 재고 상태 등)</li>
-                <li>상품 검색 및 필터 기능</li>
-                <li>상품 카테고리 및 태그 관리</li>
-            </ul>
-            <p><strong>기술 스택:</strong></p>
-            <ul>
-                <li><strong>gRPC:</strong> 상품 정보 요청 및 관리 서비스를 다른 서비스와 통합합니다.</li>
-                <li><strong>Kafka:</strong> 상품 정보 변경 이벤트를 브로드캐스트하여 다른 서비스들이 최신 정보를 유지할 수 있도록 합니다.</li>
-            </ul>
-        </div>
-    </li>
-    <li>
+ <li>
+    <span class="toggle-button" onclick="toggleContent('product-service')"><strong>상품 서비스:</strong></span>
+    <div id="product-service" class="toggle-content">
+        <p><strong>기능:</strong> 쇼핑몰에서 제공하는 상품 정보를 관리하고 제공합니다.</p>
+        <p><strong>주요 기능:</strong></p>
+        <ul>
+            <li>상품 등록, 수정 및 삭제</li>
+            <li>상품 상세 정보 제공 (설명, 가격, 재고 상태 등)</li>
+            <li>상품 검색 및 필터 기능</li>
+            <li>상품 카테고리 및 태그 관리</li>
+        </ul>
+        <p><strong>기술 스택:</strong></p>
+        <ul>
+            <li><strong>gRPC:</strong> 상품 정보 요청 및 관리 서비스를 다른 서비스와 통합합니다.</li>
+            <li><strong>KafkaStream:</strong> 상품 정보 변경 이벤트를 브로드캐스트하여 다른 서비스들이 최신 정보를 유지할 수 있도록 합니다.</li>
+        </ul>
+        <p><strong>연동 서비스:</strong></p>
+        <p>상품 서비스는 다음과 같은 다른 서비스들과 연동되어 동작합니다:</p>
+        <ul>
+            <li><strong>Member 서비스:</strong> gRPC를 통해 아이템 ID를 반환합니다.</li>
+            <li><strong>Order 서비스:</strong> 결제 서비스와 상품 서비스에 주문 토픽을 보내면, 상품 서비스는 이를 받아 재고 여부를 확인합니다. 재고가 있으면 주문 상태를 '참'으로 변경하여 스톡 토픽에 정보를 실어 오더 서비스에 보냅니다.</li>
+        </ul>
+        <p>오더 서비스는 상품 서비스에서 받은 스톡 토픽과 결제 서비스에서 받은 페이먼트 토픽을 KafkaStream으로 받아, 둘 다 '참'일 경우 주문을 완료 처리하고, 하나라도 '거짓'일 경우 롤백 처리를 합니다.</p>
+    </div>
+</li>
         <span class="toggle-button" onclick="toggleContent('member-service')"><strong>회원 서비스:</strong></span>
         <div id="member-service" class="toggle-content">
             <p><strong>기능:</strong> 사용자 계정 정보를 관리하고 쇼핑몰 인증을 처리합니다.</p>

@@ -42,6 +42,5 @@ jobs:
       run: chmod +x NamingServer/gradlew
 
     - name: Build with Gradle Wrapper
-      working-directory: NamingServer
       run: NamingServer/gradlew build
 

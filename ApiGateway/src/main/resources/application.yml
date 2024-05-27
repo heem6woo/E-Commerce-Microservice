@@ -138,7 +138,7 @@ spring:
                 role: ROLE_SELLER, ROLE_ADMIN
                 tokenType:
 
-        #
+        #qeqeqeq
         # PAYMENT SERVICE ROUTES POLICIES
         #
         - id: payment-route

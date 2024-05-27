@@ -16,7 +16,7 @@
 # Gradle:
 .idea/gradle.xml
 .idea/libraries
-
+*.yml
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
 
@@ -53,3 +53,5 @@ SellerLogin/src/main/resources/application.yml
 # itemservice yml
 
 
+docker-compose.yml
+*.yml

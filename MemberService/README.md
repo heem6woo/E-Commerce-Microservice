@@ -52,6 +52,7 @@ docker run -p 8080:8080 member-service
 ```
 
 
+
 ## Requirements
 
 - Java 17

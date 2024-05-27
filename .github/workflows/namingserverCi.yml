@@ -10,10 +10,10 @@ name: NamingServer CI with Gradle
 on:
   push:
     branches: [ "main" ]
-    paths: ["NamaingServer/**"]
+    paths: ["NamingServer/**"]
   pull_request:
     branches: [ "main" ]
-    paths: ["NamaingServer/**"]
+    paths: ["NamingServer/**"]
 
 jobs:
   build:

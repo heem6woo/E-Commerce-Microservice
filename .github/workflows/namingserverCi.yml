@@ -40,5 +40,5 @@ jobs:
 
     - name: Build with Gradle Wrapper
       working-directory: NamingServer
-      run: NamingServer/gradlew build
+      run: gradlew build
 

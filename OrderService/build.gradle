@@ -26,7 +26,7 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-	implementation 'org.apache.logging.log4j:log4j-api:2.7'
+
 
 	//    grpc client dependency
 	implementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE'
@@ -50,7 +50,9 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-
+	implementation 'org.apache.logging.log4j:log4j-api:2.17.0'
+	implementation 'org.apache.logging.log4j:log4j-core:2.17.0'
+	testImplementation 'junit:junit:4.13.2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

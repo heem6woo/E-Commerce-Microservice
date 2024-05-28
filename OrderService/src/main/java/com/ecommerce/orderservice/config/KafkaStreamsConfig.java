@@ -117,6 +117,7 @@ public class KafkaStreamsConfig {
         Order order = Order.builder()
                 .id( orderStock != null ? orderStock.getId() : orderPayment.getId())
                 .customerId(orderStock != null ? orderStock.getCustomerId() : orderPayment.getCustomerId())
+                .sellerId(orderStock != null ? orderStock.getSellerId() : orderPayment.getSellerId())
                 .itemId(orderStock != null ? orderStock.getItemId() : orderPayment.getItemId())
                 .itemQuantity(orderStock != null ? orderStock.getItemQuantity() : orderPayment.getItemQuantity())
                 .price(orderStock != null ? orderStock.getPrice() : orderPayment.getPrice())

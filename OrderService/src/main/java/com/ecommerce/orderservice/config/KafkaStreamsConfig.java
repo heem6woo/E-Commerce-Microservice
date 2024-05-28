@@ -85,19 +85,12 @@ public class KafkaStreamsConfig {
 
         //join may have to be changed to outer join
         //since if one of the stream is not available, the order should be rejected
-        stockStream.join(
+        stockStream.outerJoin(
                 paymentStream,
                 this::confirm,
                 JoinWindows.ofTimeDifferenceWithNoGrace(Duration.ofSeconds(10)),
                 StreamJoined.with(keySerde, valueSerde, valueSerde)
         ).to(String.valueOf(ORDERS), Produced.with(keySerde, valueSerde));
-
-//        KStream<Long, Order> orderStream = stockStream.mapValues(
-//                value -> {
-//                    return confirm(value, value);
-//                }
-//        );
-
 
         return stockStream;
     }
@@ -122,27 +115,32 @@ public class KafkaStreamsConfig {
 
     public Order confirm(Order orderStock, Order orderPayment) {
         Order order = Order.builder()
-                .id(orderStock.getId())
-                .customerId(orderStock.getCustomerId())
-                .itemId(orderStock.getItemId())
-                .itemQuantity(orderStock.getItemQuantity())
-                .price(orderStock.getPrice())
+                .id( orderStock != null ? orderStock.getId() : orderPayment.getId())
+                .customerId(orderStock != null ? orderStock.getCustomerId() : orderPayment.getCustomerId())
+                .sellerId(orderStock != null ? orderStock.getSellerId() : orderPayment.getSellerId())
+                .itemId(orderStock != null ? orderStock.getItemId() : orderPayment.getItemId())
+                .itemQuantity(orderStock != null ? orderStock.getItemQuantity() : orderPayment.getItemQuantity())
+                .price(orderStock != null ? orderStock.getPrice() : orderPayment.getPrice())
                 .build();
 
-        if (orderPayment.getStatus().equals(OrderStatus.ACCEPTED) &&
-                orderStock.getStatus().equals(OrderStatus.ACCEPTED)) {
+        if (orderStock == null ||
+                (orderStock.getStatus().equals(OrderStatus.REJECTED) && orderPayment.getStatus().equals(OrderStatus.ACCEPTED))){
+            order.setStatus(OrderStatus.ROLLBACK_PAYMENT);
+            orderInfoService.deleteById(order.getId());
+        } else if (orderPayment == null ||
+                (orderPayment.getStatus().equals(OrderStatus.REJECTED) && orderStock.getStatus().equals(OrderStatus.ACCEPTED))) {
+            order.setStatus(OrderStatus.ROLLBACK_STOCK);
+            orderInfoService.deleteById(order.getId());
+        } else if (orderStock.getStatus().equals(OrderStatus.ACCEPTED) &&
+                orderPayment.getStatus().equals(OrderStatus.ACCEPTED)) {
             order.setStatus(OrderStatus.CONFIRMED);
         } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED) &&
                 orderStock.getStatus().equals(OrderStatus.REJECTED)) {
             order.setStatus(OrderStatus.REJECTED);
             orderInfoService.deleteById(order.getId());
-        } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED)) {
-            order.setStatus(OrderStatus.ROLLBACK_STOCK);
-            orderInfoService.deleteById(order.getId());
-        } else if (orderStock.getStatus().equals(OrderStatus.REJECTED)) {
-            order.setStatus(OrderStatus.ROLLBACK_PAYMENT);
-            orderInfoService.deleteById(order.getId());
         }
+
+
         return order;
     }
 

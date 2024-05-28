@@ -123,7 +123,7 @@ public class KafkaStreamsConfig {
                 .price(orderStock != null ? orderStock.getPrice() : orderPayment.getPrice())
                 .build();
 
-        log.info(orderPayment.toString() + " " + orderPayment);
+        log.info("페이먼트 널임? " + orderPayment.toString() + " " + orderPayment);
 
         if (orderStock == null ||
                 (orderStock.getStatus().equals(OrderStatus.REJECTED) && orderPayment.getStatus().equals(OrderStatus.ACCEPTED))){

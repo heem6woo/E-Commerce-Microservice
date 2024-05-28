@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
 
 
 //PLACED, // 주문 요청됨
@@ -28,8 +29,14 @@ public class OrderConsumer {
         //Boolean flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
         // for test
         if(order.getStatus() == OrderStatus.PLACED) {
+            Random rand = new Random();
+
             Boolean flag = true;
-            //itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
+//            int resert = rand.nextInt(6);
+//            if(resert == 4){
+//                flag = false;
+//            }
+
             if(flag){
                 order.setStatus(OrderStatus.ACCEPTED);
                 paymentProducer.send(order);
@@ -38,13 +45,13 @@ public class OrderConsumer {
                 order.setStatus(OrderStatus.REJECTED);
                 paymentProducer.send(order);
             }
-            log.info("주문번호 " + order.getId() + " 주문 확인");
+            System.out.println("주문번호 " + order.getId() + "결제 결과 " + " 주문 확인");
         }
         if(order.getStatus() == OrderStatus.CONFIRMED) {
-            log.info("주문번호 " + order.getId() + "주문 완료");
+            System.out.println("주문번호 " + order.getId() + "주문 완료");
         }
         if(order.getStatus() == OrderStatus.ROLLBACK_PAYMENT) {
-            log.info("주문번호 " + order.getId() + "결제 롤백");
+            System.out.println("주문번호 " + order.getId() + "결제 롤백");
         }
     }
 }

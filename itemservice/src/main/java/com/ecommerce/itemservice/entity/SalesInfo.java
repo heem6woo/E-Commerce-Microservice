@@ -2,6 +2,8 @@
 
     import jakarta.persistence.*;
     import lombok.*;
+    import org.slf4j.Logger;
+    import org.slf4j.LoggerFactory;
 
     import java.util.List;
 
@@ -14,6 +16,7 @@
     @Builder
     public class SalesInfo {
 
+        private static final Logger log = LoggerFactory.getLogger(SalesInfo.class);
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "SALES_INFO_ID")
@@ -38,6 +41,7 @@
         // standard getters and setters
         public Boolean stockCheck(Integer qty) {
             if(this.itemCount - qty < 0 ){
+                System.out.println("재고 없음!!!!!");
                 return false;
             }
             return true;

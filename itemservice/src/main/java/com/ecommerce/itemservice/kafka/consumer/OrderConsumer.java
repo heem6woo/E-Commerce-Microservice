@@ -42,14 +42,14 @@ public class OrderConsumer {
                 order.setStatus(OrderStatus.REJECTED);
                 stockProducer.send(order);
             }
-            log.info("주문번호 " + order.getId() + " 주문 확인");
+            System.out.println("주문번호 " + order.getId() + " 주문 확인");
         }
         if(order.getStatus() == OrderStatus.CONFIRMED) {
-            log.info("주문번호 " + order.getId() + " 주문 완료");
+            System.out.println("주문번호 " + order.getId() + " 주문 완료");
         }
         if(order.getStatus() == OrderStatus.ROLLBACK_STOCK) {
             itemStockService.rollBack(order.getItemId(),order.getSellerId(),order.getItemQuantity());
-            log.info("주문번호 " + order.getId() + "재고 롤백");
+            System.out.println("주문번호 " + order.getId() + "재고 롤백");
         }
 
 

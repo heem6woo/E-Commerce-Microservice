@@ -131,15 +131,19 @@ public class KafkaStreamsConfig {
         if (orderPayment.getStatus().equals(OrderStatus.ACCEPTED) &&
                 orderStock.getStatus().equals(OrderStatus.ACCEPTED)) {
             order.setStatus(OrderStatus.CONFIRMED);
+            System.out.println("주문 번호" + order.getId() + "주문 성공");
         } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED) &&
                 orderStock.getStatus().equals(OrderStatus.REJECTED)) {
+            System.out.println("주문 번호" + order.getId() + "Payment Stock failed");
             order.setStatus(OrderStatus.REJECTED);
             orderInfoService.deleteById(order.getId());
         } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED)) {
+            System.out.println("주문 번호" + order.getId() + "Payment failed");
             order.setStatus(OrderStatus.ROLLBACK_STOCK);
             orderInfoService.deleteById(order.getId());
         } else if (orderStock.getStatus().equals(OrderStatus.REJECTED)) {
             order.setStatus(OrderStatus.ROLLBACK_PAYMENT);
+            System.out.println("주문 번호" + order.getId() + "Stock failed");
             orderInfoService.deleteById(order.getId());
         }
         return order;

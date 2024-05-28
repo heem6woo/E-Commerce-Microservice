@@ -38,7 +38,6 @@ public class OrderCustomerController {
 
     @PostMapping("")
     public ResponseEntity<Order> createOrder(HttpServletRequest request, @RequestBody OrderRequest orderRequest) throws Exception {
-
         return ResponseEntity.ok(orderService.createOrder(request, orderRequest));
     }
 

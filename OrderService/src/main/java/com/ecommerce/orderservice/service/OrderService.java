@@ -19,6 +19,8 @@ import org.apache.kafka.streams.StoreQueryParameters;
 import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class OrderService {
 
+    private static final Logger log = LoggerFactory.getLogger(OrderService.class);
     private final StreamsBuilderFactoryBean kafkaStreamsFactory;
 
     private final CustomerIdClient customerIdClient;
@@ -48,10 +51,13 @@ public class OrderService {
 
     public Order createOrder(HttpServletRequest request, OrderRequest orderRequest) throws Exception {
 
+        long start, end;
+
+        start = System.currentTimeMillis();
         int customerId = customerIdClient.requestMemberId(request.getHeader("email"));
         int sellerId = sellerIdClient.requestMemberId(orderRequest.getSellerName());
-
         ItemReply itemReply = itemInfoClient.requestItemInfo(sellerId, orderRequest.getItemName());
+
 
         itemValidation(orderRequest, itemReply);
 
@@ -69,9 +75,11 @@ public class OrderService {
         order.setId(orderInfo.getId());
 
         orderProducer.sendMessage(order);
-
+        end = System.currentTimeMillis();
+        log.debug("Time taken for itemInfoClient.requestItemInfo: {} ms", (end - start));
+        System.out.println("Time taken for customerIdClient.requestMemberId: {} ms"+(end - start));
+        order.setItemQuantity(itemReply.getItemCount());
         return order;
-
     }
 
     private void itemValidation(OrderRequest orderRequest, ItemReply itemReply) throws OrderException {

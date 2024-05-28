@@ -129,10 +129,12 @@ public class KafkaStreamsConfig {
                 .price(orderStock != null ? orderStock.getPrice() : orderPayment.getPrice())
                 .build();
 
-        if (orderStock == null || orderStock.getStatus().equals(OrderStatus.REJECTED)) {
+        if (orderStock == null ||
+                (orderStock.getStatus().equals(OrderStatus.REJECTED) && orderPayment.getStatus().equals(OrderStatus.ACCEPTED))){
             order.setStatus(OrderStatus.ROLLBACK_PAYMENT);
             orderInfoService.deleteById(order.getId());
-        } else if (orderPayment == null || orderPayment.getStatus().equals(OrderStatus.REJECTED)) {
+        } else if (orderPayment == null ||
+                (orderPayment.getStatus().equals(OrderStatus.REJECTED) && orderStock.getStatus().equals(OrderStatus.ACCEPTED))) {
             order.setStatus(OrderStatus.ROLLBACK_STOCK);
             orderInfoService.deleteById(order.getId());
         } else if (orderStock.getStatus().equals(OrderStatus.ACCEPTED) &&

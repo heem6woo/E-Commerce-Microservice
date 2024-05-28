@@ -21,9 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewService {
 
-    private final MemberFeign memberFeign;
-    private final ItemFeign itemFeign;
-
     // gRPC
     private final CustomerIdClient customerIdClient;
     private final SellerIdClient sellerIdClient;
@@ -34,7 +31,7 @@ public class ReviewService {
 
     public List<Review> findAllByCustomerEmail(String email) {
 
-        int customerId = memberFeign.retrieveCustomerId(email).getId();
+        int customerId = customerIdClient.requestMemberId(email);
 
         return reviewRepository.findAllByCustomerId(customerId);
     }

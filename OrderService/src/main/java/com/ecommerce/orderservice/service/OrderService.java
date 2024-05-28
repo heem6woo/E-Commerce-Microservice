@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +40,6 @@ public class OrderService {
 
     private final CustomerIdClient customerIdClient;
 
-    private final AtomicLong id = new AtomicLong();
-
     private final ItemInfoClient itemInfoClient;
 
     private final SellerIdClient sellerIdClient;
@@ -49,11 +48,9 @@ public class OrderService {
 
     private final OrderInfoService orderInfoService;
 
+    @Transactional
     public Order createOrder(HttpServletRequest request, OrderRequest orderRequest) throws Exception {
 
-        long start, end;
-
-        start = System.currentTimeMillis();
         int customerId = customerIdClient.requestMemberId(request.getHeader("email"));
         int sellerId = sellerIdClient.requestMemberId(orderRequest.getSellerName());
         ItemReply itemReply = itemInfoClient.requestItemInfo(sellerId, orderRequest.getItemName());
@@ -75,9 +72,7 @@ public class OrderService {
         order.setId(orderInfo.getId());
 
         orderProducer.sendMessage(order);
-        end = System.currentTimeMillis();
-        log.debug("Time taken for itemInfoClient.requestItemInfo: {} ms", (end - start));
-        System.out.println("Time taken for customerIdClient.requestMemberId: {} ms"+(end - start));
+
         order.setItemQuantity(itemReply.getItemCount());
         return order;
     }

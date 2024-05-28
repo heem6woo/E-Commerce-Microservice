@@ -63,6 +63,7 @@ Content-Type: application/json
 > {% client.global.set("auth-token", response.body.accessToken);
     client.global.set("refresh-token", response.body.refreshToken);%}
 
+
 ###
 POST http://localhost:8765/api/customers/customer-detail
 Authorization: Bearer {{auth-token}}

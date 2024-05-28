@@ -22,7 +22,7 @@ public class ItemStockService {
     private ItemRepository itemRepository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW) // 재고관리
-    public Boolean decrease(Integer id,Integer sellerId, Integer qty) {
+    public Boolean  decrease(Integer id,Integer sellerId, Integer qty) {
         Item item = itemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 아이디가 없습니다 id : " + id));
         SalesInfo salesInfo = salesInfoRepository.findByItemAndSellerId(item, sellerId).orElseThrow(() -> new IllegalArgumentException("해당하는 salesinfo가 없습니다 id : " + sellerId));;
 

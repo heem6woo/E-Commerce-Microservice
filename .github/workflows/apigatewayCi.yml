@@ -34,15 +34,22 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
-    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-
     - name: Grant execute permission
       run: chmod +x ApiGateway/gradlew
 
     - name: Build with Gradle Wrapper
+      run: ./gradlew build
       working-directory: ApiGateway
-      run: ApiGateway/gradlew build
+
+    - name: Build and Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+        directory: ApiGateway
+        dockerfile: ApiGateway/Dockerfile
+        image: heem6woo/api-gateway
+        addLatest: true
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
 

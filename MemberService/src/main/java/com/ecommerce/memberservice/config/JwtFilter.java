@@ -2,7 +2,6 @@ package com.ecommerce.memberservice.config;
 
 import com.ecommerce.memberservice.exception.AuthenticationException;
 import com.ecommerce.memberservice.service.JwtService;
-import com.ecommerce.memberservice.service.TokenBlackListService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,8 +25,6 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 
     private final UserDetailsService userDetailsService;
-
-    private final TokenBlackListService tokenBlackListService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -54,8 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
             jwtService.isAccessToken(jwt);
 
             if (userEmail != null
-                    && SecurityContextHolder.getContext().getAuthentication() == null
-                    && !tokenBlackListService.isBlackListed(jwt)) {
+                    && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // verify whether username is in the database.
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 

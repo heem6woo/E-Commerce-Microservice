@@ -13,7 +13,6 @@ spring:
     password: 1q2w3e4r!!
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-
   jpa:
     hibernate:
       show-sql: false
@@ -37,6 +36,8 @@ spring:
         default.key.serde: org.apache.kafka.common.serialization.Serdes$LongSerde
         default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
         spring.json.trusted.packages: com.ecommerce.common.*
+
+
 
 
 

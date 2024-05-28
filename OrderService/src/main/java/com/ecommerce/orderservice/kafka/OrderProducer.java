@@ -19,7 +19,6 @@ public class OrderProducer {
 
     private final KafkaTemplate<Long, Order> kafkaTemplate;
 
-
     public void sendMessage(Order order) {
 
         log.info("Sent: {}", order);

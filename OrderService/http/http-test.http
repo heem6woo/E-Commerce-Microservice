@@ -27,6 +27,9 @@ Content-Type: application/json
   "password": "password",
   "role":  "CUSTOMER"
 }
+
+
+
 ###
 POST http://localhost:8765/api/auth/register
 Content-Type: application/json
@@ -85,6 +88,15 @@ Content-Type: application/json
 
   "quantity" : "5"
 }
+
+###
+GET http://localhost:8765/api/customer/orders
+Authorization: Bearer {{auth-token}}
+
+###
+GET http://localhost:8765/api/customer/orders/confirmed
+Authorization: Bearer {{auth-token}}
+
 
 ###
 PATCH http://localhost:8765/api/customer/orders/2/confrimed

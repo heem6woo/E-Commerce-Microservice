@@ -39,6 +39,8 @@ spring:
 
 
 
+
+
 eureka:
   client:
     serviceUrl:
@@ -52,11 +54,14 @@ management:
 
 
 logging:
+  file:
+    path: /hong/Logs/ec-spring
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
   level:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace
+
 
 #
 # Grpc Settings

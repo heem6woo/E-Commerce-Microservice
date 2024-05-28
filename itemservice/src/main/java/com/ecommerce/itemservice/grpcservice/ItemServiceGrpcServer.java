@@ -26,6 +26,7 @@ public class ItemServiceGrpcServer extends ItemInfoServiceGrpc.ItemInfoServiceIm
                 log.info(sellerId + " gRPC getting request");
                 ItemReply reply = null;
                 ItemDTO itemDTO = itemSearchingService.findItemDTOByItemNameAndSellerId(sellerId, itemName);
+
                 if (itemDTO != null) {
                         try {
                                 reply = ItemReply.newBuilder()

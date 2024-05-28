@@ -92,13 +92,6 @@ public class KafkaStreamsConfig {
                 StreamJoined.with(keySerde, valueSerde, valueSerde)
         ).to(String.valueOf(ORDERS), Produced.with(keySerde, valueSerde));
 
-//        KStream<Long, Order> orderStream = stockStream.mapValues(
-//                value -> {
-//                    return confirm(value, value);
-//                }
-//        );
-
-
         return stockStream;
     }
 

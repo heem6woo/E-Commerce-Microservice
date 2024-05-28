@@ -90,6 +90,15 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:8765/api/customer/orders
+Authorization: Bearer {{auth-token}}
+
+###
+GET http://localhost:8765/api/customer/orders/confirmed
+Authorization: Bearer {{auth-token}}
+
+
+###
 PATCH http://localhost:8765/api/customer/orders/2/confrimed
 Authorization: Bearer {{auth-token}}
 

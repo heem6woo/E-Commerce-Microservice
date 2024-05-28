@@ -125,10 +125,12 @@ public class KafkaStreamsConfig {
 
         if (orderStock == null ||
                 (orderStock.getStatus().equals(OrderStatus.REJECTED) && orderPayment.getStatus().equals(OrderStatus.ACCEPTED))){
+            log.info("주문 번호" + order.getId() + "Stock failed");
             order.setStatus(OrderStatus.ROLLBACK_PAYMENT);
             orderInfoService.deleteById(order.getId());
         } else if (orderPayment == null ||
                 (orderPayment.getStatus().equals(OrderStatus.REJECTED) && orderStock.getStatus().equals(OrderStatus.ACCEPTED))) {
+            log.info("주문 번호" + order.getId() + "Payment failed");
             order.setStatus(OrderStatus.ROLLBACK_STOCK);
             orderInfoService.deleteById(order.getId());
         } else if (orderStock.getStatus().equals(OrderStatus.ACCEPTED) &&
@@ -139,14 +141,6 @@ public class KafkaStreamsConfig {
                 orderStock.getStatus().equals(OrderStatus.REJECTED)) {
             log.info("주문 번호" + order.getId() + "Payment Stock failed");
             order.setStatus(OrderStatus.REJECTED);
-            orderInfoService.deleteById(order.getId());
-        } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED)) {
-            log.info("주문 번호" + order.getId() + "Payment failed");
-            order.setStatus(OrderStatus.ROLLBACK_STOCK);
-            orderInfoService.deleteById(order.getId());
-        } else if (orderStock.getStatus().equals(OrderStatus.REJECTED)) {
-            order.setStatus(OrderStatus.ROLLBACK_PAYMENT);
-           log.info("주문 번호" + order.getId() + "Stock failed");
             orderInfoService.deleteById(order.getId());
         }
 

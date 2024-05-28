@@ -29,10 +29,10 @@ public class OrderConsumer {
 
     @KafkaListener(topics = "ORDERS", groupId = "stock")
     public void onEvent(Order order) {
-
+        log.info("주문번호" +order.getId()+ "오더 상태값" + order.getStatus() + "아이템 갯수 "+order.getItemQuantity() + "셀러 id" + order.getSellerId() +"아이템 아이디" + order.getItemId() );
         //Boolean flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
         // for test
-        if(order.getStatus() == OrderStatus.PLACED) {
+        if(order.getStatus().equals(OrderStatus.PLACED)) {
             Boolean flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
             if(flag){
                 order.setStatus(OrderStatus.ACCEPTED);
@@ -42,14 +42,15 @@ public class OrderConsumer {
                 order.setStatus(OrderStatus.REJECTED);
                 stockProducer.send(order);
             }
-            System.out.println("주문번호 " + order.getId() + " 주문 확인");
+            log.info("주문번호 " + order.getId() + flag+" 주문 확인");
         }
-        if(order.getStatus() == OrderStatus.CONFIRMED) {
-            System.out.println("주문번호 " + order.getId() + " 주문 완료");
+        if(order.getStatus().equals(OrderStatus.CONFIRMED)) {
+            log.info("주문번호 " + order.getId() + " 주문 완료");
         }
-        if(order.getStatus() == OrderStatus.ROLLBACK_STOCK) {
+        if(order.getStatus().equals(OrderStatus.ROLLBACK_STOCK)) {
+            log.info("주문번호 " + order.getId() + "재고 롤백");
             itemStockService.rollBack(order.getItemId(),order.getSellerId(),order.getItemQuantity());
-            System.out.println("주문번호 " + order.getId() + "재고 롤백");
+
         }
 
 

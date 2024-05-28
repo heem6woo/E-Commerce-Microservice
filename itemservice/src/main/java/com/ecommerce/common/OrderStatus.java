@@ -1,11 +1,6 @@
 package com.ecommerce.common;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-
-public enum  OrderStatus {
+public enum OrderStatus {
     PLACED, // 주문 요청됨
     ACCEPTED, // 주문 확인
     REJECTED, // 주문 거부

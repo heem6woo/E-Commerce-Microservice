@@ -85,14 +85,15 @@ public class KafkaStreamsConfig {
 
         //join may have to be changed to outer join
         //since if one of the stream is not available, the order should be rejected
-        stockStream.outerJoin(
+        KStream<Long, Order> orderKStream = stockStream.outerJoin(
                 paymentStream,
                 this::confirm,
-                JoinWindows.ofTimeDifferenceWithNoGrace(Duration.ofSeconds(10)),
+                JoinWindows.ofTimeDifferenceAndGrace(Duration.ofSeconds(5), Duration.ofSeconds(5)),
                 StreamJoined.with(keySerde, valueSerde, valueSerde)
-        ).to(String.valueOf(ORDERS), Produced.with(keySerde, valueSerde));
+        );
+        orderKStream.to(String.valueOf(ORDERS), Produced.with(keySerde, valueSerde));
 
-        return stockStream;
+        return orderKStream;
     }
 
     @Bean

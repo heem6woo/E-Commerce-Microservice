@@ -34,7 +34,7 @@ public class OrderConsumer {
         if(order.getStatus().equals(OrderStatus.PLACED)) {
             Random rand = new Random();
 
-            Boolean flag = false;
+            Boolean flag = true;
             int resert = rand.nextInt(6);
 //            if(resert == 4){
 //                flag = false;
@@ -46,6 +46,7 @@ public class OrderConsumer {
                 paymentProducer.send(order);
             }
             else {
+                log.info("주문번호" + order.getId()+"주문 거부됨");
                 order.setStatus(OrderStatus.REJECTED);
                 paymentProducer.send(order);
             }

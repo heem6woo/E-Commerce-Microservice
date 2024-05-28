@@ -28,7 +28,7 @@ public class OrderConsumer {
         //Boolean flag = itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
         // for test
         if(order.getStatus() == OrderStatus.PLACED) {
-            Boolean flag = true;
+            Boolean flag = false;
             //itemStockService.decrease(order.getItemId(),order.getSellerId(),order.getItemQuantity());
             if(flag){
                 order.setStatus(OrderStatus.ACCEPTED);

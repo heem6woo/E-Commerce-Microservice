@@ -1,7 +1,6 @@
 package com.ecommerce.reviewservice.service;
 
-import com.ecommerce.reviewservice.controller.ItemFeign;
-import com.ecommerce.reviewservice.controller.MemberFeign;
+
 import com.ecommerce.reviewservice.dto.ReviewDto;
 import com.ecommerce.reviewservice.entity.Review;
 import com.ecommerce.reviewservice.grpclient.ItemIdClient;

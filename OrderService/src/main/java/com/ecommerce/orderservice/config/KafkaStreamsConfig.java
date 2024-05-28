@@ -83,7 +83,8 @@ public class KafkaStreamsConfig {
         KStream<Long, Order> stockStream = builder
                 .stream(String.valueOf(STOCK),Consumed.with(keySerde, valueSerde));
 
-        //join records from both streams
+        //join may have to be changed to outer join
+        //since if one of the stream is not available, the order should be rejected
         stockStream.join(
                 paymentStream,
                 this::confirm,

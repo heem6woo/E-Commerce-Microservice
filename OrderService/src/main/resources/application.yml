@@ -36,7 +36,10 @@ spring:
         default.key.serde: org.apache.kafka.common.serialization.Serdes$LongSerde
         default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
         spring.json.trusted.packages: com.ecommerce.common.*
-        max.poll.records: 2
+        replication-factor: 3
+        num.standby.replicas: 1
+        processing.guarantee: exactly_once_v2
+
 
 
 

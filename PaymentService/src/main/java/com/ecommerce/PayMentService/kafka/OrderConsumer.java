@@ -44,8 +44,7 @@ public class OrderConsumer {
             if(flag){
                 order.setStatus(OrderStatus.ACCEPTED);
                 paymentProducer.send(order);
-            }
-            else {
+            } else {
                 log.info("주문번호" + order.getId()+"주문 거부됨");
                 order.setStatus(OrderStatus.REJECTED);
                 paymentProducer.send(order);

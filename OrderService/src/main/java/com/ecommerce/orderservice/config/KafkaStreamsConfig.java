@@ -88,7 +88,7 @@ public class KafkaStreamsConfig {
         KStream<Long, Order> orderKStream = stockStream.outerJoin(
                 paymentStream,
                 this::confirm,
-                JoinWindows.ofTimeDifferenceAndGrace(Duration.ofSeconds(5), Duration.ofSeconds(5)),
+                JoinWindows.ofTimeDifferenceWithNoGrace(Duration.ofSeconds(5)),
                 StreamJoined.with(keySerde, valueSerde, valueSerde)
         );
         orderKStream.to(String.valueOf(ORDERS), Produced.with(keySerde, valueSerde));
@@ -126,25 +126,24 @@ public class KafkaStreamsConfig {
 
         if (orderStock == null ||
                 (orderStock.getStatus().equals(OrderStatus.REJECTED) && orderPayment.getStatus().equals(OrderStatus.ACCEPTED))){
-            log.info("주문 번호" + order.getId() + "Stock failed");
+            log.info("Order Number " + orderPayment.getId() + "Stock failed");
             order.setStatus(OrderStatus.ROLLBACK_PAYMENT);
             orderInfoService.deleteById(order.getId());
         } else if (orderPayment == null ||
                 (orderPayment.getStatus().equals(OrderStatus.REJECTED) && orderStock.getStatus().equals(OrderStatus.ACCEPTED))) {
-            log.info("주문 번호" + order.getId() + "Payment failed");
+            log.info("Order Number " + orderStock.getId() + "Payment failed");
             order.setStatus(OrderStatus.ROLLBACK_STOCK);
             orderInfoService.deleteById(order.getId());
         } else if (orderStock.getStatus().equals(OrderStatus.ACCEPTED) &&
                 orderPayment.getStatus().equals(OrderStatus.ACCEPTED)) {
+            log.info("Order Number " + order.getId() + "Order confirmed");
             order.setStatus(OrderStatus.CONFIRMED);
-            System.out.println("주문 번호" + order.getId() + "주문 성공");
         } else if (orderPayment.getStatus().equals(OrderStatus.REJECTED) &&
                 orderStock.getStatus().equals(OrderStatus.REJECTED)) {
-            log.info("주문 번호" + order.getId() + "Payment Stock failed");
+            log.info("Order Number " + order.getId() + "Payment Stock failed");
             order.setStatus(OrderStatus.REJECTED);
             orderInfoService.deleteById(order.getId());
         }
-
 
         return order;
     }

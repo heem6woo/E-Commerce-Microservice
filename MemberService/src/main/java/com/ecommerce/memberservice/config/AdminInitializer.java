@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -53,11 +54,17 @@ public class AdminInitializer implements ApplicationRunner {
                 .role(Role.ADMIN)
                 .build();
 
-        // Save admin member
-        memberService.save(adminMember1);
-        memberService.save(adminMember2);
+        try {
+            memberService.findByEmail(email1);
+        } catch (ChangeSetPersister.NotFoundException e) {
+            memberService.save(adminMember1);
+        }
 
-        System.out.println("Admin member created successfully.");
+        try {
+            memberService.findByEmail(email2);
+        } catch (ChangeSetPersister.NotFoundException e) {
+            memberService.save(adminMember2);
+        }
 
     }
 }

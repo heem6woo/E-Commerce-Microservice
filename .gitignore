@@ -47,10 +47,6 @@
 hs_err_pid*
 replay_pid*
 
-/SellerLogin/src/main/resources
-
-
-# itemservice yml
-
-
+# all application.yml
+*/src/main/resources/application.yml
 

@@ -1,10 +1,10 @@
 <!-- 헤더 -->
-<h1 align="center">🛍️ 쇼핑몰 서비스 애플리케이션 (마이크로서비스 아키텍처) 🛍️</h1>
-<p align="center">
-  <img src="https://github.com/ooANAoo/Spring-Cart-Microservice-E-Commerce-Platform/assets/43637355/4a8710be-256c-4fa9-9a64-0f281c3b998e" alt="쇼핑몰 로고" width="300" height="300">
+<h1 align="center">이커머스 서비스 애플리케이션 (마이크로서비스 아키텍처)</h1>
 
+<p align="center">
+이 프로젝트는 Spring Boot을 사용하여 구축된 마이크로서비스 아키텍처 기반의 서비스 애플리케이션입니다. 가상 쇼핑몰 내에서 결제, 주문, 상품, 회원, 리뷰 서비스를 제공합니다.
+마이크로서비스 내에서는 gRPC를 사용하여 서비스 간 동기성 통신, Kafka를 사용하여 비동기성 통신을 구현하였습니다.
 </p>
-<p align="center">이 프로젝트는 Spring Boot, Kafka, gRPC, AWS RDS를 사용하여 구축된 마이크로서비스 아키텍처 기반의 서비스 애플리케이션입니다. 가상 쇼핑몰 내에서 결제, 주문, 상품, 회원, 리뷰 서비스를 제공합니다.</p>
 
 <!-- 주요 기술 -->
 <h2 align="center">주요 기술</h2>
@@ -140,21 +140,17 @@
   <li>리뷰와 논의를 위한 풀 리퀘스트를 엽니다.</li>
 </ol>
 
-<!-- 라이선스 -->
-<h2 align="center">라이선스</h2>
-<p align="center">이 프로젝트는 MIT 라이선스에 따라 라이선스가 부여됩니다. 자세한 내용은 <a href="LICENSE">LICENSE</a> 파일을 참조하십시오.</p>
-
-<!-- 백엔드 구조도 -->
-<h2 align="center">백엔드 구조도</h2>
+<!-- 아키텍처 -->
+<h2 align="center">아키텍처</h2>
 <p align="center">
-    <img src="https://github.com/ooANAoo/Spring-Cart-Microservice-E-Commerce-Platform/assets/43637355/0a75c7cc-9d39-4333-a8bc-c24ad2d21d80" alt="백엔드 구조도">
+    <img src="https://github.com/heem6woo/E-Commerce-Microservice/assets/70792329/8742a322-b7bc-4880-9184-91b658c37907" alt="Architecture">
 </p>
 
 
-<!-- 주문 요청 로직 플로우차트 -->
-<h2 align="center">주문 요청 로직 플로우차트</h2>
+<!-- 주문 처리 과정 -->
+<h2 align="center">주문 처리 과정</h2>
 <p align="center">
- <img src="https://github.com/ooANAoo/Spring-Cart-Microservice-E-Commerce-Platform/assets/43637355/f0f95e93-d774-42c7-8460-b3b997432958" alt="주문 요청 로직">
+ <img src="https://github.com/heem6woo/E-Commerce-Microservice/assets/70792329/83872842-ec29-4103-85b3-1e9f8af13213" alt="주문 처리 과정">
 </p>
 
 <!-- API 문서 -->
